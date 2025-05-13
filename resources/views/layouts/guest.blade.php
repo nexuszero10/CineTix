@@ -5,26 +5,48 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'CineTix') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <!-- Scripts -->
+        <!-- Tailwind via Vite -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
-            </div>
-        </div>
+        <style>
+            body {
+                background: linear-gradient(rgba(1, 18, 40, 0.9), rgba(1, 18, 40, 0.9)),
+                url('{{ asset('storage/images/login-bg.jpg') }}') no-repeat center center fixed;
+                background-size: cover;
+                font-family: 'Segoe UI', sans-serif;
+            }
+
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(50px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes pulseBtn {
+                0% {
+                    box-shadow: 0 0 0 0 rgba(245, 197, 24, 0.7);
+                }
+                70% {
+                    box-shadow: 0 0 0 15px rgba(245, 197, 24, 0);
+                }
+                100% {
+                    box-shadow: 0 0 0 0 rgba(245, 197, 24, 0);
+                }
+            }
+        </style>
+    </head>
+    <body class="min-h-screen flex items-center justify-center m-0">
+        {{ $slot }}
     </body>
 </html>
