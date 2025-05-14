@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Studio extends Model
 {
-    protected $fillable = 'genre_name';
+    protected $fillable = ['studio_code'];
     
     // relasi one to many ke tabel schedule
     public function schedules(): HasMany {

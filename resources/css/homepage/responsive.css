@@ -1,0 +1,215 @@
+ /* Pengaturan layout responsif */
+ @media (max-width: 768px) {
+    .partner-section h2 {
+      font-size: 2.5rem; /* Sesuaikan ukuran font pada layar kecil */
+    }
+  
+    .partner-description {
+      padding: 20px;
+    }
+  
+    .partner-logo {
+      height: 120px;
+      padding: 1.5rem;
+    }
+  
+    .partner-logo img {
+      max-height: 60px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .cinetix-navbar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .cinetix-navbar-right {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+    }
+  }
+  
+  
+  /* RESPONSIVE TWEAK */
+  @media (max-width: 768px) {
+    .trailer-film h2 {
+      font-size: 2rem;
+    }
+  
+    .cinematic-play-btn i {
+      font-size: 3rem;
+    }
+  }
+  
+  /* RESPONSIVE TWEAKS */
+  @media (max-width: 768px) {
+    .berita-item .row {
+      flex-direction: column;
+    }
+  
+    .berita-item img {
+      border-radius: 12px 12px 0 0;
+    }
+  
+    .berita-item .card-body {
+      border-radius: 0 0 12px 12px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .carousel-inner img {
+      height: 350px; 
+    }
+  
+    .carousel-indicators button {
+      width: 10px;
+      height: 10px;
+    }
+  
+    .carousel-indicators {
+      bottom: 10px;
+    }
+  
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      padding: 15px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .carousel-inner img {
+      height: 300px; 
+    }
+  
+    .carousel-indicators button {
+      width: 8px;
+      height: 8px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .navbar-nav .nav-link {
+      font-size: 1rem;
+      padding: 8px 12px;
+    }
+  
+    .navbar-brand {
+      font-size: 1.7rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .film-scroll-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      overflow: visible;
+    }
+  
+    .film-scroll-wrapper .film-item {
+      min-width: 0;
+      flex: none;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .card-film-img {
+      height: 280px;
+    }
+  
+    .film-title {
+      font-size: 0.95rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .card-film-img {
+      height: 220px;
+    }
+  
+    .film-title {
+      font-size: 0.9rem;
+    }
+  }
+  
+  
+  @media (max-width: 767px) {
+    .emosi-scroll-wrapper {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 1rem;
+      padding: 0 1rem;
+    }
+  
+    .card-film-emosi {
+      min-width: 60%;  /* Lebar card di mobile */
+      max-width: 60%;  /* Sesuaikan ukuran card agar pas */
+    }
+  }
+  
+  /* Untuk grid di desktop */
+  @media (min-width: 768px) {
+    .emosi-scroll-wrapper {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      overflow-x: unset;
+    }
+  
+    .card-film-emosi {
+      min-width: unset;
+      max-width: unset;
+    }
+  }
+  
+  /* Responsive Mobile */
+  @media (max-width: 576px) {
+    .card-horror-indonesia {
+      width: 150px;
+      animation-delay: unset;
+    }
+  
+    .card-horror-img {
+      height: 220px;
+    }
+  
+    .horror-title {
+      font-size: 1rem;
+    }
+  
+    .horror-scroll-container {
+      gap: 12px;
+    }
+  
+    .horror-scroll-button-left,
+    .horror-scroll-button-right {
+      display: none;
+    }
+  }
+  
+  /* Responsive Media Queries */
+  @media (max-width: 768px) {
+    .footer-cinetix h2 {
+      font-size: 2.5rem;
+    }
+  
+    .footer-cinetix .footer-description {
+      font-size: 1rem;
+      padding: 0 20px;
+    }
+  
+    .footer-cinetix .social-icons {
+      gap: 20px;
+    }
+  
+    .footer-cinetix .social-icons a {
+      font-size: 2rem;
+    }
+  
+    .footer-cinetix .footer-links {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }

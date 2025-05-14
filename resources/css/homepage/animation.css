@@ -1,0 +1,221 @@
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes munculDariBawah {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes melayangMasuk {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInElegant {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes sweep-shine {
+    0% {
+        left: -75%;
+    }
+    100% {
+        left: 125%;
+    }
+}
+
+/* ICON PULSE */
+@keyframes cinetix-anim-iconpulse {
+    0%,
+    100% {
+        transform: scale(1) rotate(0);
+    }
+    30% {
+        transform: scale(1.2) rotate(10deg);
+    }
+    60% {
+        transform: scale(1) rotate(-8deg);
+    }
+}
+
+/* BACKGROUND PULSE */
+@keyframes cinetix-anim-glowpulse {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.6;
+    }
+}
+
+/* SWEEP GLOW */
+@keyframes cinetix-anim-sweep {
+    0% {
+        transform: translateX(-50%) rotate(25deg) translateY(-100%);
+    }
+    100% {
+        transform: translateX(-50%) rotate(25deg) translateY(100%);
+    }
+}
+
+/* PARTICLE DRIFT */
+@keyframes cinetix-anim-moveparticles {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 100px 100px;
+    }
+}
+
+/* Animasi glow untuk teks */
+@keyframes glow-red {
+    from {
+        text-shadow: 0 0 5px #ff4c4c;
+    }
+    to {
+        text-shadow: 0 0 15px #ff1a1a;
+    }
+}
+@keyframes glow-gold {
+    from {
+        text-shadow: 0 0 5px #ffd700;
+    }
+    to {
+        text-shadow: 0 0 15px #ffea00;
+    }
+}
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes glowEffectRed {
+    0% {
+        box-shadow: 0 0 15px #ff385c, 0 0 25px #ff385c, 0 0 35px #ff385c;
+    }
+    100% {
+        box-shadow: 0 0 25px #ff385c, 0 0 45px #ff385c, 0 0 60px #ff385c;
+    }
+}
+
+@keyframes glowEffectGold {
+    0% {
+        box-shadow: 0 0 15px #f4b731, 0 0 25px #f4b731, 0 0 35px #f4b731;
+    }
+    100% {
+        box-shadow: 0 0 25px #f4b731, 0 0 45px #f4b731, 0 0 60px #f4b731;
+    }
+}
+
+@keyframes cinematicFadeSlide {
+    0% {
+        opacity: 0;
+        transform: translateX(50px) scale(0.98) rotateY(5deg);
+        filter: blur(2px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1) rotateY(0deg);
+        filter: blur(0);
+    }
+}
+
+/* Animasi Ikon saat aktif */
+@keyframes cinetix-anim-iconpulse {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    25% {
+        transform: scale(1.2) rotate(10deg);
+    }
+    50% {
+        transform: scale(1) rotate(-10deg);
+    }
+    75% {
+        transform: scale(1.1) rotate(5deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* Glow latar belakang */
+@keyframes cinetix-anim-glowfloat {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.4;
+    }
+    50% {
+        transform: translateY(-10px) rotate(180deg);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(0px) rotate(360deg);
+        opacity: 0.4;
+    }
+}
+
+@keyframes fadeSlido {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

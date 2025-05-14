@@ -14,10 +14,11 @@ class Movie extends Model
         'duration',
         'director',
         'cast',
+        'release_year',
         'price',
         'syonpsis',
         'image_path',
-        'url_traileer_embed',
+        'url_trailer_embed',
         'category_id'
     ];
 

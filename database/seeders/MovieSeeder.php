@@ -15,7 +15,7 @@ class MovieSeeder extends Seeder
     {
         DB::table('movies')->insert([
             [
-                'title'        => 'Pabrik Gulan',
+                'title'        => 'Pabrik Gula',
                 'duration'     => 128,
                 'director'     => 'Awi Suryadi',
                 'cast'         => 'Arbani Yasiz, Ersya Aurelia, Erika Carlina, Bukie B. Mansyur, Wavi Zihan',
