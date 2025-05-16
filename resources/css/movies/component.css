@@ -1,0 +1,244 @@
+@media (max-width: 768px) {
+    .navbar-nav .nav-link {
+      font-size: 1rem;
+      padding: 8px 12px;
+    }
+  
+    .navbar-brand {
+      font-size: 1.7rem;
+    }
+  }
+
+@media (max-width: 768px) {
+    .cinetix-navbar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .cinetix-navbar-right {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .footer-cinetix h2 {
+      font-size: 2.5rem;
+    }
+  
+    .footer-cinetix .footer-description {
+      font-size: 1rem;
+      padding: 0 20px;
+    }
+  
+    .footer-cinetix .social-icons {
+      gap: 20px;
+    }
+  
+    .footer-cinetix .social-icons a {
+      font-size: 2rem;
+    }
+  
+    .footer-cinetix .footer-links {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+.cinetix-search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #121212;
+  border-radius: 50px;
+  padding: 0.6rem 1.5rem;
+  width: 500px;
+  max-width: 90%;
+  margin-bottom: 3rem;
+  box-shadow: 0 0 20px rgba(0, 238, 255, 0.1);
+  overflow: hidden;
+  z-index: 1;
+  transition: all 0.4s ease;
+}
+
+.cinetix-search-icon {
+  font-size: 1.5rem;
+  color: #999;
+  margin-right: 1rem;
+  transition: color 0.3s ease;
+}
+
+.cinetix-search-input {
+  border: none;
+  outline: none;
+  font-size: 1.1rem;
+  flex-grow: 1;
+  background: transparent;
+  color: #ccc;
+  transition: color 0.3s ease;
+}
+
+/* INPUT FOCUS EFFECT */
+.cinetix-search-input:focus,
+.cinetix-search-input:not(:placeholder-shown) {
+  color: #00faff;
+}
+
+.cinetix-search-bar:hover,
+.cinetix-search-bar:focus-within {
+  background-color: #1c1c1c;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* ICON ACTIVE ANIMATION */
+.cinetix-search-bar:focus-within .cinetix-search-icon {
+  color: #00eaff;
+  animation: cinetix-anim-iconpulse 0.8s ease-in-out;
+}
+
+/* PULSE BACKGROUND GLOW */
+.cinetix-search-bar::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.05), transparent 70%);
+  animation: cinetix-anim-glowpulse 5s linear infinite;
+  z-index: -2;
+}
+
+/* CURVED SWEEP EFFECT */
+.cinetix-search-bar::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  width: 200%;
+  height: 400%;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.05), transparent 70%);
+  transform: translateX(-50%) rotate(25deg);
+  animation: cinetix-anim-sweep 8s linear infinite;
+  z-index: -1;
+}
+
+/* PARTICLE EFFECT */
+.cinetix-search-bar .cinetix-anim-particles {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  animation: cinetix-anim-moveparticles 40s linear infinite;
+  z-index: -3;
+  pointer-events: none;
+}
+
+/* Navbar */
+.cinetix-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background-color: #011228;
+  animation: fadeInDown 0.7s ease-out;
+  position: relative;
+  z-index: 999;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  border-radius: 10px;
+}
+
+/* Logo */
+.cinetix-navbar-brand-text {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.cinetix-brand-cine {
+  color: #ff4c4c;
+  animation: glow-red 2s infinite alternate;
+}
+
+.cinetix-brand-tix {
+  color: #ffe600;
+  animation: glow-gold 2s infinite alternate;
+}
+
+/* Navbar Right */
+.cinetix-navbar-right {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+/* Link di Navbar */
+.cinetix-navbar-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.cinetix-navbar-link:hover {
+  color: #00eaff;
+  transform: translateY(-4px);
+}
+
+/* Tombol Login (Premium Red) */
+.btn-login {
+  background-color: #ff385c; /* Merah Premium yang lebih elegan */
+  color: white;
+  border-radius: 30px;
+  padding: 0.7rem 1.4rem;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  border: 2px solid transparent;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+/* Efek Hover dan Glow pada Tombol Login */
+.btn-login:hover {
+  background-color: #d12847; 
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  transform: scale(1.05);
+  border-color: #ff385c;
+  animation: glowEffectRed 1.5s infinite alternate;
+}
+
+/* Tombol Register (Premium Gold) */
+.btn-register {
+  background-color: #f4b731;
+  color: white;
+  border-radius: 30px;
+  padding: 0.7rem 1.4rem;
+  font-weight: 600;
+  border: 2px solid transparent;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+/* Efek Hover pada Tombol Register */
+.btn-register:hover {
+  background-color: #e1a121;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  transform: scale(1.05);
+  border-color: #f4b731;
+  animation: glowEffectGold 1.5s infinite alternate;
+}
+
+.btn-login:focus, .btn-register:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 56, 92, 0.7); 
+}
+  

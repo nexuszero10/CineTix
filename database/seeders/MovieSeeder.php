@@ -191,9 +191,9 @@ class MovieSeeder extends Seeder
             ],
             [
                 'title'        => 'Norman',
-                'duration'     => 104,
-                'director'     => 'Joko Anwar',
-                'cast'         => 'Iqbaal Ramadhan, Angga Yunanda, Adhisty Zara',
+                'duration'     => 134,
+                'director'     => 'Guntur Soeharjanto',
+                'cast'         => 'Tissa Biani Azzahra, Yusuf Mahardika, Wulan Guritno',
                 'release_year' => 2025,
                 'price'        => 35000,
                 'synopsis'     => 'Norman adalah pemuda yang mengalami keanehan setelah sebuah kecelakaan, membuatnya mampu melihat masa depan dalam kilasan-kilasan yang mengubah hidupnya.',
@@ -204,7 +204,7 @@ class MovieSeeder extends Seeder
             [
                 'title'        => 'Satu Hari Nanti',
                 'duration'     => 112,
-                'director'     => 'Ario Bayu',
+                'director'     => 'Salman Aristo',
                 'cast'         => 'Adinia Wirasti, Ringgo Agus Rahman, Ayushita, Deva Mahenra',
                 'release_year' => 2017,
                 'price'        => 35000,
@@ -241,7 +241,7 @@ class MovieSeeder extends Seeder
             ],
             [
                 'title'        => 'Pabrik Gula',
-                'duration'     => 128,
+                'duration'     => 133,
                 'director'     => 'Awi Suryadi',
                 'cast'         => 'Arbani Yasiz, Ersya Aurelia, Erika Carlina, Bukie B. Mansyur, Wavi Zihan',
                 'release_year' => 2025,

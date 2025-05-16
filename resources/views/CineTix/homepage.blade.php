@@ -212,7 +212,7 @@
         <div class="container mt-5">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="section-title mb-3">Film Terbaik Luar Negeri</h2>
-                <a href="#" class="see-more-link">Lainnya</a>
+                <a href="/movies" class="see-more-link">Lainnya</a>
             </div>
 
             <!-- .film-scroll-wrapper -->
@@ -265,7 +265,7 @@
             <div class="container">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h3 class="section-title">Yowis Ben : The Series</h3>
-                    <a href="#" class="see-more-link">Lainnya</a>
+                    <a href="/movies" class="see-more-link">Lainnya</a>
                 </div>
                 <div class="row g-4">
                     <div class="col-12 col-sm-6 col-md-4 text-center">
@@ -298,7 +298,7 @@
             <div class="container">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h4 class="fw-bold">Emosional Penuh Misteri</h4>
-                    <a href="#" class="see-more-link">Lainnya</a>
+                    <a href="/movies" class="see-more-link">Lainnya</a>
                 </div>
                 <div class="emosi-scroll-wrapper">
                     <div class="card-film-emosi animate-emosi-fade delay-0">
@@ -344,7 +344,7 @@
             <div class="container">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h4 class="fw-bold">Koleksi Film Horor Indonesia</h4>
-                    <a href="#" class="see-more-link">Lainnya</a>
+                    <a href="/movies" class="see-more-link">Lainnya</a>
                 </div>
                 <div class="horror-scroll-wrapper">
                     <button class="horror-scroll-button-left">&#8592;</button>

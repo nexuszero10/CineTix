@@ -15,6 +15,14 @@ class MovieController extends Controller
         return view('CineTix.homepage');
     }
 
+    public function movies(){
+        return view('CineTix.movies');
+    }
+
+    public function detail_demo(){
+        return view('CineTix.detail-movie');
+    }
+
     public function category(){
         // ambil data film berdasrkan kategori ? kalau tidak ada default ytinggal di list
 
