@@ -13,11 +13,12 @@ class NewsSeeder extends Seeder
     public function run(): void
     {
         DB::table('news')->insert([
+            // hot news 
             [
-                'title' => "Pertaruhan: Kisah Kelam Persaudaraan yang Berjuang Demi Hidup Bapaknya",
-                'description' => "Pertaruhan merupakan film drama aksi yang menggambarkan perjuangan keras empat bersaudara yang hidup dalam tekanan ekonomi dan sosial. Setelah ditinggal ibu mereka dan menyaksikan ayah yang sakit keras, mereka harus menanggung beban hidup yang seharusnya belum waktunya mereka pikul. Dalam keterbatasan, keempatnya dipaksa untuk bertumbuh lebih cepat, menghadapi kenyataan pahit bahwa dunia tidak selalu adil bagi mereka yang miskin dan tak berdaya.
-                Desakan hidup yang semakin menghimpit membuat mereka mengambil langkah ekstrem: mempertaruhkan masa depan, kebebasan, bahkan nyawa demi menyelamatkan ayah yang menjadi satu-satunya figur keluarga yang tersisa. Film ini menyuguhkan berbagai konflik yang kompleks, mulai dari pertempuran batin hingga konfrontasi brutal dengan kekuatan jahat yang jauh lebih besar dari mereka. Namun di balik itu semua, sorotan utama tetap tertuju pada nilai kekeluargaan yang mengikat erat keempat bersaudara ini.
-                Pertaruhan bukan hanya soal aksi dan kekerasan, tapi juga menyampaikan pesan kuat tentang loyalitas, cinta, dan pengorbanan. Ia menggambarkan bahwa dalam kondisi tersulit sekalipun, keluarga bisa menjadi satu-satunya alasan seseorang untuk tetap bertahan dan melawan. Penonton akan dibawa dalam perjalanan emosional yang menyentuh, penuh ketegangan dan rasa haru, sekaligus menggugah kesadaran akan pentingnya solidaritas dan harapan di tengah keputusasaan.",
+                'title' => "13 BOM DI JAKARTA MELEDAK !!!",
+                'description' => "Film 13 Bom di Jakarta merupakan salah satu film sukses yang diadaptasi dari peristiwa nyata. Film ini berkisah tentang serangkaian bom mengancam keamanan warga Jakarta. Badan Intelijen dan agen rahasia segera menyelidiki, mengarahkan mereka pada Oscar dan William. Namun, misi mereka menjadi rumit ketika kecurigaan penyusup muncul dalam tim.
+                Film 13 Bom di Jakarta merupakan salah satu film sukses yang diadaptasi dari peristiwa nyata. Film ini berkisah tentang serangkaian bom mengancam keamanan warga Jakarta. Badan Intelijen dan agen rahasia segera menyelidiki, mengarahkan mereka pada Oscar dan William. Namun, misi mereka menjadi rumit ketika kecurigaan penyusup muncul dalam tim.
+                Ketegangan mencapai puncaknya ketika lokasi bom ke-13 berhasil ditemukan, tepat di jantung kota. Oscar dan William harus mengambil keputusan berani untuk menjinakkan bom dan mengungkap identitas sebenarnya sang penyusup. Film ini menyuguhkan ketegangan nonstop, intrik, serta pesan mendalam tentang pengorbanan dan kesetiaan. 13 Bom di Jakarta bukan sekadar aksi, tapi juga potret perjuangan melawan ancaman dari dalam.",
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -30,11 +31,15 @@ class NewsSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'title' => "BUY 1 GET 1 FREE: Gunakan Kode Voucher 'CINETIX1G1'",
-                'description' => "Rayakan pembukaan resmi website kami dengan promo spesial: **BUY 1 GET 1 FREE** untuk semua tiket film! Gunakan kode voucher **CINETIX1G1** saat checkout dan nikmati pengalaman nonton seru bareng orang terdekat tanpa biaya tambahan. Promo ini berlaku untuk waktu terbatas, jadi jangan sampai ketinggalan!",
+                'title' => "Pengabdi Setan 2: Communion, Gugatan Sosial dalam Selubung Horor",
+                'description' => "Rayakan pembukaan resmi website kami dengan promo spesial: **BUY 1 GET 1 FREE** untuk semua tiket film! Gunakan kode voucher **CINETIX1G1** saat checkout dan nikmati pengalaman nonton seru bareng orang terdekat tanpa biaya tambahan. Promo ini berlaku untuk waktu terbatas, jadi jangan sampai ketinggalan!
+                Dalam Pengabdi Setan 2: Communion, Joko Anwar menghadirkan lebih dari sekadar horor biasa. Di balik suasana mencekam dan nuansa kelam, terselip kritik terhadap relasi sosial, peran keluarga, hingga jarak antara masyarakat dan kekuasaan. Simbolisme dan atmosfer yang dibangun tak hanya membuat penonton tegang, tetapi juga mengajak berpikir tentang isu-isu kemanusiaan yang sering luput dari perhatian.
+                Siapa sangka, di antara jerit ketakutan para penonton, tersembunyi narasi tentang kegelisahan sosial yang nyata. Film ini berhasil mengemas kritik sosial dalam balutan kisah horor yang kuat, menjadikannya bukan sekadar tontonan menegangkan, tetapi juga renungan akan dampak dari tindakan dan kelalaian manusia itu sendiri.",
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+
+            // more news
             [
                 'title' => "'Spider-Man: No Way Home' Pecahkan Rekor Penjualan Tiket Global",
                 'description' => "'Spider-Man: No Way Home' mencatatkan prestasi luar biasa dengan memecahkan rekor penjualan tiket secara global. Film ini berhasil menarik jutaan penonton hanya dalam minggu pertama penayangannya. Antusiasme penggemar terlihat dari antrean panjang di bioskop seluruh dunia.

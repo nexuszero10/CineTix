@@ -15,15 +15,11 @@ class GenreSeeder extends Seeder
     public function run(): void
     {
         $genres = [
-            'quest', 'action', 'adventure',
-            'comedy', 'horror',
-            'romance', 'drama', 'teen',
-            'animation', 'fantasy', 'comedy', 'family',
-            'action', 'sci-fi',
-            'cyberpunk', 'thriller', 'mystery',
-            'superhero', 'supernatural', 'urban',
-            'music',
-            'horror',
+            'Quest', 'Action', 'Adventure', 'Comedy', 'Horror',
+            'Teen', 'Drama', 'Romance', 'Animation', 'Supernatural',
+            'Family', 'Fantasy', 'Politics', 'Crime', 'Sci-Fi', 
+            'Superhero', 'Spy', 'Thriller', 'Artificial Intellegence', 'Cyberpunk',
+            'Documentary', 'Music', 'Bography', 'Mystery'
         ];
 
         foreach ($genres as $genre){

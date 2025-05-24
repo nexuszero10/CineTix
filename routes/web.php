@@ -21,12 +21,10 @@ Route::middleware('auth')->group(function () {
 // user yang belum login teetap bisa akses
 Route::get('/homepage', [MovieController::class, 'index'])->name('CineTix.homepage');
 Route::get('/movies', [MovieController::class, 'movies'])->name('CineTix.movies');
-Route::get('/movie/detail', [MovieController::class, 'detail_demo'])->name('Cinetix.detail-demo');  
-
+Route::get('/movie/detail/{id}', [MovieController::class, 'detail'])->name('CineTix.movie-detail');
 
 Route::get('/movies/category/{category_name}', [MovieController::class, 'category'])->name('CineTix.movies-category');
 Route::get('/movies/genre/{genre_name', [MovieController::class, 'genre'])->name('CineTix.movies-genre');
 Route::get('/movies/serach/{keyword}', [MovieController::class], 'serach_keyword')->name(('CineTix.movies-serach'));
-Route::get('/movie/detail/{id}', [MovieController::class, 'detail'])->name('CineTix.movie-detail');
 
 require __DIR__.'/auth.php';

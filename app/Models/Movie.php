@@ -18,7 +18,7 @@ class Movie extends Model
         'price',
         'syonpsis',
         'image_path',
-        'url_trailer_embed',
+        'trailer_url',
         'category_id'
     ];
 
@@ -29,11 +29,16 @@ class Movie extends Model
 
     // relasi many to many ke table genre
     public function genres(): BelongsToMany {
-        return $this->belongsToMany(Genre::class);
+        return $this->belongsToMany(Genre::class, 'movie_genre');
     }
 
     // relasi one to many ke tabel schedule
     public function schedules(): HasMany {
         return $this->hasMany(Schedule::class);
     } 
+
+    // relase one to many ke tabel reviews
+    public function reviews(): HasMany {
+        return $this->hasMany(Review::class);
+    }
 }

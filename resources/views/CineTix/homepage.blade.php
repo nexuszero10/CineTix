@@ -1,850 +1,919 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CineTix - Bioskop Profesional</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-        crossorigin="anonymous" />
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <title>CINETix - Homepage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     @vite([
         'resources/css/homepage/native.css',
-        'resources/css/homepage/animation.css',
-        'resources/css/homepage/responsive.css',
-        'resources/js/homepage.js',
+        'resources/css/app.css', 
+        'resources/js/app.js'
     ])
-<body>
 
-    <nav class="w-full glass-navbar fixed top-0 left-0 z-50 shadow-lg" data-aos="fade-down" data-aos-duration="1000">
-        <div class="w-full px-6 py-3 flex justify-between items-center">
+</head>
+
+<body>
+    <nav class="w-full fixed top-0 left-0 z-50 shadow-lg bg-[#011C3C]/70 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-screen-xl mx-auto px-6 py-4 flex justify-between items-center">
+
             <!-- Logo -->
-            <a href="/" class="text-4xl font-bold brand no-underline">
+            <a href="#" class="text-3xl font-bold tracking-wide flex items-center logo-hover transition">
                 <span class="text-[#FF3C3C]">CINE</span><span class="text-yellow-400">Tix</span>
             </a>
 
-            <!-- Desktop -->
-            <div class="d-none d-md-flex align-items-center gap-3">
-                <a href="#" class="px-4 py-2 rounded-pill bg-[#ff3c61] text-white fw-semibold btn-glow">
-                    <i class="fas fa-sign-in-alt me-2"></i> Login
+            <!-- Desktop Button -->
+           <div class="hidden md:flex items-center space-x-4">
+                <a href="{{ route('register') }}"
+                    class="px-5 py-2 rounded-full bg-[#ffcc00] font-bold text-base flex items-center gap-2 btn-shimmer">
+                    <i class="fas fa-user-plus"></i> Register
                 </a>
-                <a href="#" class="px-4 py-2 rounded-pill bg-yellow-400 text-white fw-semibold btn-glow">
-                    <i class="fas fa-user-plus me-2"></i> Register
+                <a href="{{ route('login') }}"
+                    class="px-5 py-2 rounded-full text-yellow-400 border border-yellow-400 font-bold text-base flex items-center gap-2 btn-shimmer">
+                    <i class="fas fa-sign-in-alt"></i> Login
                 </a>
             </div>
-
-            <!-- Hamburger -->
-            <div class="d-md-none">
-                <button id="menu-btn" class="hamburger focus:outline-none">
-                    <span></span><span></span><span></span>
-                </button>
-            </div>
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-toggle" class="md:hidden focus:outline-none hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="d-md-none d-none flex flex-column px-5 pb-4 pt-3 mobile-menu fade-slide">
-            <a href="#" class="menu-link">
-                <i class="fas fa-sign-in-alt icon-red"></i><span class="text-red">Login</span>
-            </a>
-            <a href="#" class="menu-link">
-                <i class="fas fa-user-plus icon-yellow"></i><span class="text-yellow">Register</span>
-            </a>
-            <a href="#" class="menu-link">
-                <i class="fas fa-film icon-cyan"></i><span class="text-cyan">Film</span>
-            </a>
-            <a href="#" class="menu-link">
-                <i class="fas fa-utensils icon-green"></i><span class="text-green">Food</span>
-            </a>
-            <a href="#" class="menu-link">
-                <i class="fas fa-tags icon-pink"></i><span class="text-pink">Promo</span>
-            </a>
-            <a href="#" class="menu-link">
-                <i class="fas fa-newspaper icon-purple"></i><span class="text-purple">News</span>
-            </a>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <div class="flex flex-col gap-4 text-white text-lg pl-4">
+
+                <a href="#" class="flex items-center gap-3 mobile-link hover:text-red-600">
+                    <i class="fas fa-sign-in-alt text-red-600"></i> <span class="font-bold">Login</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 mobile-link hover:text-yellow-600">
+                    <i class="fas fa-user-plus text-yellow-600"></i> <span class="font-bold">Register</span>
+                </a>
+
+                <a href="#"
+                    class="flex items-center gap-3 mobile-link hover:text-cyan-400 transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-film text-cyan-400 text-xl"></i> <span class="font-bold">Film</span>
+                </a>
+                <a href="#"
+                    class="flex items-center gap-3 mobile-link hover:text-emerald-400 transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-utensils text-emerald-400 text-xl"></i> <span class="font-bold">Food</span>
+                </a>
+                <a href="#"
+                    class="flex items-center gap-3 mobile-link hover:text-fuchsia-400 transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-tags text-fuchsia-400 text-xl"></i> <span class="font-bold">Promo</span>
+                </a>
+                <a href="#"
+                    class="flex items-center gap-3 mobile-link hover:text-violet-600 transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-newspaper text-violet-600 text-xl"></i> <span class="font-bold">News</span>
+                </a>
+            </div>
         </div>
     </nav>
 
-    <div class="h-20"></div>
+    <section class="min-h-screen pt-24 flex flex-col items-center justify-center text-white px-6">
 
-    <main>
-        <div class="cinetix-search-bar">
-            <i class="fas fa-search cinetix-search-icon"></i>
-            <input class="cinetix-search-input" placeholder="Cari judul film ">
-            <div class="cinetix-anim-particles"></div>
+        <!-- Judul -->
+        <h1 class="text-[3.2rem] mb-1 text-center font-bold text-white animate-fade-in-down">
+            Temukan Pengalaman Menonton Terbaik
+        </h1>
+
+        <!-- Search Bar -->
+        <div class="relative w-full max-w-xl mx-auto my-12 animate__animated animate__pulse animate__infinite">
+            <!-- Icon -->
+            <div
+                class="absolute left-4 top-1/2 transform -translate-y-1/2 text-cyan-400 text-xl drop-shadow-[0_0_5px_#00f7ff]">
+                <i class="fas fa-search"></i>
+            </div>
+
+            <!-- Neon Input -->
+            <input type="text" placeholder="Cari film sesuka anda"
+                class="w-full pl-12 pr-4 py-3 rounded-full text-white bg-[#0f172a]/40 border-2 border-cyan-400 placeholder-cyan-300 placeholder:drop-shadow-[0_0_5px_#00f7ff] text-lg font-semibold shadow-[0_0_10px_#00f7ff] focus:shadow-[0_0_25px_#00f7ff,0_0_50px_#00f7ff] focus:outline-none transition-all duration-500 ease-in-out" />
         </div>
 
+        <!-- Menu -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 px-4" data-aos="fade-up" data-aos-delay="300">
 
-        <div class="cinetix-category-container">
-            <!-- category items as links -->
-            <a href="film.html" class="cinetix-category-item">
-                <div class="cinetix-category-icon cinetix-cat-film"><i class="fas fa-film"></i></div>
-                <div class="cinetix-category-label">Film</div>
+            <!-- Film -->
+            <a href="{{ route('CineTix.movies') }}"
+                class="group text-center cursor-pointer transform transition duration-300 hover:scale-105">
+                <div
+                    class="bg-cyan-400 text-white p-5 md:p-6 rounded-2xl text-3xl shadow-xl group-hover:shadow-cyan-500/50">
+                    <i class="fas fa-film animate-pulse"></i>
+                </div>
+                <p class="mt-2 text-sm font-semibold group-hover:text-cyan-400 transition">Film</p>
             </a>
-            <a href="food.html" class="cinetix-category-item">
-                <div class="cinetix-category-icon cinetix-cat-food"><i class="fas fa-hamburger"></i></div>
-                <div class="cinetix-category-label">Food</div>
+
+            <!-- Food -->
+            <a href="#food"
+                class="group text-center cursor-pointer transform transition duration-300 hover:scale-105">
+                <div
+                    class="bg-red-400 text-white p-5 md:p-6 rounded-2xl text-3xl shadow-xl group-hover:shadow-red-500/50">
+                    <i class="fas fa-hamburger animate-pulse"></i>
+                </div>
+                <p class="mt-2 text-sm font-semibold group-hover:text-red-400 transition">Food</p>
             </a>
-            <a href="promo.html" class="cinetix-category-item">
-                <div class="cinetix-category-icon cinetix-cat-promo"><i class="fas fa-tags"></i></div>
-                <div class="cinetix-category-label">Promo</div>
+
+            <!-- Promo -->
+            <a href="#promo"
+                class="group text-center cursor-pointer transform transition duration-300 hover:scale-105">
+                <div
+                    class="bg-yellow-400 text-white p-5 md:p-6 rounded-2xl text-3xl shadow-xl group-hover:shadow-yellow-400/50">
+                    <i class="fas fa-tags animate-pulse"></i>
+                </div>
+                <p class="mt-2 text-sm font-semibold group-hover:text-yellow-400 transition">Promo</p>
             </a>
-            <a href="news.html" class="cinetix-category-item">
-                <div class="cinetix-category-icon cinetix-cat-news"><i class="fas fa-newspaper"></i></div>
-                <div class="cinetix-category-label">News</div>
+
+            <!-- News -->
+            <a href="#news"
+                class="group text-center cursor-pointer transform transition duration-300 hover:scale-105">
+                <div
+                    class="bg-green-400 text-white p-5 md:p-6 rounded-2xl text-3xl shadow-xl group-hover:shadow-green-400/50">
+                    <i class="fas fa-newspaper animate-pulse"></i>
+                </div>
+                <p class="mt-2 text-sm font-semibold group-hover:text-green-400 transition">News</p>
             </a>
         </div>
-    </main>
+    </section>
 
-    <!-- Container -->
-    <div class="container py-4">
-        <!-- Slider -->
-        <div id="movieCarousel" class="carousel slide carousel-cinematic mb-5" data-bs-ride="carousel">
-            <div class="carousel-inner carousel-cinematic-inner">
-                <div class="carousel-item active">
-                    <img src="https://i.ibb.co.com/xqvdvzgL/bom.jpg" class="d-block w-100" alt="Film 1">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://i.ibb.co.com/rR612Pg4/marvel-slide.webp" class="d-block w-100" alt="Film 2">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://i.ibb.co.com/QvG1DrTb/pengabdi-slide.jpg" class="d-block w-100" alt="Film 3">
-                </div>
-            </div>
-
-            <button class="carousel-control-prev carousel-cinematic-prev" type="button"
-                data-bs-target="#movieCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </button>
-            <button class="carousel-control-next carousel-cinematic-next" type="button"
-                data-bs-target="#movieCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </button>
-
-            <div class="carousel-indicators carousel-cinematic-indicators">
-                <button type="button" data-bs-target="#movieCarousel" data-bs-slide-to="0" class="active"></button>
-                <button type="button" data-bs-target="#movieCarousel" data-bs-slide-to="1"></button>
-                <button type="button" data-bs-target="#movieCarousel" data-bs-slide-to="2"></button>
-            </div>
-        </div>
-
-        <!-- Sedang Tren -->
-        <h2 class="section-title text-white mb-4">Sedang Tren</h2>
-        <div class="movie-row">
-            <div class="movie-card">
-                <div class="age-badge">17+</div>
-                <img src="https://i.ibb.co.com/dwnzxTXD/agent.webp" class="movie-poster" alt="Night Agent">
-                <div class="movie-info">
-                    <div>
-                        <h5 class="text-white">The Night Agent</h5>
-                        <p class="rating">Rating: 8.2/10</p>
-                        <p class="text-light">Agen FBI yang menemukan konspirasi besar setelah menerima panggilan
-                            misterius...</p>
+    <!--SLIDER-->
+    <section class="py-5 px-4 mt-10 md:mt-0">
+        <div class="max-w-6xl mx-auto relative group w-full">
+            <div
+                class="swiper mySwiper w-full aspect-video rounded-3xl overflow-hidden shadow-[0_20px_60px_-15px_rgba(255,255,255,0.1)] ring-1 ring-white/10">
+                <div class="swiper-wrapper w-full h-full">
+                    <div class="swiper-slide w-full h-full">
+                        <a href="#avengers">
+                            <img src="{{ asset('storage/images/movies/background/pengabdi-setan-2.jpg') }}"
+                                alt="pengabdi-setan-bg" class="w-full h-full object-cover" />
+                        </a>
                     </div>
-                    <div class="d-flex justify-content-between mt-3">
-                        <a href="#" class="btn btn-custom btn-sm">Beli Tiket</a>
-                        <a href="#" class="btn btn-detail btn-sm">Detail</a>
+                    <div class="swiper-slide w-full h-full">
+                        <a href="#another">
+                            <img src="{{ asset('storage/images/movies/background/jumbo.jpg') }}" alt="jumbo-bg"
+                                class="w-full h-full object-cover" />
+                        </a>
+                    </div>
+                    <div class="swiper-slide w-full h-full">
+                        <a href="#another">
+                            <img src="{{ asset('storage/images/movies/background/thunderbolts.jpg') }}"
+                                alt="thunderbolts-bg" class="w-full h-full object-cover" />
+                        </a>
                     </div>
                 </div>
-            </div>
 
-            <div class="movie-card">
-                <div class="age-badge">17+</div>
-                <img src="https://i.ibb.co.com/0yVNV3rz/sekawan.jpg" class="movie-poster" alt="Sekawan Limo">
-                <div class="movie-info">
-                    <div>
-                        <h5 class="text-white">Sekawan Limo</h5>
-                        <p class="rating">Rating: 8.1/10</p>
-                        <p class="text-light">Sekelompok pemuda menghadapi misteri yang mengancam persahabatan
-                            mereka...</p>
-                    </div>
-                    <div class="d-flex justify-content-between mt-3">
-                        <a href="#" class="btn btn-custom btn-sm">Beli Tiket</a>
-                        <a href="#" class="btn btn-detail btn-sm">Detail</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="movie-card">
-                <div class="age-badge">17+</div>
-                <img src="https://i.ibb.co.com/4ZjDxzKW/dilan.jpg" class="movie-poster" alt="Dilan 1990">
-                <div class="movie-info">
-                    <div>
-                        <h5 class="text-white">Dilan 1990</h5>
-                        <p class="rating">Rating: 7.8/10</p>
-                        <p class="text-light">Kisah cinta remaja antara Dilan dan Milea yang penuh romantisme khas
-                            tahun 90an...</p>
-                    </div>
-                    <div class="d-flex justify-content-between mt-3">
-                        <a href="#" class="btn btn-custom btn-sm">Beli Tiket</a>
-                        <a href="#" class="btn btn-detail btn-sm">Detail</a>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="movie-card">
-                <div class="age-badge">17+</div>
-                <img src="https://i.ibb.co.com/cXQVBKpF/jumbo.webp" class="movie-poster" alt="Dilan 1990">
-                <div class="movie-info">
-                    <div>
-                        <h5 class="text-white">Jumbo</h5>
-                        <p class="rating">Rating: 9/10</p>
-                        <p class="text-light">Kasih Sayang sepanjang masa, semua yang baik akan mendapat kebaikan nya
-                            masing masing ... </p>
-                    </div>
-                    <div class="d-flex justify-content-between mt-3">
-                        <a href="#" class="btn btn-custom btn-sm">Beli Tiket</a>
-                        <a href="#" class="btn btn-detail btn-sm">Detail</a>
-                    </div>
+                <!-- Indikator garis -->
+                <div class="swiper-pagination absolute bottom-3 left-0 right-0 flex justify-center space-x-2 z-10">
                 </div>
             </div>
         </div>
+    </section>
+
+    <!--SEDANG TREN-->
+    <section class="py-10 px-4 sm:px-8 md:px-12 overflow-visible">
+        <h2 class="text-white text-2xl font-semibold mb-6">Sedang Tren</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-5 overflow-visible">
+            @php
+                $hoverShadows = [
+                    'hover:shadow-pink-400',
+                    'hover:shadow-blue-400',
+                    'hover:shadow-green-400',
+                    'hover:shadow-purple-500',
+                    'hover:shadow-yellow-400',
+                ];
+
+                $genreGradients = [
+                    'from-pink-500 to-pink-700',
+                    'from-blue-500 to-blue-700',
+                    'from-green-400 to-green-600',
+                    'from-purple-500 to-purple-700',
+                    'from-yellow-400 to-yellow-600',
+                ];
+            @endphp
+
+            @foreach ($tren_movies as $index => $movie)
+                @php
+                    $hoverShadow = $hoverShadows[$index % count($hoverShadows)];
+                    $genreGradient = $genreGradients[$index % count($genreGradients)];
+                @endphp
+
+                <div
+                    class="bg-slate-900 rounded-3xl shadow-md {{ $hoverShadow }} transition-shadow duration-300 transform hover:scale-[1.03] overflow-hidden max-w-[280px] mx-auto py-3">
+
+                    <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
+                        alt="{{ $movie->title }}" class="rounded-t-3xl w-full h-72 object-cover shadow-sm mb-3" />
+
+                    <div class="p-4 flex flex-col justify-center items-center text-center h-[200px]">
+                        <h3 class="text-white font-bold text-lg mb-2">{{ $movie->title }}</h3>
+
+                        <div class="flex justify-center items-center text-xs text-yellow-400 mb-2 flex-wrap gap-2">
+                            <span class="px-2 py-0.5 bg-red-600 text-white font-bold rounded-full shadow">
+                                {{ $movie->category->category_name }}
+                            </span>
+
+                            @foreach ($movie->genres->take(2) as $genre)
+                                @php
+                                    $genreBgColors = [
+                                        'Action' => 'bg-yellow-500',
+                                        'Adventure' => 'bg-green-500',
+                                        'Comedy' => 'bg-blue-500',
+                                    ];
+
+                                    $genreBg = $genreBgColors[$genre->genre_name] ?? 'bg-slate-500';
+                                @endphp
+                                <span
+                                    class="px-2 py-0.5 bg-gradient-to-r {{ $genreBg }} text-white font-semibold rounded-full shadow-sm border border-white/10">
+                                    {{ $genre->genre_name }}
+                                </span>
+                            @endforeach
+                        </div>
+
+                        <p class="text-gray-300 text-sm leading-snug">
+                            {{ \Illuminate\Support\Str::limit($movie->synopsis, 80) }}
+                        </p>
+
+                        <div class="mt-3 flex justify-center space-x-3 flex-wrap gap-2">
+                            <a href="#"
+                                class="px-3 py-1.5 bg-blue-600 rounded-full text-white font-semibold shadow hover:bg-blue-700 transition text-sm">Beli
+                                Tiket</a>
+                            <a href="#"
+                                class="px-3 py-1.5 border border-blue-600 rounded-full text-blue-400 font-semibold hover:bg-blue-600 hover:text-white transition text-sm">Detail</a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+        </div>
+    </section>
+
+    <!--FILM TERBAIK LUAR NEGERI -->
+    <section class="px-4 sm:px-8 md:px-12 py-10">
+        <div class="flex justify-between items-center mb-6 px-1 sm:px-4">
+            <h2 class="text-white text-base md:text-2xl font-semibold">Film Terbaik Luar Negeri</h2>
+            <a href="{{ route('CineTix.movies') }}"
+                class="text-blue-400 text-sm font-semibold hover:underline">Lainnya</a>
+        </div>
+
+        <!-- Mobile scroll -->
+        <div class="relative -mx-4 sm:-mx-8 px-4 sm:px-8 block md:hidden overflow-x-hidden">
+            <div class="flex space-x-6 overflow-x-auto scrollbar-hide pb-8 pt-6 px-2">
+                @foreach ($inter_movies as $movie)
+                    <div
+                        class="group flex-none w-48 rounded-2xl bg-slate-900 p-1 shadow-md hover:shadow-blue-300 transition duration-300 ease-in-out transform hover:scale-105 ml-2 first:ml-2 last:mr-6">
+                        <a href="#" class="block rounded-2xl overflow-visible">
+                            <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
+                                alt="{{ $movie->title }}" class="w-full h-60 object-cover" />
+                        </a>
+                        <p
+                            class="text-white text-sm font-semibold text-center mt-3 mb-2 tracking-wide transition-colors duration-300 group-hover:text-blue-400">
+                            {{ $movie->title }}</p>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <!-- Desktop grid -->
+        <div class="hidden md:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 px-2 sm:px-4">
+            @foreach ($inter_movies as $movie)
+                <div
+                    class="group rounded-2xl bg-slate-900 p-1 shadow-lg hover:shadow-blue-400 transition-all duration-500 ease-in-out transform hover:scale-105">
+                    <a href="#" class="block rounded-2xl overflow-hidden">
+                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
+                            alt="{{ $movie->title }}" class="w-full h-60 object-cover" />
+                    </a>
+                    <p
+                        class="text-white text-sm font-semibold text-center mt-3 mb-2 tracking-wide transition-colors duration-300 group-hover:text-blue-400">
+                        {{ $movie->title }}</p>
+                </div>
+            @endforeach
+    </section>
 
 
-        <!-- Film Gila Terbaik Luar Negeri -->
-        <div class="container mt-5">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="section-title mb-3">Film Terbaik Luar Negeri</h2>
-                <a href="/movies" class="see-more-link">Lainnya</a>
+    <!--SECTION HORROR-->
+    <section class="px-4 sm:px-8 md:px-12 py-10">
+        <div class="flex justify-between items-center mb-6 px-1 sm:px-4">
+            <h2 class="text-white text-base md:text-2xl font-semibold">Film Horor Terbaik</h2>
+            <a href="{{ route('CineTix.movies') }}"
+                class="text-red-400 text-sm font-semibold hover:underline">Lainnya</a>
+        </div>
+
+        <!-- Mobile Scroll -->
+        <div class="flex space-x-6 overflow-x-auto scrollbar-hide py-4 sm:-mx-6 -mx-4 px-6 sm:px-8 md:hidden">
+            @foreach ($horror_movies as $movie)
+                <div
+                    class="group flex-none w-44 bg-slate-900 p-2 border border-slate-800 rounded-xl shadow-md transition-all duration-300 hover:scale-105 hover:border-red-700 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)] active:scale-105">
+                    <a href="#" class="block overflow-visible rounded-xl">
+                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
+                            class="w-full h-60 object-cover rounded-lg transition-all duration-500 ease-in-out group-hover:brightness-125 group-hover:saturate-200 group-hover:animate-[horrorShake_0.4s_ease-in-out]" />
+                    </a>
+                    <p
+                        class="text-white text-sm font-semibold text-center mt-3 tracking-wide transition-all duration-300 group-hover:text-red-500 group-hover:animate-[horrorShake_0.4s_ease-in-out]">
+                        {{ $movie->title }}
+                    </p>
+                </div>
+            @endforeach
+        </div>
+
+        <!-- Desktop Grid -->
+        <div class="hidden md:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 px-2 sm:px-4">
+            @foreach ($horror_movies as $movie)
+                <div
+                    class="group bg-slate-900 p-2 border border-slate-800 rounded-xl transition-all duration-300 hover:scale-105 hover:border-red-700 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)]">
+                    <a href="#" class="block overflow-visible rounded-xl">
+                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
+                            class="w-full h-60 object-cover rounded-lg transition-all duration-500 ease-in-out group-hover:brightness-125 group-hover:saturate-200 group-hover:animate-[horrorShake_0.4s_ease-in-out]" />
+                    </a>
+                    <p
+                        class="text-white text-sm font-semibold text-center mt-3 tracking-wide transition-all duration-300 group-hover:text-red-500 group-hover:animate-[horrorShake_0.4s_ease-in-out]">
+                        {{ $movie->title }}
+                    </p>
+                </div>
+            @endforeach
+        </div>
+    </section>
+
+    <!--SECTION FILM DRAMA-->
+    <section class="px-4 sm:px-8 md:px-12 py-10">
+        <div class="flex justify-between items-center mb-6 px-1 sm:px-4">
+            <h2 class="text-white text-base md:text-2xl font-semibold">Film Drama Emosional Terbaik</h2>
+            <a href="{{ route('CineTix.movies') }}"
+                class="text-green-300 text-sm font-semibold hover:underline">Lainnya</a>
+        </div>
+
+        <!-- Mobile Scroll Cards -->
+        <div class="flex space-x-6 overflow-x-auto scrollbar-hide py-4 sm:-mx-6 -mx-4 px-6 sm:px-8 md:hidden">
+            @foreach ($drama_movies as $movie)
+                <div
+                    class="group flex-none w-48 bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(110,231,183,0.4)] hover:border-green-400">
+                    <a href="#" class="block overflow-visible rounded-2xl">
+                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
+                            class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+                    </a>
+                    <p
+                        class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-green-300">
+                        {{ $movie->title }}
+                    </p>
+                </div>
+            @endforeach
+        </div>
+
+        <!-- Desktop Grid -->
+        <div class="hidden md:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 px-2 sm:px-4">
+            @foreach ($drama_movies as $movie)
+                <div
+                    class="group bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(110,231,183,0.5)] hover:border-green-400">
+                    <a href="#" class="block overflow-visible rounded-2xl">
+                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
+                            class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+                    </a>
+                    <p
+                        class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-green-300">
+                        {{ $movie->title }}
+                    </p>
+                </div>
+            @endforeach
+        </div>
+    </section>
+
+
+    <!--SECTION FILM ACTION-->
+    <section class="px-4 sm:px-8 md:px-12 py-10">
+        <div class="flex justify-between items-center mb-6 px-1 sm:px-4">
+            <h2 class="text-white text-base md:text-2xl font-semibold">Film Action Terbaik</h2>
+            <a href="{{ route('CineTix.movies') }}"
+                class="text-orange-400 text-sm font-semibold hover:underline">Lainnya</a>
+        </div>
+
+        <!-- Mobile Scroll Cards -->
+        <div class="flex space-x-6 overflow-x-auto scrollbar-hide py-4 sm:-mx-6 -mx-4 px-6 sm:px-8 md:hidden">
+            @foreach ($action_movies as $movie)
+                <div
+                    class="group flex-none w-48 bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(251,146,60,0.4)] hover:border-orange-400">
+                    <a href="#" class="block overflow-visible rounded-2xl">
+                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
+                            class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+                    </a>
+                    <p
+                        class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-orange-400">
+                        {{ $movie->title }}
+                    </p>
+                </div>
+            @endforeach
+        </div>
+
+        <!-- Desktop Grid -->
+        <div class="hidden md:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 px-2 sm:px-4">
+            @foreach ($action_movies as $movie)
+                <div
+                    class="group bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(251,146,60,0.5)] hover:border-orange-400">
+                    <a href="#" class="block overflow-visible rounded-2xl">
+                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
+                            alt="{{ $movie->title }}"
+                            class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
+                    </a>
+                    <p
+                        class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-orange-400">
+                        {{ $movie->title }}
+                    </p>
+                </div>
+            @endforeach
+        </div>
+    </section>
+
+    <!--SECTION FILM KOMEDI-->
+    <section class="px-4 sm:px-8 md:px-12 py-10">
+        <div class="flex justify-between items-center mb-6 px-1 sm:px-4">
+            <h2 class="text-white text-base md:text-2xl font-semibold">Film Komedi Terbaik</h2>
+            <a href="{{ route('CineTix.movies') }}"
+                class="text-purple-300 text-sm font-semibold hover:underline">Lainnya</a>
+        </div>
+
+        <!-- Mobile Scroll Cards -->
+        <div class="flex space-x-6 overflow-x-auto scrollbar-hide py-2 sm:-mx-6 -mx-4 px-6 sm:px-8 md:hidden">
+            @foreach ($comedy_movies as $movie)
+                <div
+                    class="group flex-none w-48 bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(251,146,60,0.4)] hover:border-purple-400">
+                    <a href="#" class="block overflow-hidden rounded-2xl">
+                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
+                            alt="{{ $movie->title }}"
+                            class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:grayscale-0 group-hover:scale-105" />
+                    </a>
+                    <p
+                        class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-purple-300">
+                        {{ $movie->title }}
+                    </p>
+                </div>
+            @endforeach
+        </div>
+
+        <!-- Desktop Grid -->
+        <div class="hidden md:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 px-2 sm:px-4">
+            @foreach ($comedy_movies as $movie)
+                <div
+                    class="group bg-slate-800/60 backdrop-blur-md p-3 border border-slate-700 rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(192,132,252,0.5)] hover:border-purple-400">
+                    <a href="#" class="block overflow-hidden rounded-3xl">
+                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
+                            alt="{{ $movie->title }}"
+                            class="w-full h-64 object-cover rounded-2xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:grayscale-0 group-hover:scale-105" />
+                    </a>
+                    <p
+                        class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-purple-300">
+                        {{ $movie->title }}
+                    </p>
+                </div>
+            @endforeach
+        </div>
+    </section>
+
+    <!--SECTION NEWS-->
+    <section class="text-white py-12 px-4 sm:px-6 lg:px-16">
+        <div class="grid lg:grid-cols-3 gap-10">
+
+            <!-- HOT NEWS -->
+            <div class="lg:col-span-2">
+                <h2 class="text-white text-xl font-bold border-l-4 border-yellow-400 pl-4 mb-6">🔥 Hot News</h2>
+
+                <!-- LIST BERITA HOT -->
+                <div class="space-y-6">
+
+                    <!-- ITEM HOT NEWS -->
+                    <div
+                        class="group flex flex-col sm:flex-row bg-[#061A32] rounded-xl overflow-hidden transition-transform duration-300 transform hover:scale-[1.02] hover:shadow-[0_8px_30px_rgb(255,215,0,0.2)] hover:ring-2 hover:ring-yellow-400/50">
+                        <div class="overflow-hidden w-full sm:w-[320px] h-52 sm:h-auto">
+                            <img src="{{ asset('storage/images/movies/background/13-bom-jakarta-cast.jpg') }}"
+                                alt="13 bom jakarta cast"
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        </div>
+                        <div class="p-5 flex-1">
+                            <div class="flex items-center mb-2 text-yellow-400">
+                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 0l3.5 7.1L24 8.3l-6 5.8 1.4 8.1L12 18.6 4.6 22.2 6 14.1 0 8.3l8.5-1.2z" />
+                                </svg>
+                                <span
+                                    class="text-sm text-gray-400">{{ $hot_news[0]->created_at->translatedFormat('l, d F Y') }}</span>
+                            </div>
+                            <h3
+                                class="text-lg font-bold mb-2 relative group-hover:text-yellow-300 transition duration-300">
+                                <a href="#">
+                                    <span
+                                        class="absolute bottom-0 left-0 w-0 h-[2px] bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+                                    {{ $hot_news[0]->title }}
+                                </a>
+                            </h3>
+                            <p class="text-sm text-gray-300">
+                                {{ \Illuminate\Support\Str::limit($hot_news[0]->description, 350) }}</p>
+                        </div>
+                    </div>
+
+                    <!-- ITEM HOT NEWS LAINNYA -->
+                    <div
+                        class="group flex flex-col sm:flex-row bg-[#061A32] rounded-xl overflow-hidden transition-transform duration-300 transform hover:scale-[1.02] hover:shadow-[0_8px_30px_rgb(255,215,0,0.2)] hover:ring-2 hover:ring-yellow-400/50">
+                        <div class="overflow-hidden w-full sm:w-[320px] h-52 sm:h-auto">
+                            <img src="{{ asset('storage/images/movies/background/jumbo.jpg') }}" alt="Jumbo-bg"
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        </div>
+                        <div class="p-5 flex-1">
+                            <div class="flex items-center mb-2 text-yellow-400">
+                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 0l3.5 7.1L24 8.3l-6 5.8 1.4 8.1L12 18.6 4.6 22.2 6 14.1 0 8.3l8.5-1.2z" />
+                                </svg>
+                                <span class="text-sm text-gray-400">Rabu, 10 Juni 2025</span>
+                            </div>
+                            <h3
+                                class="text-lg font-bold mb-2 relative group-hover:text-yellow-300 transition duration-300">
+                                <span
+                                    class="absolute bottom-0 left-0 w-0 h-[2px] bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+                                <a href="#">
+                                    <span
+                                        class="absolute bottom-0 left-0 w-0 h-[2px] bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+                                    {{ $hot_news[1]->title }}
+                                </a>
+                            </h3>
+                            <p class="text-sm text-gray-300">
+                                {{ \Illuminate\Support\Str::limit($hot_news[1]->description, 350) }}</p>
+                        </div>
+                    </div>
+
+
+                    <div
+                        class="group flex flex-col sm:flex-row bg-[#061A32] rounded-xl overflow-hidden transition-transform duration-300 transform hover:scale-[1.02] hover:shadow-[0_8px_30px_rgb(255,215,0,0.2)] hover:ring-2 hover:ring-yellow-400/50">
+                        <div class="overflow-hidden w-full sm:w-[320px] h-52 sm:h-auto">
+                            <img src="{{ asset('storage/images/movies/background/pengabdi-setan-2.jpg') }}"
+                                alt="pengabdi-setan-bg"
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        </div>
+                        <div class="p-5 flex-1">
+                            <div class="flex items-center mb-2 text-yellow-400">
+                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 0l3.5 7.1L24 8.3l-6 5.8 1.4 8.1L12 18.6 4.6 22.2 6 14.1 0 8.3l8.5-1.2z" />
+                                </svg>
+                                <span class="text-sm text-gray-400">Selasa, 25 Mei 2025</span>
+                            </div>
+                            <h3
+                                class="text-lg font-bold mb-2 relative group-hover:text-yellow-300 transition duration-300">
+                                <span
+                                    class="absolute bottom-0 left-0 w-0 h-[2px] bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+                                <a href="">
+                                    {{ $hot_news[2]->title }}
+                                </a>
+                            </h3>
+                            <p class="text-sm text-gray-300">
+                                {{ \Illuminate\Support\Str::limit($hot_news[1]->description, 350) }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- .film-scroll-wrapper -->
-            <div class="film-scroll-wrapper">
-                <div class="film-item card bg-dark text-white border-0">
-                    <img src="https://i.ibb.co.com/tMP2Kk02/avatar.jpg" class="card-img-top rounded" alt="Avatar"
-                        style="height: 300px; object-fit: cover;">
-                    <div class="card-body text-center">
-                        <p class="card-title fw-semibold mt-3 mb-0 p-0">AVATAR</p>
-                    </div>
-                </div>
-
-                <div class="film-item card bg-dark text-white border-0">
-                    <img src="https://i.ibb.co.com/cc6LBR0W/blade.jpg" class="card-img-top rounded"
-                        alt="Blade Runner" style="height: 300px; object-fit: cover;">
-                    <div class="card-body text-center">
-                        <p class="card-title fw-semibold mt-3 mb-0">BLADE RUNNER 2049</p>
-                    </div>
-                </div>
-
-                <div class="film-item card bg-dark text-white border-0">
-                    <img src="https://i.ibb.co.com/3ysTdpVt/spiderman.png" class="card-img-top rounded"
-                        alt="Spider-Man" style="height: 300px; object-fit: cover;">
-                    <div class="card-body text-center">
-                        <p class="card-title fw-semibold mt-3 mb-0">SPIDER-MAN NO WAY HOME</p>
-                    </div>
-                </div>
-
-                <div class="film-item card bg-dark text-white border-0">
-                    <img src="https://i.ibb.co.com/rgWSV8K/avenger.jpg" class="card-img-top rounded" alt="Avengers"
-                        style="height: 300px; object-fit: cover;">
-                    <div class="card-body text-center">
-                        <p class="card-title fw-semibold mt-3 mb-0">AVENGERS INFINITY WAR</p>
-                    </div>
-                </div>
-
-                <div class="film-item card bg-dark text-white border-0">
-                    <img src="https://i.ibb.co.com/Kxx1ZrWG/guardians.webp" class="card-img-top rounded"
-                        alt="Guardians" style="height: 300px; object-fit: cover;">
-                    <div class="card-body text-center">
-                        <p class="card-title fw-semibold mt-3 mb-0">GUARDIANS OF THE GALAXY</p>
-                    </div>
-                </div>
-            </div> 
-        </div> <!-- .container -->
-
-
-        <!-- Section: Yowis Ben : The Series -->
-        <section class="film-section py-4">
-            <div class="container">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3 class="section-title">Yowis Ben : The Series</h3>
-                    <a href="/movies" class="see-more-link">Lainnya</a>
-                </div>
-                <div class="row g-4">
-                    <div class="col-12 col-sm-6 col-md-4 text-center">
-                        <div class="film-card">
-                            <img src="https://i.ibb.co.com/Qjrdt3KC/yowis1.jpg"
-                                class="img-fluid rounded shadow-sm poster-img" alt="Yowis Ben 1">
-                            <p class="film-title">YOWIS BEN 1 : THE SERIES</p>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-4 text-center">
-                        <div class="film-card">
-                            <img src="https://i.ibb.co.com/hJHpYwJk/yowis2.jpg"
-                                class="img-fluid rounded shadow-sm poster-img" alt="Yowis Ben 2">
-                            <p class="film-title">YOWIS BEN 2 : THE SERIES</p>
-                        </div>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-4 text-center">
-                        <div class="film-card">
-                            <img src="https://i.ibb.co.com/bjvTBmtC/yowis3.jpg"
-                                class="img-fluid rounded shadow-sm poster-img" alt="Yowis Ben 3">
-                            <p class="film-title">YOWIS BEN 3 : THE SERIES</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION EMOSI FILM -->
-        <section class="section-emosi-film mt-0 py-4 text-white">
-            <div class="container">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h4 class="fw-bold">Emosional Penuh Misteri</h4>
-                    <a href="/movies" class="see-more-link">Lainnya</a>
-                </div>
-                <div class="emosi-scroll-wrapper">
-                    <div class="card-film-emosi animate-emosi-fade delay-0">
-                        <div class="card-film-img">
-                            <img src="https://i.ibb.co.com/0Vr32xWS/ipar.png" alt="IPAR ADALAH MAUT">
-                        </div>
-                        <div class="card-film-body text-center">
-                            <p class="film-title fw-semibold">IPAR ADALAH MAUT</p>
-                        </div>
-                    </div>
-                    <div class="card-film-emosi animate-emosi-fade delay-1">
-                        <div class="card-film-img">
-                            <img src="https://i.ibb.co.com/q3XLBsWg/api.png" alt="MAIN API">
-                        </div>
-                        <div class="card-film-body text-center">
-                            <p class="film-title fw-semibold">MAIN API</p>
-                        </div>
-                    </div>
-                    <div class="card-film-emosi animate-emosi-fade delay-2">
-                        <div class="card-film-img">
-                            <img src="https://i.ibb.co.com/twzDCwcm/norma.png" alt="NORMA">
-                        </div>
-                        <div class="card-film-body text-center">
-                            <p class="film-title fw-semibold">NORMA</p>
-                        </div>
-                    </div>
-                    <div class="card-film-emosi animate-emosi-fade delay-3">
-                        <div class="card-film-img">
-                            <img src="https://i.ibb.co.com/0y88rjvz/satu.png" alt="SATU HARI NANTI">
-                        </div>
-                        <div class="card-film-body text-center">
-                            <p class="film-title fw-semibold">SATU HARI NANTI</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!--SECTION FILM HOROR-->
-
-        <section class="section-horror-indo py-4">
-            <div class="container">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h4 class="fw-bold">Koleksi Film Horor Indonesia</h4>
-                    <a href="/movies" class="see-more-link">Lainnya</a>
-                </div>
-                <div class="horror-scroll-wrapper">
-                    <button class="horror-scroll-button-left">&#8592;</button>
-                    <!-- Cards -->
-                    <div class="horror-scroll-container">
-                        <div class="card-horror-indonesia" style="--delay: 0.4s">
-                            <div class="card-horror-img">
-                                <img src="https://i.ibb.co.com/LDrgsbyn/sitjin.jpg" alt="SIJJIN">
-                            </div>
-                            <div class="card-horror-body">
-                                <p class="horror-title">SIJJIN</p>
-                            </div>
-                        </div>
-
-                        <div class="card-horror-indonesia" style="--delay: 0.4s">
-                            <div class="card-horror-img">
-                                <img src="https://i.ibb.co.com/tp2rFGNC/perewangan.jpg" alt="Perewangan">
-                            </div>
-                            <div class="card-horror-body">
-                                <p class="horror-title">Perewangan</p>
-                            </div>
-                        </div>
-
-                        <div class="card-horror-indonesia" style="--delay: 0.4s">
-                            <div class="card-horror-img">
-                                <img src="https://i.ibb.co.com/vvqJFrCk/pamali.png" alt="Pamali">
-                            </div>
-                            <div class="card-horror-body">
-                                <p class="horror-title">Pamali</p>
-                            </div>
-                        </div>
-
-                        <div class="card-horror-indonesia" style="--delay: 0.4s">
-                            <div class="card-horror-img">
-                                <img src="https://i.ibb.co.com/fGCmwwqF/pengabdi-setan.png" alt="Pengabdi Setan">
-                            </div>
-                            <div class="card-horror-body">
-                                <p class="horror-title">Pengabdi Setan</p>
-                            </div>
-                        </div>
-
-                        <div class="card-horror-indonesia" style="--delay: 0.4s">
-                            <div class="card-horror-img">
-                                <img src="https://i.ibb.co.com/KcRPQN3n/mangkujiwo.jpg" alt="Mangkujiwo">
-                            </div>
-                            <div class="card-horror-body">
-                                <p class="horror-title">Mangkujiwo</p>
-                            </div>
-                        </div>
-
-                        <div class="card-horror-indonesia" style="--delay: 0.4s">
-                            <div class="card-horror-img">
-                                <img src="https://i.ibb.co.com/fVddGjkB/sewu.jpg" alt="Sewu Dino">
-                            </div>
-                            <div class="card-horror-body">
-                                <p class="horror-title">Sewu Dino</p>
-                            </div>
-                        </div>
-
-                        <div class="card-horror-indonesia" style="--delay: 0.4s">
-                            <div class="card-horror-img">
-                                <img src="https://i.ibb.co.com/gF3wBdt9/ghost.jpg" alt="Hello Ghost">
-                            </div>
-                            <div class="card-horror-body">
-                                <p class="horror-title">Hello Ghost</p>
-                            </div>
-                        </div>
-
-                        <div class="card-horror-indonesia" style="--delay: 0.4s">
-                            <div class="card-horror-img">
-                                <img src="https://i.ibb.co.com/kswG8bHD/sosok.jpg" alt="Sosok Ketiga">
-                            </div>
-                            <div class="card-horror-body">
-                                <p class="horror-title">Sosok Ketiga</p>
-                            </div>
-                        </div>
-
-                        <div class="card-horror-indonesia" style="--delay: 0.4s">
-                            <div class="card-horror-img">
-                                <img src="https://i.ibb.co.com/21tfYDGk/janji.jpg" alt="Perjanjian Gaib">
-                            </div>
-                            <div class="card-horror-body">
-                                <p class="horror-title">Perjanjian Gaib</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- End of Cards -->
-                    <button class="horror-scroll-button-right">&#8594;</button>
-                </div>
-            </div>
-        </section>
-
-        <!--Section Berita-->
-
-        <section class="container py-5 berita-film text-white">
-            <div class="row">
-                <!-- HOT NEWS (4 Berita Kiri) -->
-                <div class="col-lg-8">
-                    <h4 class="fw-bold mb-4">Hot News</h4>
-
-                    <!-- BERITA 1 -->
-                    <div class="card mb-4 bg-transparent border-0 berita-item" data-aos="fade-up">
-                        <div class="row g-0 align-items-stretch">
-                            <div class="col-md-5">
-                                <img src="https://i.ibb.co.com/xqvdvzgL/bom.jpg" class="img-fluid rounded-start"
-                                    alt="berita 1">
-                            </div>
-                            <div class="col-md-7">
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold">Pertaruhan: Kisah Kelam Persaudaraan yang Berjuang
-                                        Demi Hidup Bapaknya</h5>
-                                    <small class="text-muted">Selasa, 25 Mei 2025</small>
-                                    <p class="card-text mt-2">Menceritakan perjuangan empat bersaudara laki-laki yang
-                                        berjuang untuk menyelamatkan ayah mereka...</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- BERITA 2 -->
-                    <div class="card mb-4 bg-transparent border-0 berita-item" data-aos="fade-up"
-                        data-aos-delay="100">
-                        <div class="row g-0 align-items-stretch">
-                            <div class="col-md-5">
-                                <img src="https://i.ibb.co.com/4wfRzkM2/jumbo-berita.png"
-                                    class="img-fluid rounded-start" alt="berita 2">
-                            </div>
-                            <div class="col-md-7">
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold">Jumbo: Film Petualangan Terlaris ke-4 Sepanjang Masa
-                                        2025</h5>
-                                    <small class="text-muted">Selasa, 25 Mei 2025</small>
-                                    <p class="card-text mt-2">Don, seorang anak yatim piatu yang sering diolok karena
-                                        badannya yang besar...</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- BERITA 3 -->
-                    <div class="card mb-4 bg-transparent border-0 berita-item" data-aos="fade-up"
-                        data-aos-delay="200">
-                        <div class="row g-0 align-items-stretch">
-                            <div class="col-md-5">
-                                <img src="https://i.ibb.co.com/sdrWrM4r/b1g1.png" class="img-fluid rounded-start"
-                                    alt="berita 3">
-                            </div>
-                            <div class="col-md-7">
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold">BUY 1 GET 1 FREE: Gunakan Kode Voucher “GLITBRUX”
-                                    </h5>
-                                    <small class="text-muted">Selasa, 25 Mei 2025</small>
-                                    <p class="card-text mt-2">Masukkan kode voucher saat pembelian untuk menikmati
-                                        penawaran menarik ini...</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- BERITA 4 -->
-                    <div class="card mb-4 bg-transparent border-0 berita-item" data-aos="fade-up"
-                        data-aos-delay="300">
-                        <div class="row g-0 align-items-stretch">
-                            <div class="col-md-5">
-                                <img src="https://i.ibb.co.com/pj17fxt0/mandiri.png" class="img-fluid rounded-start"
-                                    alt="berita 4">
-                            </div>
-                            <div class="col-md-7">
-                                <div class="card-body">
-                                    <h5 class="card-title fw-bold">PROMO CASHBACK: Gunakan Mandiri Payment</h5>
-                                    <small class="text-muted">Selasa, 25 Mei 2025</small>
-                                    <p class="card-text mt-2">Promo berlaku untuk transaksi dengan Mandiri Payment.
-                                        Jangan lewatkan kesempatan ini...</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- MORE NEWS -->
-                <div class="col-lg-4">
-                    <h5 class="fw-bold mb-4">More News</h5>
-                    <ul class="list-unstyled more-news-list">
-                        <li class="mb-3 border-bottom pb-2" data-aos="fade-left">
-                            <a href="#" class="berita-link">Spider-Man: No Way Home" Pecahkan Rekor Penjualan
-                                Tiket Global</a>
+            <!-- MORE NEWS -->
+            <div>
+                <h2 class="text-white text-xl font-bold border-l-4 border-yellow-400 pl-4 mb-6">📰 More News</h2>
+                <ul class="space-y-4 text-sm">
+                    @foreach ($any_news as $news)
+                        <li><a href="#"
+                                class="block border-b border-white/20 pb-2 hover:text-yellow-400 hover:pl-2 transition-all duration-300">
+                                {{ $news->title }}
+                            </a>
                         </li>
-                        <li class="mb-3 border-bottom pb-2" data-aos="fade-left" data-aos-delay="100">
-                            <a href="#" class="berita-link">The Matrix Resurrections" Kembali Hadir di Dunia
-                                Sci-Fi</a>
-                        </li>
-                        <li class="mb-3 border-bottom pb-2" data-aos="fade-left" data-aos-delay="200">
-                            <a href="#" class="berita-link">Film Animasi "Encanto" Sukses Menjadi Favorit
-                                Keluarga</a>
-                        </li>
-                        <li class="mb-3 border-bottom pb-2" data-aos="fade-left" data-aos-delay="300">
-                            <a href="#" class="berita-link">Dune" Tampilkan Visual Memukau, Dapat Pujian Dunia
-                                Perfilman</a>
-                        </li>
-                        <li class="mb-3 border-bottom pb-2" data-aos="fade-left" data-aos-delay="400">
-                            <a href="#" class="berita-link">Film Drama "Nomadland" Menangkan Piala Oscar
-                                2021</a>
-                        </li>
-                        <li class="mb-3 border-bottom pb-2" data-aos="fade-left" data-aos-delay="500">
-                            <a href="#" class="berita-link">Fast and Furious 10" Tampilkan Aksi Mendebarkan di
-                                Layar Lebar</a>
-                        </li>
-                        <li class="mb-3 border-bottom pb-2" data-aos="fade-left" data-aos-delay="600">
-                            <a href="#" class="berita-link">The Batman" Hadirkan Interpretasi Baru Sang Pahlawan
-                                Kota Gotham</a>
-                        </li>
-                    </ul>
+                    @endforeach
+                </ul>
 
-                    <a href="#"
-                        class="btn btn-outline-light mt-3 d-inline-flex align-items-center gap-2 transition"
-                        data-aos="fade-left" data-aos-delay="700">
-                        LIHAT BERITA LAINNYA <i class="bi bi-arrow-right"></i>
+                <div class="mt-6">
+                    <a href="/berita"
+                        class="inline-block relative overflow-hidden group text-sm font-bold px-6 py-2 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-400 text-black transition-all duration-300 shadow-md hover:shadow-lg">
+                        <span class="relative z-10">LIHAT BERITA LAINNYA →</span>
+                        <spanclass="absolute inset-0 opacity-0 group-hover:opacity-10 bg-white transition duration-300"></span>
                     </a>
                 </div>
             </div>
-        </section>
 
-        <section class="trailer-film py-5">
-            <div class="container">
-                <h2 class="text-white mb-5 fw-bold text-center">Video &amp; Trailers</h2>
-                <div class="row g-4 justify-content-center">
+        </div>
+    </section>
 
-                    <!-- Video Card 1 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="cinematic-frame position-relative rounded-4 overflow-hidden">
-                            <img src="https://img.youtube.com/vi/6GmQqchjTzw/hqdefault.jpg" class="img-fluid w-100"
-                                alt="Trailer Modal Nekad" role="button" data-bs-toggle="modal"
-                                data-bs-target="#videoModal1">
-                            <div class="cinematic-play-btn">
-                                <i class="bi bi-play-circle-fill text-white fs-1"></i>
-                            </div>
-                        </div>
-                        <p class="text-white mt-3 fw-semibold text-center cinematic-text">Para Pemeran Di Balik Layar :
-                            Modal Nekad</p>
+    <!--SECTION VIDEO & TRAILERS-->
+    <section class="pt-16 pb-10 px-6 md:px-12 text-white text-center">
+        <h2 class="text-4xl font-extrabold mb-12 drop-shadow-lg tracking-wide">Video & Trailers</h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
+
+            <!-- CARD 1: shadow kuning -->
+            <div onclick="openModal('https://www.youtube.com/embed/-sAOWhvheK8?si=E1iu5kGEQlZxPssj')"
+                class="cursor-pointer rounded-2xl overflow-hidden bg-[#1c1f2f] transition-transform duration-500 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-yellow-400">
+                <div class="relative">
+                    <img src="img/trailer/thunder.webp" alt="Thumbnail" class="w-full h-52 object-cover">
+                    <div class="absolute inset-0 flex items-center justify-center bg-black/20">
+                        <div class="text-white text-4xl">&#9658;</div>
                     </div>
-
-                    <!-- Video Card 2 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="cinematic-frame position-relative rounded-4 overflow-hidden">
-                            <img src="https://img.youtube.com/vi/BpvnEiG9bTE/hqdefault.jpg" class="img-fluid w-100"
-                                alt="Official Trailer" role="button" data-bs-toggle="modal"
-                                data-bs-target="#videoModal2">
-                            <div class="cinematic-play-btn">
-                                <i class="bi bi-play-circle-fill text-white fs-1"></i>
-                            </div>
-                        </div>
-                        <p class="text-white mt-3 fw-semibold text-center cinematic-text">OFFICIAL TRAILER : Komang</p>
-                    </div>
-
-                    <!-- Video Card 3 -->
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="cinematic-frame position-relative rounded-4 overflow-hidden">
-                            <img src="https://img.youtube.com/vi/-sAOWhvheK8/hqdefault.jpg" class="img-fluid w-100"
-                                alt="Marvel Trailer" role="button" data-bs-toggle="modal"
-                                data-bs-target="#videoModal3">
-                            <div class="cinematic-play-btn">
-                                <i class="bi bi-play-circle-fill text-white fs-1"></i>
-                            </div>
-                        </div>
-                        <p class="text-white mt-3 fw-semibold text-center cinematic-text">Marvel Studios’ Thunderbolts
-                        </p>
-                    </div>
-
+                </div>
+                <div class="px-5 py-4">
+                    <p class="font-semibold text-lg">Thunderbolts Marvel Studio</p>
                 </div>
             </div>
-        </section>
 
-        <!-- Modal Video 1 -->
-        <div class="modal fade" id="videoModal1" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content bg-black border-0">
-                    <div class="modal-body p-0">
-                        <div class="ratio ratio-16x9">
-                            <iframe src="https://www.youtube.com/embed/6GmQqchjTzw?si=xzaV8S_jodG5-dut"
-                                title="YouTube video player"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen referrerpolicy="strict-origin-when-cross-origin"
-                                frameborder="0"></iframe>
-                        </div>
+            <!-- CARD 2: shadow biru -->
+            <div onclick="openModal('https://www.youtube.com/embed/YW3sQ16oksY?si=G5YU90oCgLUr_B9g')"
+                class="cursor-pointer rounded-2xl overflow-hidden bg-[#1c1f2f] transition-transform duration-500 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500">
+                <div class="relative">
+                    <img src="{{ asset('storage/images/movies/background/jumbo.jpg') }}" alt="Thumbnail"
+                        class="w-full h-52 object-cover">
+                    <div class="absolute inset-0 flex items-center justify-center bg-black/20">
+                        <div class="text-white text-4xl">&#9658;</div>
                     </div>
                 </div>
+                <div class="px-5 py-4">
+                    <p class="font-semibold text-lg">JUMBO ~ ANIMASI KARYA </p>
+                </div>
+            </div>
+
+            <!-- CARD 3: shadow merah -->
+            <div onclick="openModal('https://www.youtube.com/embed/GV9AEEIeHrQ?si=vgbGesp8R0AWKC5L&amp')"
+                class="cursor-pointer rounded-2xl overflow-hidden bg-[#1c1f2f] transition-transform duration-500 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-red-500">
+                <div class="relative">
+                    <img src="img/trailer/civil.webp" alt="Thumbnail" class="w-full h-52 object-cover">
+                    <div class="absolute inset-0 flex items-center justify-center bg-black/20">
+                        <div class="text-white text-4xl">&#9658;</div>
+                    </div>
+                </div>
+                <div class="px-5 py-4">
+                    <p class="font-semibold text-lg">BATTLE SCENE CIVIL WAR</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!--MODALOPEN POPUP VIDEO-->
+    <div id="videoModal"
+        class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-50 transition-opacity duration-300">
+        <div
+            class="bg-[#101927] rounded-3xl shadow-[0_0_60px_rgba(255,255,255,0.1)] p-4 w-[95%] md:w-[85%] lg:w-[75%] xl:w-[70%] max-w-[1280px] relative animate-fade-in">
+            <button onclick="closeModal()"
+                class="absolute top-4 right-4 text-white text-3xl hover:text-red-500 transition">&times;</button>
+            <div class="aspect-video rounded-xl overflow-hidden">
+                <iframe id="videoFrame" class="w-full h-full" src="" frameborder="0"
+                    allow="autoplay; fullscreen" allowfullscreen></iframe>
             </div>
         </div>
-
-        <!-- Modal Video 2 -->
-        <div class="modal fade" id="videoModal2" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content bg-black border-0">
-                    <div class="modal-body p-0">
-                        <div class="ratio ratio-16x9">
-                            <iframe src="https://www.youtube.com/embed/BpvnEiG9bTE?si=k2yqv7MyA247DwPD"
-                                title="YouTube video player"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen referrerpolicy="strict-origin-when-cross-origin"
-                                frameborder="0"></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Video 3 -->
-        <div class="modal fade" id="videoModal3" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content bg-black border-0">
-                    <div class="modal-body p-0">
-                        <div class="ratio ratio-16x9">
-                            <iframe src="https://www.youtube.com/embed/-sAOWhvheK8?si=zVHnTov8yyeFGm5B"
-                                title="YouTube video player"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowfullscreen referrerpolicy="strict-origin-when-cross-origin"
-                                frameborder="0"></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!--PARTNERSHIP-->
-        <section class="partner-section">
-            <div class="container text-center">
-                <h2 class="mb-5 fw-bold text-white">
-                    <i class="bi bi-people-fill me-2"></i>PARTNER KAMI
-                </h2>
-
-                <!-- Teks Deskripsi dengan Penataan Lebih Elegan -->
-                <div class="row justify-content-center mb-5">
-                    <div class="col-lg-8 col-md-10">
-                        <div class="partner-description">
-                            <p class="text-light fs-4 mb-4">
-                                Kami bangga dapat berkolaborasi dengan berbagai perusahaan terkemuka di industri ini.
-                                Setiap langkah kami didukung oleh mitra yang memiliki visi dan misi yang sama dalam
-                                memberikan solusi terbaik untuk pelanggan kami. Bersama partner- partner ini, kami terus
-                                berkembang untuk menghadirkan layanan yang lebih inovatif dan berkualitas.
-                            </p>
-                            <p class="text-light fs-4">
-                                <strong>Berikut adalah partner terpercaya kami yang sangat berperan dalam perjalanan
-                                    sukses kami.</strong>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Galeri Logo Partner -->
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 justify-content-center">
-                    <div class="col">
-                        <div class="partner-logo">
-                            <img src="https://i.ibb.co.com/PvL8qs38/webmonei.png" alt="WebMoney">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="partner-logo">
-                            <img src="https://i.ibb.co.com/HppQthSw/vidio.png" alt="Vidio">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="partner-logo">
-                            <img src="https://i.ibb.co.com/B53c34ZK/dana.png" alt="DANA">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="partner-logo">
-                            <img src="https://i.ibb.co.com/2Y0SGrr9/mandiri.webp" alt="mandiri">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="partner-logo">
-                            <img src="https://i.ibb.co.com/B2Txz8f4/SPAY.png" alt="SPAY">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="partner-logo">
-                            <img src="https://i.ibb.co.com/LzR2tcH4/ShopPay.png" alt="OPAY">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="partner-logo">
-                            <img src="https://i.ibb.co.com/Fby5XQ5h/Mastercard.png" alt="Mastercard">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="partner-logo">
-                            <img src="https://i.ibb.co.com/mrRQjbgV/bni.png" alt="BNI">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="partner-logo">
-                            <img src="https://i.ibb.co.com/kjnf7Zx/indomaret.png" alt="indomaret">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="partner-logo">
-                            <img src="https://i.ibb.co.com/tMR4BSG1/seabank.png" alt="seabank">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="partner-logo">
-                            <img src="https://i.ibb.co.com/gMMyZ95V/netflix.png" alt="netflix">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="partner-logo">
-                            <img src="https://i.ibb.co.com/FLfFY8cb/alfamart.png" alt="alfa">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!--Footer-->
-        <footer class="text-white pt-16 pb-10 px-6"
-            style=" font-family: 'Poppins', sans-serif; opacity: 0; transform: translateY(100px);" id="footer">
-            <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 border-b border-gray-700 pb-10">
-
-                <!-- Logo & Deskripsi -->
-                <div>
-                    <div class="flex items-center text-3xl font-extrabold mb-4">
-                        <i class="fas fa-film text-red-500 mr-2 animate-pulse"></i>
-                        <span>
-                            <span class="text-red-500">CINE</span><span class="text-yellow-400">Tix</span>
-                        </span>
-                    </div>
-                    <p class="text-sm text-gray-400 leading-relaxed">
-                        Platform tiket bioskop dan hiburan modern yang menyatukan kemewahan dan kenyamanan dalam satu
-                        klik. Jadikan pengalaman Anda tak terlupakan!
-                    </p>
-                </div>
-
-                <!-- Navigasi -->
-                <div>
-                    <h4 class="text-lg font-semibold mb-4 text-yellow-400">Navigasi</h4>
-                    <ul class="space-y-3 text-sm">
-                        <li><a href="#"
-                                class="hover:text-yellow-400 transition duration-300 ease-in-out transform hover:scale-110"><i
-                                    class="fas fa-home mr-2 text-yellow-400"></i>Beranda</a></li>
-                        <li><a href="#"
-                                class="hover:text-red-400 transition duration-300 ease-in-out transform hover:scale-110"><i
-                                    class="fas fa-ticket-alt mr-2 text-red-400"></i>Tiket</a></li>
-                        <li><a href="#"
-                                class="hover:text-green-400 transition duration-300 ease-in-out transform hover:scale-110"><i
-                                    class="fas fa-utensils mr-2 text-green-400"></i>Makanan</a></li>
-                        <li><a href="#"
-                                class="hover:text-blue-400 transition duration-300 ease-in-out transform hover:scale-110"><i
-                                    class="fas fa-tags mr-2 text-blue-400"></i>Promo</a></li>
-                    </ul>
-                </div>
-
-                <!-- Bantuan -->
-                <div>
-                    <h4 class="text-lg font-semibold mb-4 text-red-400">Bantuan</h4>
-                    <ul class="space-y-3 text-sm">
-                        <li><a href="#"
-                                class="hover:text-red-400 transition duration-300 ease-in-out transform hover:scale-110"><i
-                                    class="fas fa-question-circle mr-2 text-red-400"></i>FAQ</a></li>
-                        <li><a href="#"
-                                class="hover:text-red-400 transition duration-300 ease-in-out transform hover:scale-110"><i
-                                    class="fas fa-headset mr-2 text-red-400"></i>Hubungi Kami</a></li>
-                        <li><a href="#"
-                                class="hover:text-red-400 transition duration-300 ease-in-out transform hover:scale-110"><i
-                                    class="fas fa-info-circle mr-2 text-red-400"></i>Tentang Kami</a></li>
-                    </ul>
-                </div>
-
-                <!-- Sosial Media -->
-                <div>
-                    <h4 class="text-lg font-semibold mb-4 text-blue-400">Ikuti Kami</h4>
-                    <div class="flex gap-5 text-xl">
-                        <a href="#"
-                            class="hover:text-blue-500 transition duration-300 transform hover:scale-125"><i
-                                class="fab fa-facebook-f"></i></a>
-                        <a href="#"
-                            class="hover:text-pink-500 transition duration-300 transform hover:scale-125"><i
-                                class="fab fa-instagram"></i></a>
-                        <a href="#"
-                            class="hover:text-sky-400 transition duration-300 transform hover:scale-125"><i
-                                class="fab fa-twitter"></i></a>
-                        <a href="#"
-                            class="hover:text-red-500 transition duration-300 transform hover:scale-125"><i
-                                class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Copyright -->
-            <div class="text-center text-sm text-gray-500 mt-8">
-                &copy; 2025 <span>CINETix</span>. Hak Cipta Kelompok Kami.
-            </div>
-        </footer>
-
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!--PARTNERSHIP-->
+    <section id="partner" class="mt-19 pt-12 pb-20 max-w-6xl mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Partner Kami</h2>
+        <p class="text-yellow-400 mb-10">Kami didukung oleh berbagai mitra terpercaya untuk memberikan layanan terbaik
+            bagi
+            Anda.</p>
+
+        <!-- Mobile Scrollable -->
+        <div class="block lg:hidden space-y-4 overflow-x-auto overflow-visible pb-2 scrollbar-hide">
+            <!-- Baris 1 -->
+            <div class="flex space-x-3 min-w-full px-1 pt-2 pb-4">
+                <div
+                    class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+                    <img src="img/partnership/shopepay.webp" alt="Partner 1" class="mx-auto h-10 object-contain" />
+                </div>
+                <div
+                    class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+                    <img src="img/partnership/gopay.png" alt="Partner 2" class="mx-auto h-10 object-contain" />
+                </div>
+                <div
+                    class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+                    <img src="img/partnership/ovo.png" alt="Partner 3" class="mx-auto h-10 object-contain" />
+                </div>
+                <div
+                    class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+                    <img src="img/partnership/bni.png" alt="Partner 4" class="mx-auto h-10 object-contain" />
+                </div>
+                <div
+                    class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+                    <img src="img/partnership/dana.png" alt="Partner 5" class="mx-auto h-10 object-contain" />
+                </div>
+                <div
+                    class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+                    <img src="img/partnership/mandiri.webp" alt="Partner 6" class="mx-auto h-10 object-contain" />
+                </div>
+            </div>
+            <!-- Baris 2 -->
+            <div class="flex space-x-3 min-w-full px-1 pt-2 pb-4">
+                <div
+                    class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+                    <img src="img/partnership/Mastercard.png" alt="Partner 7" class="mx-auto h-10 object-contain" />
+                </div>
+                <div
+                    class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+                    <img src="img/partnership/seabank.png" alt="Partner 8" class="mx-auto h-10 object-contain" />
+                </div>
+                <div
+                    class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+                    <img src="img/partnership/qris.png" alt="Partner 9" class="mx-auto h-10 object-contain" />
+                </div>
+                <div
+                    class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+                    <img src="img/partnership/danamon-seeklogo.png" alt="Partner 10"
+                        class="mx-auto h-10 object-contain" />
+                </div>
+                <div
+                    class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+                    <img src="img/partnership/alfamart.png" alt="Partner 11" class="mx-auto h-10 object-contain" />
+                </div>
+                <div
+                    class="min-w-[100px] p-2 bg-white rounded-xl shadow-md hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+                    <img src="img/partnership/indomaret.png" alt="Partner 12" class="mx-auto h-10 object-contain" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Desktop Grid (6 columns x 2 rows) -->
+        <div class="hidden lg:grid grid-cols-6 gap-6">
+            @foreach ($patners as $patner)
+                <div
+                    class="p-6 bg-white rounded-2xl shadow-lg hover:shadow-yellow-300/50 transition transform hover:-translate-y-1 hover:scale-105">
+                    <img src="{{ asset('storage/images/patner/' . $patner->image) }}" alt="{{ $patner->name }}"
+                        class="mx-auto h-14 object-contain" />
+                </div>
+            @endforeach
+    </section>
+
+
+    <!--FOOTERRRRR-->
+    <footer class="text-white px-6 md:px-16 py-10 text-sm">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+
+            <!-- CINETix -->
+            <div>
+                <a href="#"
+                    class="text-2xl font-bold text-white flex items-center space-x-2 hover:text-yellow-400 hover:drop-shadow-[0_0_6px_rgba(255,255,0,0.6)] transition duration-200">
+                    <i data-lucide="film" class="w-7 h-7 text-red-500"></i>
+                    <span><span class="text-red-500">CINE</span><span class="text-yellow-400">Tix</span></span>
+                </a>
+                <p class="text-gray-300 mt-4 leading-relaxed">
+                    Platform tiket bioskop dan hiburan modern yang menyatukan kemewahan dan kenyamanan. Jadikan
+                    pengalaman Anda
+                    tak terlupakan!
+                </p>
+            </div>
+
+            <!-- Navigasi -->
+            <div class="hidden md:block">
+                <h3 class="text-lg font-bold text-yellow-400 mb-3">Navigasi</h3>
+                <ul class="space-y-3 text-gray-200 font-semibold">
+                    <li>
+                        <a href="#"
+                            class="flex items-center space-x-2 group hover:text-sky-400 transition duration-200">
+                            <i data-lucide="video" class="w-5 h-5 text-sky-300 group-hover:text-sky-400"></i>
+                            <span>Film</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="flex items-center space-x-2 group hover:text-rose-400 transition duration-200">
+                            <i data-lucide="utensils" class="w-5 h-5 text-rose-300 group-hover:text-rose-400"></i>
+                            <span>Food</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="flex items-center space-x-2 group hover:text-yellow-400 transition duration-200">
+                            <i data-lucide="percent" class="w-5 h-5 text-yellow-300 group-hover:text-yellow-400"></i>
+                            <span>Promo</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="flex items-center space-x-2 group hover:text-green-400 transition duration-200">
+                            <i data-lucide="newspaper" class="w-5 h-5 text-green-300 group-hover:text-green-400"></i>
+                            <span>News</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Bantuan -->
+            <div>
+                <h3 class="text-lg font-bold text-rose-400 mb-3">Bantuan</h3>
+                <ul class="space-y-3 text-gray-200 font-semibold">
+                    <li>
+                        <a href="#"
+                            class="flex items-center space-x-2  hover:text-rose-400 transition duration-200">
+                            <i data-lucide="help-circle" class="w-5 h-5 group-hover:text-white"></i>
+                            <span>FAQ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="flex items-center space-x-2  hover:text-rose-400 transition duration-200">
+                            <i data-lucide="headphones" class="w-5 h-5 group-hover:text-white"></i>
+                            <span>Hubungi Kami</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="flex items-center space-x-2  hover:text-rose-400 transition duration-200">
+                            <i data-lucide="info" class="w-5 h-5 group-hover:text-white"></i>
+                            <span>Tentang Kami</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Ikuti Kami -->
+            <div>
+                <h3 class="text-lg font-bold text-sky-400 mb-3">Ikuti Kami</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="transition duration-200 group">
+                        <i data-lucide="facebook" class="w-5 h-5 text-white group-hover:text-[#1877F2]"></i>
+                    </a>
+                    <a href="#" class="transition duration-200 group">
+                        <i data-lucide="instagram" class="w-5 h-5 text-white group-hover:text-[#C13584]"></i>
+                    </a>
+                    <a href="#" class="transition duration-200 group">
+                        <i data-lucide="twitter" class="w-5 h-5 text-white group-hover:text-[#1DA1F2]"></i>
+                    </a>
+                    <a href="#" class="transition duration-200 group">
+                        <i data-lucide="youtube" class="w-5 h-5 text-white group-hover:text-[#FF0000]"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Garis -->
+        <hr class="my-8 border-gray-700 max-w-7xl mx-auto" />
+
+        <!-- Copyright -->
+        <p class="text-center text-gray-400 text-sm">
+            © 2025 <span class="font-semibold">CINETix</span>. Hak Cipta Kelompok 7
+    </footer>
+
+
+    <script>
+        lucide.createIcons();
+    </script>
+    <script src="https://kit.fontawesome.com/your-api-key.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script>
+        const swiper = new Swiper(".mySwiper", {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+                renderBullet: function(index, className) {
+                    return '<span class="' + className + ' custom-bullet"></span>';
+                },
+            },
+        });
+
+
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('show');
+            } else {
+                mobileMenu.classList.remove('show');
+            }
+            menuToggle.classList.toggle('open');
+        });
+
+
+        function openModal(videoUrl) {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('videoFrame');
+            iframe.src = videoUrl + "?autoplay=1";
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('videoFrame');
+            iframe.src = "";
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+    </script>
 </body>
 
 </html>

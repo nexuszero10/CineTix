@@ -9,7 +9,6 @@
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
-
             <div class="relative mb-5">
                 <input id="id_user" name="id_user" type="text" :value="old('id_user')" required autofocus
                     autocomplete="id_user" placeholder="Email or Username"
