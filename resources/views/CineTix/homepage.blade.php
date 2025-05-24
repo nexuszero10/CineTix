@@ -25,7 +25,7 @@
         <div class="max-w-screen-xl mx-auto px-6 py-4 flex justify-between items-center">
 
             <!-- Logo -->
-            <a href="#" class="text-3xl font-bold tracking-wide flex items-center logo-hover transition">
+            <a href="{{ route('CineTix.homepage') }}" class="text-3xl font-bold tracking-wide flex items-center logo-hover transition">
                 <span class="text-[#FF3C3C]">CINE</span><span class="text-yellow-400">Tix</span>
             </a>
 

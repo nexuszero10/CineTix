@@ -26,7 +26,7 @@ const nextButton = document.querySelector(".horror-scroll-button-right");
 const container = document.querySelector(".horror-scroll-container");
 const card = document.querySelector(".card-horror-indonesia");
 
-const scrollAmount = card.offsetWidth + 20; // + margin (10px kiri-kanan)
+const scrollAmount = card.offsetWidth + 20;
 
 prevButton.addEventListener("click", () => {
     container.scrollBy({ left: -scrollAmount, behavior: "smooth" });

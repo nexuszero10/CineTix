@@ -238,102 +238,66 @@
 
     <!-- Section Informasi Film -->
     <section id="contentDetail" class="hidden">
-        <div class="py-2 w-[90%] mx-auto mt-6 relative">
+        <div class="py-2 w-[90%] mx-auto mt-3 relative">
             <div class="container px-4 mx-auto">
-                <h2 class="text-2xl font-bold mb-6 border-b border-gray-300 pb-2 text-white">JUMBO</h2>
+                <h2 class="text-2xl font-bold mb-6 border-b border-gray-300 pb-2 text-white">{{ $movie->title }}</h2>
 
                 <div class="flex flex-col md:flex-row gap-8">
                     <div class="w-full md:w-1/3 text-sm text-white space-y-2">
                         <div class="grid grid-cols-2 border-b border-white/10 py-2">
                             <span class="text-gray-400 font-medium">Director:</span>
-                            <span class="text-right">Ryan Adriandhy</span>
-                        </div>
-                        <div class="grid grid-cols-2 border-white/10 py-2">
-                            <span class="text-gray-400 font-medium">Starring:</span>
-                            <span class="text-right">Prince Poetriay<br>Quinn Salman</span>
+                            <span class="text-right">{{ $movie->director }}</span>
                         </div>
                         <div class="grid grid-cols-2 border-white/10 py-2">
                             <span class="text-gray-400 font-medium">Censor Rating:</span>
-                            <span class="text-right">SU</span>
+                            <span class="text-right">{{ $movie->category->category_name }}</span>
                         </div>
                         <div class="grid grid-cols-2 border-white/10 py-2">
                             <span class="text-gray-400 font-medium">Genre:</span>
-                            <span class="text-right">Animation</span>
+                            <span class="text-right">
+                                {{ $movie->genres->pluck('genre_name')->join(', ') }}
+                            </span>
                         </div>
                         <div class="grid grid-cols-2 border-white/10 py-2">
-                            <span class="text-gray-400 font-medium">Language:</span>
-                            <span class="text-right">Bahasa Indonesia</span>
-                        </div>
-                        <div class="grid grid-cols-2 border-white/10 py-2">
-                            <span class="text-gray-400 font-medium">Subtitle:</span>
-                            <span class="text-right">None</span>
+                            <span class="text-gray-400 font-medium">Release year:</span>
+                            <span class="text-right">{{ $movie->release_year }}</span>
                         </div>
                         <div class="grid grid-cols-2 border-white/10 py-2">
                             <span class="text-gray-400 font-medium">Duration:</span>
-                            <span class="text-right">102 Minutes</span>
+                            <span class="text-right">{{ $movie->duration }} Minutes</span>
+                        </div>
+                        <div class="grid grid-cols-2 border-white/10 py-2">
+                            <span class="text-gray-400 font-medium">Price: :</span>
+                            <span class="text-right">
+                                @if ($movie->price >= 1000)
+                                    Rp{{ number_format($movie->price, 0, ',', '.') }}
+                                @else
+                                    Rp{{ $movie->price }}
+                                @endif
+                            </span>
                         </div>
                     </div>
 
-                    <div class="w-full md:w-2/3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div
-                            class="flex items-center gap-4 p-3 bg-white/5 rounded-xl shadow-md backdrop-blur-sm hover:scale-105 transition-all duration-300 animate-fade-in">
-                            <img src="https://i.ibb.co.com/j0TPSdy/don-cast.jpg" alt="Den Bagus Satrio Sasono"
-                                class="w-14 h-14 rounded-full object-cover shadow">
-                            <div>
-                                <p class="text-xs text-gray-300">Cast</p>
-                                <p class="font-semibold text-white">Den Bagus Satrio Sasono</p>
-                            </div>
-                        </div>
+                    @php
+                        $castList = explode(',', $movie->cast);
+                        $castCount = count($castList);
+                    @endphp
 
-                        <div
-                            class="flex items-center gap-4 p-3 bg-white/5 rounded-xl shadow-md backdrop-blur-sm hover:scale-105 transition-all duration-300 animate-fade-in">
-                            <img src="https://i.ibb.co.com/hJbhbY5Q/don-mom-cast.jpg" alt="Bunga Citra Lestari"
-                                class="w-14 h-14 rounded-full object-cover shadow">
-                            <div>
-                                <p class="text-xs text-gray-300">Cast</p>
-                                <p class="font-semibold text-white">Bunga Citra Lestari</p>
+                    <div
+                        class="w-full md:w-2/3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 {{ $castCount === 3 ? 'h-1/2' : 'h-full' }}">
+                        @foreach ($castList as $cast)
+                            <div
+                                class="flex items-center gap-4 p-3 bg-white/5 rounded-xl shadow-md backdrop-blur-sm hover:scale-105 transition-all duration-300 animate-fade-in">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 512 512">
+                                    <path fill="#74C0FC"
+                                        d="M399 384.2C376.9 345.8 335.4 320 288 320l-64 0c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z" />
+                                </svg>
+                                <div>
+                                    <p class="text-xs text-gray-300">Cast</p>
+                                    <p class="font-semibold text-white">{{ trim($cast) }}</p>
+                                </div>
                             </div>
-                        </div>
-
-                        <div
-                            class="flex items-center gap-4 p-3 bg-white/5 rounded-xl shadow-md backdrop-blur-sm hover:scale-105 transition-all duration-300 animate-fade-in">
-                            <img src="https://i.ibb.co.com/jv8fFG1y/don-father-cast.jpg" alt="Nazril Irham"
-                                class="w-14 h-14 rounded-full object-cover shadow">
-                            <div>
-                                <p class="text-xs text-gray-300">Cast</p>
-                                <p class="font-semibold text-white">Nazril Irham</p>
-                            </div>
-                        </div>
-
-                        <div
-                            class="flex items-center gap-4 p-3 bg-white/5 rounded-xl shadow-md backdrop-blur-sm hover:scale-105 transition-all duration-300 animate-fade-in">
-                            <img src="https://i.ibb.co.com/nMXtcjDP/acil-cast.jpg" alt="Angga Yunanda"
-                                class="w-14 h-14 rounded-full object-cover shadow">
-                            <div>
-                                <p class="text-xs text-gray-300">Cast</p>
-                                <p class="font-semibold text-white">Angga Yunanda</p>
-                            </div>
-                        </div>
-
-                        <div
-                            class="flex items-center gap-4 p-3 bg-white/5 rounded-xl shadow-md backdrop-blur-sm hover:scale-105 transition-all duration-300 animate-fade-in">
-                            <img src="https://i.ibb.co.com/VWMgwLVk/rusli-cast.jpg" alt="Kiki Narendra"
-                                class="w-14 h-14 rounded-full object-cover shadow">
-                            <div>
-                                <p class="text-xs text-gray-300">Cast</p>
-                                <p class="font-semibold text-white">Kiki Narendra</p>
-                            </div>
-                        </div>
-
-                        <div
-                            class="flex items-center gap-4 p-3 bg-white/5 rounded-xl shadow-md backdrop-blur-sm hover:scale-105 transition-all duration-300 animate-fade-in">
-                            <img src="https://i.ibb.co.com/JRysdVbK/meri-mom-cast.jpg" alt="Cinta Laura"
-                                class="w-14 h-14 rounded-full object-cover shadow">
-                            <div>
-                                <p class="text-xs text-gray-300">Cast</p>
-                                <p class="font-semibold text-white">Cinta Laura</p>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -342,16 +306,16 @@
 
     <!--Section Tab Komentar-->
     <section id="contentKomentar" class="hidden">
-        <div class="py-2 w-[88%] mx-auto relative">
-            <div class="relative w-full mb-4">
+        <div class="py-2 w-[90%] mx-auto relative">
+            <div class="relative w-full">
                 <i class="fas fa-pen absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
                 <input type="text" id="searchInput"
-                    class="pl-10 bg-[#011228] text-white pr-4 py-2 w-full text-sm placeholder-gray-400 border-b border-gray-600 focus:outline-none focus:border-white"
+                    class="pl-10 bg-[#011228] text-white pr-4 py-2 w-2/5 text-sm placeholder-gray-400 border-b border-gray-600 focus:outline-none focus:border-white"
                     placeholder="Tulis komentar..." autocomplete="off">
             </div>
-            <div class="w-full grid md:grid-cols-2 gap-4 items-start">
-                <div class="w-full">
-                    <p class="text-white text-sm mb-2">Beri rating Anda:</p>
+            <div class="w-fit flex flex-wrap gap-14 p-4 rounded">
+                <div class="w-fit p-2 rounded">
+                    <p class="text-white text-sm mb-1">Beri rating Anda:</p>
                     <div id="ratingStars" class="flex gap-1 text-gray-400 text-xl cursor-pointer">
                         <i class="fas fa-star" data-value="1"></i>
                         <i class="fas fa-star" data-value="2"></i>
@@ -360,22 +324,20 @@
                         <i class="fas fa-star" data-value="5"></i>
                     </div>
                 </div>
-                <div class="w-full flex justify-start md:justify-end items-end mt-4 md:mt-0">
-                    <div class="flex gap-4 w-full md:w-[50%]">
-                        <button onclick="resetComment()"
-                            class="flex-1 border border-white rounded-full py-2 text-white hover:bg-white hover:text-black transition">
-                            Cancel
-                        </button>
-                        <button id="submitComment"
-                            class="flex-1 bg-white text-black rounded-full py-2 hover:bg-[#1a2332] hover:text-white hover:border hover:border-white transition">
-                            Comment
-                        </button>
-                    </div>
+                <div class="flex gap-4 p-2 rounded">
+                    <button onclick="resetComment()"
+                        class="w-fit border border-yellow-400 rounded-full py-2 px-4 text-yellow-400 hover:bg-white hover:text-black transition">
+                        Cancel
+                    </button>
+                    <button id="submitComment"
+                        class="w-fit bg-yellow-400 text-black rounded-full py-2 px-4 hover:bg-[#1a2332] hover:text-white hover:border hover:border-white transition">
+                        Comment
+                    </button>
                 </div>
             </div>
         </div>
 
-        <div id="commentsContainer" class="py-2 w-[88%] mx-auto relative"></div>
+<div id="commentsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-[88%] mx-auto"></div>
     </section>
 
     <!--FOOTERRRRR-->
@@ -585,6 +547,69 @@
                 seatCounts[scheduleId]--;
                 document.getElementById("jumlahSeat" + scheduleId).innerText = seatCounts[scheduleId];
             }
+        }
+
+        // menangai star input
+        const stars = document.querySelectorAll("#ratingStars i");
+        let selectedRating = 0;
+
+        stars.forEach((star) => {
+            star.addEventListener("click", () => {
+                selectedRating = parseInt(star.getAttribute("data-value"));
+                updateStars(selectedRating);
+            });
+        });
+
+        function updateStars(rating) {
+            stars.forEach((star) => {
+                const value = parseInt(star.getAttribute("data-value"));
+                star.classList.toggle("text-yellow-400", value <= rating);
+                star.classList.toggle("text-gray-500", value > rating);
+            });
+        }
+
+        // Menangani komentar & rating
+        document.addEventListener("DOMContentLoaded", () => {
+            document
+                .getElementById("submitComment")
+                .addEventListener("click", postComment);
+        });
+
+        function postComment() {
+            const commentInput = document.getElementById("searchInput");
+            const commentText = commentInput.value.trim();
+            if (!commentText || selectedRating === 0) {
+                alert("Mohon isi komentar dan pilih rating terlebih dahulu.");
+                return;
+            }
+
+            let starsHTML = "";
+            for (let i = 1; i <= 5; i++) {
+                starsHTML += `<i class="fas fa-star ${i <= selectedRating ? 'text-yellow-400' : 'text-gray-500'}"></i>`;
+            }
+
+            const commentHTML = `
+  <div class="bg-[#0f1d33] border border-white/10 rounded-lg p-4">
+    <div class="flex justify-between items-center mb-2">
+      <span class="text-sm font-medium text-white">Raditya Yusuf</span>
+      <span class="flex gap-1">${starsHTML}</span>
+    </div>
+    <p class="text-white/70 text-sm">${commentText}</p>
+  </div>
+`;
+
+
+
+            const commentsContainer = document.getElementById("commentsContainer");
+            commentsContainer.insertAdjacentHTML("afterbegin", commentHTML);
+            resetComment();
+        }
+
+
+        function resetComment() {
+            document.getElementById("searchInput").value = "";
+            selectedRating = 0;
+            updateStars(0);
         }
     </script>
 </body>

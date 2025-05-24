@@ -4,10 +4,6 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -19,7 +15,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // user yang belum login teetap bisa akses
-Route::get('/homepage', [MovieController::class, 'index'])->name('CineTix.homepage');
+Route::get('/', [MovieController::class, 'index'])->name('CineTix.homepage');
 Route::get('/movies', [MovieController::class, 'movies'])->name('CineTix.movies');
 Route::get('/movie/detail/{id}', [MovieController::class, 'detail'])->name('CineTix.movie-detail');
 

@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CineTix - Movie List</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     @vite(['resources/css/movies/native.css', 'resources/css/app.css', 'resources/js/app.js'])
@@ -23,11 +22,11 @@
             <!-- Desktop Button -->
             <div class="hidden md:flex items-center space-x-4">
                 <a href="{{ route('register') }}"
-                    class="px-4 md:px-5 py-2 rounded-full bg-[#ffcc00] text-black font-semibold text-sm md:text-base flex items-center gap-2 btn-shimmer whitespace-nowrap">
+                    class="px-5 py-2 rounded-full bg-[#ffcc00] font-bold text-base flex items-center gap-2 btn-shimmer">
                     <i class="fas fa-user-plus"></i> Register
                 </a>
                 <a href="{{ route('login') }}"
-                    class="px-4 md:px-5 py-2 rounded-full bg-[#ff3c61] text-white font-semibold text-sm md:text-base flex items-center gap-2 btn-shimmer whitespace-nowrap">
+                    class="px-5 py-2 rounded-full text-yellow-400 border border-yellow-400 font-bold text-base flex items-center gap-2 btn-shimmer">
                     <i class="fas fa-sign-in-alt"></i> Login
                 </a>
             </div>
@@ -471,9 +470,10 @@
             © 2025 <span class="font-semibold">CINETix</span>. Hak Cipta Kelompok 7
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         lucide.createIcons();
+        AOS.init();
     </script>
     <script>
         const filmList = [
@@ -618,7 +618,6 @@
             });
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
