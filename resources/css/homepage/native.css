@@ -1,3 +1,8 @@
+* {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
 body {
     font-family: "Poppins", sans-serif;
     background: linear-gradient(90deg, #011228, rgb(7, 34, 68));
@@ -101,15 +106,6 @@ body {
 
 .hamburger.open span:nth-child(3) {
     transform: rotate(-45deg) translate(6px, -6px);
-}
-
-.scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-    display: none;
 }
 
 .custom-bullet {

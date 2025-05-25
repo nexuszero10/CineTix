@@ -12,11 +12,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    @vite([
-        'resources/css/homepage/native.css',
-        'resources/css/app.css', 
-        'resources/js/app.js'
-    ])
+    @vite(['resources/css/homepage/native.css', 'resources/css/app.css', 'resources/js/app.js'])
 
 </head>
 
@@ -25,21 +21,40 @@
         <div class="max-w-screen-xl mx-auto px-6 py-4 flex justify-between items-center">
 
             <!-- Logo -->
-            <a href="{{ route('CineTix.homepage') }}" class="text-3xl font-bold tracking-wide flex items-center logo-hover transition">
+            <a href="{{ route('CineTix.homepage') }}"
+                class="text-3xl font-bold tracking-wide flex items-center logo-hover transition">
                 <span class="text-[#FF3C3C]">CINE</span><span class="text-yellow-400">Tix</span>
             </a>
 
-            <!-- Desktop Button -->
-           <div class="hidden md:flex items-center space-x-4">
-                <a href="{{ route('register') }}"
-                    class="px-5 py-2 rounded-full bg-[#ffcc00] font-bold text-base flex items-center gap-2 btn-shimmer">
-                    <i class="fas fa-user-plus"></i> Register
-                </a>
-                <a href="{{ route('login') }}"
-                    class="px-5 py-2 rounded-full text-yellow-400 border border-yellow-400 font-bold text-base flex items-center gap-2 btn-shimmer">
-                    <i class="fas fa-sign-in-alt"></i> Login
-                </a>
+            <!-- Desktop Section -->
+            <div class="hidden md:flex items-center space-x-4">
+                @guest
+                    <!-- Register & Login when not authenticated -->
+                    <a href="{{ route('register') }}"
+                        class="px-5 py-2 rounded-full bg-[#ffcc00] font-bold text-base flex items-center gap-2 btn-shimmer">
+                        <i class="fas fa-user-plus"></i> Register
+                    </a>
+                    <a href="{{ route('login') }}"
+                        class="px-5 py-2 rounded-full text-yellow-400 border border-yellow-400 font-bold text-base flex items-center gap-2 btn-shimmer">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                @endguest
+
+                @auth
+                    <!-- Username & Icon -->
+                    <div class="flex items-center gap-2">
+                        <a href="{{ route('dashboard') }}" class="hover:underline text-white">
+                            {{ Auth::user()->username }}
+                        </a>
+                        <!-- SVG Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-11 h-9" viewBox="0 0 512 512">
+                            <path fill="#ffffff"
+                                d="M399 384.2C376.9 345.8 335.4 320 288 320l-64 0c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z" />
+                        </svg>
+                    </div>
+                @endauth
             </div>
+
             <!-- Mobile Menu Toggle -->
             <button id="menu-toggle" class="md:hidden focus:outline-none hamburger">
                 <span></span>
@@ -48,7 +63,7 @@
             </button>
         </div>
 
-        <!-- Mobile Menu -->
+        <!-- Mobile Menu (Belum disesuaikan, hanya desktop) -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
             <div class="flex flex-col gap-4 text-white text-lg pl-4">
 
@@ -78,6 +93,7 @@
             </div>
         </div>
     </nav>
+
 
     <section class="min-h-screen pt-24 flex flex-col items-center justify-center text-white px-6">
 

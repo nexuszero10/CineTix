@@ -4,6 +4,12 @@ body {
     overflow-x: hidden;
 }
 
+
+* {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
 .logo-hover:hover {
     text-shadow: 0 0 15px #ff3c3c, 0 0 30px #ff3c3c, 0 0 45px #ffd700;
     transform: scale(1.05) translateY(-2px);

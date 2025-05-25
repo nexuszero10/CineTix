@@ -12,7 +12,8 @@
 
 <body class="pt-32">
     <nav class="w-full fixed top-0 left-0 z-50 shadow-lg bg-[#011C3C]/70 backdrop-blur-md border-b border-white/10">
-        <div class="max-w-screen-xl mx-auto px-6 py-3 flex justify-between items-center">
+        <div class="max-w-screen-xl mx-auto px-6 py-4 flex justify-between items-center">
+
             <!-- Logo -->
             <a href="{{ route('CineTix.homepage') }}"
                 class="text-3xl font-bold tracking-wide flex items-center logo-hover transition">
@@ -21,14 +22,33 @@
 
             <!-- Desktop Button -->
             <div class="hidden md:flex items-center space-x-4">
-                <a href="{{ route('register') }}"
-                    class="px-5 py-2 rounded-full bg-[#ffcc00] font-bold text-base flex items-center gap-2 btn-shimmer">
-                    <i class="fas fa-user-plus"></i> Register
-                </a>
-                <a href="{{ route('login') }}"
-                    class="px-5 py-2 rounded-full text-yellow-400 border border-yellow-400 font-bold text-base flex items-center gap-2 btn-shimmer">
-                    <i class="fas fa-sign-in-alt"></i> Login
-                </a>
+
+                @guest
+                    <!-- Register & Login when not authenticated -->
+                    <a href="{{ route('register') }}"
+                        class="px-5 py-2 rounded-full bg-[#ffcc00] font-bold text-base flex items-center gap-2 btn-shimmer">
+                        <i class="fas fa-user-plus"></i> Register
+                    </a>
+                    <a href="{{ route('login') }}"
+                        class="px-5 py-2 rounded-full text-yellow-400 border border-yellow-400 font-bold text-base flex items-center gap-2 btn-shimmer">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </a>
+                @endguest
+
+                @auth
+                    <!-- Username & Icon -->
+                    <div class="flex items-center gap-2">
+                        <a href="{{ route('dashboard') }}" class="hover:underline text-white">
+                            {{ Auth::user()->username }}
+                        </a>
+                        <!-- SVG Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-11 h-9" viewBox="0 0 512 512">
+                            <path fill="#ffffff"
+                                d="M399 384.2C376.9 345.8 335.4 320 288 320l-64 0c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z" />
+                        </svg>
+                    </div>
+                @endauth
+
             </div>
 
             <!-- Mobile Menu Toggle -->
@@ -43,14 +63,14 @@
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
             <div class="flex flex-col gap-4 text-white text-lg pl-4">
 
-                <a href="{{ route('login') }}" class="flex items-center gap-3 mobile-link hover:text-red-600">
+                <a href="#" class="flex items-center gap-3 mobile-link hover:text-red-600">
                     <i class="fas fa-sign-in-alt text-red-600"></i> <span class="font-bold">Login</span>
                 </a>
-                <a href="{{ route('register') }}" class="flex items-center gap-3 mobile-link hover:text-yellow-600">
+                <a href="#" class="flex items-center gap-3 mobitulisale-link hover:text-yellow-600">
                     <i class="fas fa-user-plus text-yellow-600"></i> <span class="font-bold">Register</span>
                 </a>
 
-                <a href="{{ route('CineTix.movies') }}"
+                <a href="#"
                     class="flex items-center gap-3 mobile-link hover:text-cyan-400 transition-all duration-300 transform hover:scale-105">
                     <i class="fas fa-film text-cyan-400 text-xl"></i> <span class="font-bold">Film</span>
                 </a>
@@ -68,8 +88,8 @@
                 </a>
             </div>
         </div>
-
     </nav>
+
 
     <!-- Serach by Title -->
     <div class="container max-w-md mx-auto">
@@ -121,7 +141,7 @@
                             <h3 class="text-sm font-bold">{{ $movie->title }}</h3>
                             @php
                                 $genreList =
-                                    $movie->genres->count() > 1 
+                                    $movie->genres->count() > 1
                                         ? $movie->genres->take(3)->pluck('genre_name')->implode(', ')
                                         : $movie->genres->pluck('genre_name')->first();
                             @endphp
@@ -134,7 +154,8 @@
                                 {{ $movie->category->category_name }}
                             </p>
                             <div class="mb-2 flex gap-2">
-                                <a href="{{ route('CineTix.movie-detail', ['id' => $movie->id]) }}" class="mt-2 px-3 py-0.5 text-xs bg-yellow-400 text-black rounded hover:bg-yellow-500 transition">Detail</a>
+                                <a href="{{ route('CineTix.movie-detail', ['id' => $movie->id]) }}"
+                                    class="mt-2 px-3 py-0.5 text-xs bg-yellow-400 text-black rounded hover:bg-yellow-500 transition">Detail</a>
                             </div>
                         </div>
                     </div>

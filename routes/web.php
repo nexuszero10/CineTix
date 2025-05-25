@@ -18,6 +18,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/', [MovieController::class, 'index'])->name('CineTix.homepage');
 Route::get('/movies', [MovieController::class, 'movies'])->name('CineTix.movies');
 Route::get('/movie/detail/{id}', [MovieController::class, 'detail'])->name('CineTix.movie-detail');
+Route::post('/moveie/');
+
 
 Route::get('/movies/category/{category_name}', [MovieController::class, 'category'])->name('CineTix.movies-category');
 Route::get('/movies/genre/{genre_name', [MovieController::class, 'genre'])->name('CineTix.movies-genre');
