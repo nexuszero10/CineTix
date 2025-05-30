@@ -13,7 +13,12 @@ class Ticket extends Model
     }
 
     // relasi many to one ke tabel schedule
-    public function Schedule(): BelongsTo {
+    public function schedule(): BelongsTo {
         return $this->belongsTo(Ticket::class);
+    }
+
+    // relasi meny to one ke table orders
+    public function order(): BelongsTo {
+        return $this->belongsTo(Order::class);
     }
 }

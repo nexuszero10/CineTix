@@ -175,7 +175,7 @@
                         </div>
                     </div>
 
-                    <div id="contentPremiere" class="w-3/4">
+                    <div class="w-3/4">
                         <div class="bg-[#1a2332] p-6 rounded-xl shadow-lg text-gray-900">
                             <h3 class="text-xl font-bold text-yellow-400 mb-2">CineTix - Studio
                                 {{ $schedule->studio->studio_code }}</h3>
@@ -214,40 +214,50 @@
                         <button onclick="closeTiketModal({{ $schedule->id }})"
                             class="absolute top-3 right-4 text-red-500 text-xl font-bold cursor-pointer transition-transform duration-200 hover:scale-105">×</button>
 
-                        <div class="text-center border-b pb-4">
-                            <h2 class="font-semibold text-white text-lg">Pilih jumlah tiket yang ingin dipesan</h2>
-                        </div>
+                        <!-- FORM -->
+                        <form id="numberOfTicketForm" method="POST" action="{{ route('CineTix.movie-booking') }}">
+                            @csrf
 
-                        <div class="mt-4 text-sm text-white space-y-2">
-                            <p class="font-bold text-center">{{ $movie->title }}</p>
-                            <p class="text-center">{{ $schedule->day }},
-                                {{ \Carbon\Carbon::parse($schedule->date)->format('d M Y') }}</< /p>
-                            <ul class="text-xs text-yellow-300 list-disc pl-5">
-                                <li>Satu user hanya bisa memesan maksimal 10 tiket</li>
-                            </ul>
-                        </div>
+                            <input type="hidden" name="inputUserId" id="inputUserId"
+                                value="{{ Auth::check() ? Auth::user()->id : '' }}" required>
+                            <input type="hidden" name="inputFilmId" value="{{ $movie->id }}" required>
+                            <input type="hidden" name="inputScheduleId" value="{{ $schedule->id }}" required>
+                            <div class="text-center border-b pb-4">
+                                <h2 class="font-semibold text-white text-lg">Pilih jumlah tiket yang ingin dipesan</h2>
+                            </div>
 
-                        <div class="mt-4">
-                            <div class="bg-[#171f2d] rounded p-3 text-center font-semibold text-white">
-                                {{ \Carbon\Carbon::parse($schedule->time)->format('H:i') }}</div>
-                        </div>
+                            <div class="mt-4 text-sm text-white space-y-2">
+                                <p class="font-bold text-center">{{ $movie->title }}</p>
+                                <p class="text-center">{{ $schedule->day }},
+                                    {{ \Carbon\Carbon::parse($schedule->date)->format('d M Y') }}</p>
+                                <ul class="text-xs text-yellow-300 list-disc pl-5">
+                                    <li>Satu user hanya bisa memesan maksimal 10 tiket</li>
+                                </ul>
+                            </div>
 
-                        <div class="flex items-center justify-center gap-4 mt-4">
-                            <button onclick="decrementSeat({{ $schedule->id }})"
-                                class="w-8 h-8 bg-[#171f2d] rounded-full border  text-lg hover:scale-110 hover:bg-yellow-400 hover:text-[#171f2d] hover:border-[#171f2d] active:scale-90 transition-transform duration-300 text-white">−</button>
-                            <span id="jumlahSeat{{ $schedule->id }}" class="w-6 text-center text-white">1</span>
-                            <button onclick="incrementSeat({{ $schedule->id }})"
-                                class="w-8 h-8 bg-[#171f2d] rounded-full border text-lg hover:scale-110 hover:bg-yellow-400 hover:text-[#171f2d] hover:border-[#171f2d] active:scale-90 transition-transform duration-300 text-white">+</button>
-                        </div>
+                            <div class="mt-4">
+                                <div class="bg-[#171f2d] rounded p-3 text-center font-semibold text-white">
+                                    {{ \Carbon\Carbon::parse($schedule->time)->format('H:i') }}
+                                </div>
+                            </div>
 
-                        <div class="flex justify-center mt-5">
-                            <button
-                                class="w-1/3 py-2 rounded-full bg-[#171f2d] text-white font-semibold 
-                                hover:scale-105 active:scale-95 transition-all duration-200
-                                hover:bg-yellow-400 hover:text-[#171f2d]">
-                                Continue
-                            </button>
-                        </div>
+                            <div class="flex items-center justify-center gap-4 mt-4">
+                                <button type="button" onclick="decrementSeat({{ $schedule->id }})"
+                                    class="w-8 h-8 bg-[#171f2d] rounded-full border text-lg hover:scale-110 hover:bg-yellow-400 hover:text-[#171f2d] hover:border-[#171f2d] active:scale-90 transition-transform duration-300 text-white">−</button>
+                                <span id="jumlahSeat{{ $schedule->id }}" class="w-6 text-center text-white">1</span>
+                                <button type="button" onclick="incrementSeat({{ $schedule->id }})"
+                                    class="w-8 h-8 bg-[#171f2d] rounded-full border text-lg hover:scale-110 hover:bg-yellow-400 hover:text-[#171f2d] hover:border-[#171f2d] active:scale-90 transition-transform duration-300 text-white">+</button>
+                                <input type="hidden" name="inputJumlahSeat" id="inputJumlahSeat{{ $schedule->id }}"
+                                    value="1">
+                            </div>
+
+                            <div class="flex justify-center mt-5">
+                                <button type="submit"
+                                    class="w-1/3 py-2 rounded-full bg-[#171f2d] text-white font-semibold hover:scale-105 active:scale-95 transition-all duration-200 hover:bg-yellow-400 hover:text-[#171f2d]">
+                                    Continue
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             @endforeach
@@ -472,6 +482,39 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
+        lucide.createIcons();
+        AOS.init();
+
+        // swiper
+        const swiper = new Swiper(".mySwiper", {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+                renderBullet: function(index, className) {
+                    return '<span class="' + className + ' custom-bullet"></span>';
+                },
+            },
+        });
+
+        // mobile menu navbar
+        const menuToggle = document.getElementById("menu-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        menuToggle.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+            if (!mobileMenu.classList.contains("hidden")) {
+                mobileMenu.classList.add("show");
+            } else {
+                mobileMenu.classList.remove("show");
+            }
+            menuToggle.classList.toggle("open");
+        });
+
         // modal popup trailer
         function openModal(videoUrl) {
             const modal = document.getElementById("videoModal");
@@ -543,7 +586,10 @@
                 if (!seatCounts[scheduleId]) {
                     seatCounts[scheduleId] = 1;
                 }
-                document.getElementById("jumlahSeat" + scheduleId).innerText = seatCounts[scheduleId];
+                document.getElementById("jumlahSeat" + scheduleId).innerText =
+                    seatCounts[scheduleId];
+                document.getElementById("inputJumlahSeat" + scheduleId).value =
+                    seatCounts[scheduleId];
             }
         }
 
@@ -557,16 +603,33 @@
         function incrementSeat(scheduleId) {
             if (seatCounts[scheduleId] < 10) {
                 seatCounts[scheduleId]++;
-                document.getElementById("jumlahSeat" + scheduleId).innerText = seatCounts[scheduleId];
+                document.getElementById("jumlahSeat" + scheduleId).innerText =
+                    seatCounts[scheduleId];
+                document.getElementById("inputJumlahSeat" + scheduleId).value =
+                    seatCounts[scheduleId];
             }
         }
 
         function decrementSeat(scheduleId) {
             if (seatCounts[scheduleId] > 1) {
                 seatCounts[scheduleId]--;
-                document.getElementById("jumlahSeat" + scheduleId).innerText = seatCounts[scheduleId];
+                document.getElementById("jumlahSeat" + scheduleId).innerText =
+                    seatCounts[scheduleId];
+                document.getElementById("inputJumlahSeat" + scheduleId).value =
+                    seatCounts[scheduleId];
             }
         }
+
+        // menangani submit form
+        document
+            .getElementById("numberOfTicketForm")
+            .addEventListener("submit", function(e) {
+                const userId = document.getElementById("inputUserId").value;
+                if (!userId) {
+                    e.preventDefault();
+                    alert("Harap login dulu sebelum memesan tiket.");
+                }
+            });
 
         // menangai star input
         const stars = document.querySelectorAll("#ratingStars i");
@@ -604,26 +667,25 @@
 
             let starsHTML = "";
             for (let i = 1; i <= 5; i++) {
-                starsHTML += `<i class="fas fa-star ${i <= selectedRating ? 'text-yellow-400' : 'text-gray-500'}"></i>`;
+                starsHTML += `<i class="fas fa-star ${
+            i <= selectedRating ? "text-yellow-400" : "text-gray-500"
+        }"></i>`;
             }
 
             const commentHTML = `
-  <div class="bg-[#0f1d33] border border-white/10 rounded-lg p-4">
-    <div class="flex justify-between items-center mb-2">
-      <span class="text-sm font-medium text-white">Raditya Yusuf</span>
-      <span class="flex gap-1">${starsHTML}</span>
-    </div>
-    <p class="text-white/70 text-sm">${commentText}</p>
-  </div>
-`;
-
-
+                <div class="bg-[#0f1d33] border border-white/10 rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-medium text-white">Raditya Yusuf</span>
+                    <span class="flex gap-1">${starsHTML}</span>
+                    </div>
+                    <p class="text-white/70 text-sm">${commentText}</p>
+                </div>
+                `;
 
             const commentsContainer = document.getElementById("commentsContainer");
             commentsContainer.insertAdjacentHTML("afterbegin", commentHTML);
             resetComment();
         }
-
 
         function resetComment() {
             document.getElementById("searchInput").value = "";

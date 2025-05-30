@@ -222,7 +222,7 @@
                 @endphp
 
                 <div
-                    class="bg-slate-900 rounded-3xl shadow-md {{ $hoverShadow }} transition-shadow duration-300 transform hover:scale-[1.03] overflow-hidden max-w-[280px] mx-auto py-3">
+                    class="bg-slate-900 rounded-3xl shadow-md {{ $hoverShadow }} transform hover:scale-[1.05] transition-all duration-500 ease-in-out overflow-hidden max-w-[280px] mx-auto py-3">
 
                     <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
                         alt="{{ $movie->title }}" class="rounded-t-3xl w-full h-72 object-cover shadow-sm mb-3" />
@@ -257,11 +257,9 @@
                         </p>
 
                         <div class="mt-3 flex justify-center space-x-3 flex-wrap gap-2">
-                            <a href="#"
+                            <a href="{{ route('CineTix.movie-detail', ['id' => $movie->id]) }}"
                                 class="px-3 py-1.5 bg-blue-600 rounded-full text-white font-semibold shadow hover:bg-blue-700 transition text-sm">Beli
                                 Tiket</a>
-                            <a href="#"
-                                class="px-3 py-1.5 border border-blue-600 rounded-full text-blue-400 font-semibold hover:bg-blue-600 hover:text-white transition text-sm">Detail</a>
                         </div>
                     </div>
                 </div>
@@ -474,14 +472,14 @@
         <div class="hidden md:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 px-2 sm:px-4">
             @foreach ($comedy_movies as $movie)
                 <div
-                    class="group bg-slate-800/60 backdrop-blur-md p-3 border border-slate-700 rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(192,132,252,0.5)] hover:border-purple-400">
-                    <a href="#" class="block overflow-hidden rounded-3xl">
+                    class="group bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(251,146,60,0.5)] hover:border-orange-400">
+                    <a href="#" class="block overflow-visible rounded-2xl">
                         <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
                             alt="{{ $movie->title }}"
-                            class="w-full h-64 object-cover rounded-2xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:grayscale-0 group-hover:scale-105" />
+                            class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
                     </a>
                     <p
-                        class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-purple-300">
+                        class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-orange-400">
                         {{ $movie->title }}
                     </p>
                 </div>
