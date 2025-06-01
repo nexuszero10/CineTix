@@ -291,7 +291,7 @@
             showTab("food");
         });
 
-        // JS function showTab disisipkan di sini atau di file JS terpisah
+        // function showTab 
         function showTab(tab) {
             const tabFood = document.getElementById("tabFood");
             const tabDrink = document.getElementById("tabDrink");
