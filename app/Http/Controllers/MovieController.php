@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Movie;
 use App\Models\News;
 use App\Models\Patner;
+use App\Models\Promotion;
 use App\Models\Schedule;
 use App\Models\Snack;
 use App\Models\Ticket;
@@ -120,7 +121,6 @@ class MovieController extends Controller
         $foods = Snack::where('category', 'food')->orderBy('price', 'asc')->get();
         $drinks = Snack::where('category', 'drink')->orderBy('price', 'asc')->get();
 
-        return $request->all() ;
         return view('CineTix.food-movie', [
             'scheduleId' => $schedule,
             'movie' => $movie,
@@ -132,5 +132,44 @@ class MovieController extends Controller
         ]);
     }
 
-    public function orderSummary() {}
+    public function orderSummary(Request $request)
+    {
+        // data snack dari halaman pilih snacks
+        $snackIds = $request->input('inputSnackIds', []);
+        $snackQuantities = $request->input('inputSnackQuantities', []);
+
+        $selectedSnacks = [];
+        foreach ($snackIds as $index => $id) {
+            $quantity = $snackQuantities[$index] ?? 0;
+            $selectedSnacks[] = [
+                'id' => $id,
+                'quantity' => $quantity,
+            ];
+        }
+
+        $detailSelectedSnacks = [];
+        foreach ($selectedSnacks as $snack) {
+            $snackModel = Snack::findOrFail($snack['id']);
+            $snackModel->quantity = $snack['quantity'];
+            $detailSelectedSnacks[] = $snackModel;
+        }
+
+        // data ke view order summary
+        $movie = Movie::findOrFail($request->input('inputMovieId'));
+        $schdule = Schedule::with('studio')->findOrFail($request->input('inputScheduleId'));
+        $numberOfSeats = $request->input('inputNumberOfSeats');
+        $selectedSeats = $request->input('inputSelectedSeats');
+        $subTotalFinal = $request->input('inputSubTotal');
+        $promotions = Promotion::all();
+        
+        return view('CineTix.order-summary', [
+            'movie' => $movie,
+            'schedule' => $schdule,
+            'numberOfSeats' => $numberOfSeats,
+            'selectedSeats' => $selectedSeats,
+            'detailSelectedSnacks' => $detailSelectedSnacks,
+            'subTotalFinal' => $subTotalFinal,
+            'promotions' => $promotions,
+        ]);
+    }
 }

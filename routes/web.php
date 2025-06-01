@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PromotionController;
+use App\Http\Controllers\SnackController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth', 'verified')->group(function () {
@@ -22,6 +25,9 @@ Route::middleware('auth')->group(function () {
 // user yang belum login teetap bisa akses
 Route::get('/', [MovieController::class, 'index'])->name('CineTix.homepage');
 Route::get('/movies', [MovieController::class, 'movies'])->name('CineTix.movies');
+Route::get('/snacks', [SnackController::class, 'index'])->name('CineTix.snacks');
+Route::get('/promotions', [PromotionController::class, 'index'])->name('CineTix.promotions');
+Route::get('/news', [NewsController::class, 'index'])->name('CineTix.news');
 Route::get('/movie/detail/{id}', [MovieController::class, 'detail'])->name('CineTix.movie-detail');
 
 

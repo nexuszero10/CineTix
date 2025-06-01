@@ -129,7 +129,7 @@
             </a>
 
             <!-- Food -->
-            <a href="#food"
+            <a href="{{ route('CineTix.snacks') }}"
                 class="group text-center cursor-pointer transform transition duration-300 hover:scale-105">
                 <div
                     class="bg-red-400 text-white p-5 md:p-6 rounded-2xl text-3xl shadow-xl group-hover:shadow-red-500/50">
@@ -139,7 +139,7 @@
             </a>
 
             <!-- Promo -->
-            <a href="#promo"
+            <a href="{{ route('CineTix.promotions') }}"
                 class="group text-center cursor-pointer transform transition duration-300 hover:scale-105">
                 <div
                     class="bg-yellow-400 text-white p-5 md:p-6 rounded-2xl text-3xl shadow-xl group-hover:shadow-yellow-400/50">
@@ -149,7 +149,7 @@
             </a>
 
             <!-- News -->
-            <a href="#news"
+            <a href="{{ route('CineTix.news') }}"
                 class="group text-center cursor-pointer transform transition duration-300 hover:scale-105">
                 <div
                     class="bg-green-400 text-white p-5 md:p-6 rounded-2xl text-3xl shadow-xl group-hover:shadow-green-400/50">

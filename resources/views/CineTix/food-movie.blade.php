@@ -219,8 +219,12 @@
                     <input type="hidden" name="inputScheduleId" value="{{ $movie->schedules[0]->id }}">
                     <input type="hidden" name="inputMovieId" value="{{ $movie->id }}">
                     <input type="hidden" name="inputNumberOfSeats" value="{{ $numberOfSeats }}">
-                    <input type="hidden" name="inputSubTotal" value="{{ $subTotal }}">
-                    
+                    <input type="hidden" name="inputSubTotal" id="inputSubTotal" value="{{ $subTotal }}">
+                    @foreach ($selectedSeats as $seat)
+                        <input type="hidden" name="inputSelectedSeats[]" value="{{ $seat }}">
+                    @endforeach
+
+                    <div id="selectedSnacksInput"></div>
 
                     <div class="mt-auto border-t border-gray-600 pt-4 space-y-2">
                         <div>
@@ -342,6 +346,7 @@
                 selectedSnacksDisplay.textContent = displayText.trim().replace(/,\s*$/, '') || 'Belum ada pilihan';
 
                 updateSubTotal();
+                updateHiddenSnackInputs(); // Tambahan: update hidden inputs
             }
 
             function updateSubTotal() {
@@ -357,6 +362,33 @@
 
                 const total = basePrice + snacksTotal;
                 subTotalDisplay.textContent = total.toLocaleString('id-ID');
+
+                const inputSubTotal = document.getElementById("inputSubTotal");
+                if (inputSubTotal) {
+                    inputSubTotal.value = total;
+                }
+            }
+
+            function updateHiddenSnackInputs() {
+                const snacksInputContainer = document.getElementById('selectedSnacksInput');
+                snacksInputContainer.innerHTML = ''; // clear existing
+
+                for (const id in snackCounts) {
+                    const item = snackCounts[id];
+                    if (item.count > 0) {
+                        const inputId = document.createElement('input');
+                        inputId.type = 'hidden';
+                        inputId.name = 'inputSnackIds[]';
+                        inputId.value = id;
+                        snacksInputContainer.appendChild(inputId);
+
+                        const inputQty = document.createElement('input');
+                        inputQty.type = 'hidden';
+                        inputQty.name = 'inputSnackQuantities[]';
+                        inputQty.value = item.count;
+                        snacksInputContainer.appendChild(inputQty);
+                    }
+                }
             }
 
             plusButtons.forEach(plusIcon => {
