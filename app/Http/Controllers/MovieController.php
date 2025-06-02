@@ -18,12 +18,12 @@ class MovieController extends Controller
     // halaman homepage
     public function index()
     {
-        $tren_movies = Movie::with('category', 'genres')->whereBetween(('id'), [5, 9])->get();
-        $inter_movies = Movie::whereBetween(('id'), [12, 17])->get();
-        $horror_movies = Movie::whereBetween(('id'), [36, 41])->get();
-        $drama_movies = Movie::whereBetween(('id'), [27, 32])->get();
-        $action_movies = Movie::whereBetween(('id'), [47, 52])->get();
-        $comedy_movies = Movie::whereBetween(('id'), [18, 23])->get();
+        $tren_movies = Movie::with('category', 'genres')->whereBetween(('id'), [1, 4])->get();
+        $inter_movies = Movie::whereBetween(('id'), [4, 6])->get();
+        $horror_movies = Movie::whereBetween(('id'), [12, 14])->get();
+        $drama_movies = Movie::whereBetween(('id'), [9, 11])->get();
+        $action_movies = Movie::whereBetween(('id'), [15, 15])->get();
+        $comedy_movies = Movie::whereBetween(('id'), [7, 8])->get();
 
         $hot_news = News::wherebetween(('id'), [1, 3])->get();
         $any_news = News::wherebetween(('id'), [4, 7])->get();
@@ -44,29 +44,26 @@ class MovieController extends Controller
     }
 
     // halaman list film 
-    public function movies(Request $request)
+    public function movies()
     {
-        $trending_movies = Movie::with('category', 'genres')->whereBetween(('id'), [1, 8])->get();
-        $inter_movies = Movie::with('category', 'genres')->whereBetween(('id'), [9, 17])->get();
-        $comedy_movies = Movie::with('category', 'genres')->whereBetween(('id'), [18, 26])->get();
-        $drama_movies = Movie::with('category', 'genres')->whereBetween(('id'), [27, 35])->get();
-        $horror_movies = Movie::with('category', 'genres')->whereBetween(('id'), [36, 46])->get();
-        $action_movies = Movie::with('category', 'genres')->whereBetween(('id'), [47, 52])->get();
+        $nowShowing = Movie::whereHas('timeline', function ($query) {
+            $query->where('status', 'now_showing');
+        })->with('category', 'genres', 'timeline')->get();
+
+        $comingSoon = Movie::whereHas('timeline', function ($query) {
+            $query->where('status', 'coming_soon');
+        })->with('category', 'genres', 'timeline')->get();
 
         // return $trending_movies ;
         return view('CineTix.movies', [
-            'trending_movies' => $trending_movies,
-            'inter_movies' => $inter_movies,
-            'comedy_movies' => $comedy_movies,
-            'drama_movies' => $drama_movies,
-            'horror_movies' => $horror_movies,
-            'action_movies' => $action_movies,
+            'nowShowing' => $nowShowing,
+            'comingSoon' => $comingSoon,
         ]);
     }
 
     public function detail($movie_id)
     {
-        $movie_detail = Movie::with('category', 'genres', 'schedules.studio', 'reviews')->findOrFail($movie_id);
+        $movie_detail = Movie::with('category', 'genres', 'schedules.studio', 'reviews', 'timeline')->findOrFail($movie_id);
         return view('CineTix.detail-movie', ['movie' => $movie_detail]);
     }
 
@@ -161,7 +158,7 @@ class MovieController extends Controller
         $selectedSeats = $request->input('inputSelectedSeats');
         $subTotalFinal = $request->input('inputSubTotal');
         $promotions = Promotion::all();
-        
+
         return view('CineTix.order-summary', [
             'movie' => $movie,
             'schedule' => $schdule,

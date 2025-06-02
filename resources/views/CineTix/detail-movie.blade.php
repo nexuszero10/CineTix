@@ -102,6 +102,16 @@
         </div>
 
         <div class="container relative z-10 py-5 w-[90%] mx-auto">
+            @php
+                $genreColors = [
+                    'bg-red-600 text-white',
+                    'bg-green-500 text-white',
+                    'bg-blue-500 text-white',
+                    'bg-purple-500 text-white',
+                    'bg-pink-500 text-white',
+                ];
+            @endphp
+
             <div class="flex flex-col md:flex-row justify-center">
                 <div>
                     <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
@@ -110,14 +120,21 @@
 
                 <div class="flex-col w-2/3 mt-3 ml-7">
                     <h1 class="text-white text-5xl font-bold mb-3">{{ $movie->title }}</h1>
-                    <span
-                        class="bg-yellow-400 text-[#121823] px-2 py-1 rounded font-bold">{{ $movie->category->category_name }}</span>
-                    <div class="flex gap-2 mb-4 mt-3">
-                        @foreach ($movie->genres as $genre)
-                            <span
-                                class="bg-red-600 text-white px-2 py-1 rounded font-bold">{{ $genre->genre_name }}</span>
+                    <span class="bg-yellow-400 text-[#121823] px-2 py-1 rounded font-bold">
+                        {{ $movie->category->category_name }}
+                    </span>
+
+                    <div class="flex gap-2 mb-4 mt-3 flex-wrap">
+                        @foreach ($movie->genres as $index => $genre)
+                            @php
+                                $color = $genreColors[$index] ?? $genreColors[array_rand($genreColors)];
+                            @endphp
+                            <span class="px-2 py-1 rounded font-bold {{ $color }}">
+                                {{ $genre->genre_name }}
+                            </span>
                         @endforeach
                     </div>
+
                     <p class="mb-4 text-white text-justify">{{ $movie->synopsis }}</p>
                     <div class="flex items-center gap-4 mt-7">
                         <button type="button"
@@ -128,7 +145,7 @@
                             $hours = floor($movie->duration / 60);
                             $minutes = $movie->duration % 60;
                         @endphp
-                        <span class="text-white">{{ $hours }}h {{ $minutes }}m </span>
+                        <span class="text-yellow-300">{{ $hours }}h {{ $minutes }}m </span>
                     </div>
                 </div>
             </div>
@@ -342,26 +359,28 @@
                     placeholder="Tulis komentar..." autocomplete="off">
             </div>
             <div class="w-fit flex flex-wrap gap-14 p-4 rounded">
-                <div class="w-fit p-2 rounded">
-                    <p class="text-white text-sm mb-1">Beri rating Anda:</p>
-                    <div id="ratingStars" class="flex gap-1 text-gray-400 text-xl cursor-pointer">
-                        <i class="fas fa-star" data-value="1"></i>
-                        <i class="fas fa-star" data-value="2"></i>
-                        <i class="fas fa-star" data-value="3"></i>
-                        <i class="fas fa-star" data-value="4"></i>
-                        <i class="fas fa-star" data-value="5"></i>
+                <form id="movieReviewForm" action="#" method="POST">
+                    <div class="w-fit p-2 rounded">
+                        <p class="text-white text-sm mb-1">Beri rating Anda:</p>
+                        <div id="ratingStars" class="flex gap-1 text-gray-400 text-xl cursor-pointer">
+                            <i class="fas fa-star" data-value="1"></i>
+                            <i class="fas fa-star" data-value="2"></i>
+                            <i class="fas fa-star" data-value="3"></i>
+                            <i class="fas fa-star" data-value="4"></i>
+                            <i class="fas fa-star" data-value="5"></i>
+                        </div>
                     </div>
-                </div>
-                <div class="flex gap-4 p-2 rounded">
-                    <button onclick="resetComment()"
-                        class="w-fit border border-yellow-400 rounded-full py-2 px-4 text-yellow-400 hover:bg-white hover:text-black transition">
-                        Cancel
-                    </button>
-                    <button id="submitComment"
-                        class="w-fit bg-yellow-400 text-black rounded-full py-2 px-4 hover:bg-[#1a2332] hover:text-white hover:border hover:border-white transition">
-                        Comment
-                    </button>
-                </div>
+                    <div class="flex gap-4 p-2 rounded">
+                        <button onclick="resetComment()"
+                            class="w-fit border border-yellow-400 rounded-full py-2 px-4 text-yellow-400 hover:bg-white hover:text-black transition">
+                            Cancel
+                        </button>
+                        <button id="submitComment"
+                            class="w-fit bg-yellow-400 text-black rounded-full py-2 px-4 hover:bg-[#1a2332] hover:text-white hover:border hover:border-white transition">
+                            Comment
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -620,7 +639,18 @@
             }
         }
 
-        // menangani submit form
+        // menangani validasi submit form tiket
+        document
+            .getElementById("numberOfTicketForm")
+            .addEventListener("submit", function(e) {
+                const userId = document.getElementById("inputUserId").value;
+                if (!userId) {
+                    e.preventDefault();
+                    alert("Harap login dulu sebelum memesan tiket.");
+                }
+            });
+
+        // meangani submit form
         document
             .getElementById("numberOfTicketForm")
             .addEventListener("submit", function(e) {

@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CineTix - Movie List</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>CINETix - Movie List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    @vite(['resources/css/movies/native.css', 'resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/movie-detail/native.css', 'resources/js/movie-detail.js', 'resources/css/app.css', 'resources/js/app.js'])
+
 </head>
 
 <body class="pt-32">
@@ -110,276 +116,102 @@
     <!-- Search By Category -->
 
 
-    <!-- Film Trending -->
-    <div class="carousel-section container mt-5 mx-auto relative">
-        <!-- Header -->
-        <div class="d-flex justify-content-between align-items-center mb-3 w-[92%] mx-auto relative">
-            <h2 class="font-semibold text-xl mb-3 text-white">Film Sedang Trending</h2>
+    <!-- Setion Nav Tab By Timelines -->
+    <section class="py-2 w-[90%] my-7 mx-auto">
+        <div class="flex gap-4 text-sm justify-start pl-12">
+            <button id="tabNowShowing" class="py-2 px-4 rounded-full font-semibold bg-yellow-400 text-black"
+                onclick="showTab('now-showing')">Now Showing</button>
+            <button id="tabComingSoon" class="py-2 px-4 rounded-full font-semibold bg-[#0e1726] text-yellow-400"
+                onclick="showTab('coming-soon')">Coming Soon</button>
         </div>
+    </section>
 
-        <!-- Tombol Geser -->
-        <button
-            class="prev absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/60 text-white px-3 py-2 rounded-full shadow hover:bg-black">
-            &#10094;
-        </button>
-        <button
-            class="next absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/60 text-white px-3 py-2 rounded-full shadow hover:bg-black">
-            &#10095;
-        </button>
 
-        <div class="scrollContainer flex overflow-x-auto gap-4 pb-4 scroll-smooth px-5">
-            @foreach ($trending_movies as $movie)
-                <div class="flex-none w-48">
+    <!-- Film Now Showing -->
+    <section id="contentNowShowing">
+        <div class="container mt-5 mx-auto">
+            <div class="d-flex justify-content-between align-items-center mb-3 w-[92%] mx-auto">
+                <h2 class="font-semibold text-xl mb-7 text-white">Film Sedang Tayang</h2>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 px-3 ">
+                @foreach ($nowShowing as $movie)
                     <div
-                        class="flex flex-colrelative h-full group overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-in-out 
-                                hover:translate-y-4">
+                        class="relative group overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:translate-y-1 hover:cursor-pointer bg-black">
                         <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
                             alt="{{ $movie->title }}"
-                            class="w-full h-full object-cover brightness-[.9] transition duration-300 ease-in-out" />
+                            class="w-full h-full object-cover brightness-90 transition duration-300 ease-in-out" />
+
                         <div
-                            class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/90 text-white p-4 leading-snug text-sm object-cover hidden group-hover:block transition duration-300">
-                            <h3 class="text-sm font-bold">{{ $movie->title }}</h3>
+                            class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/90 text-white p-4 text-sm hidden group-hover:block transition duration-300">
+                            <h3 class="text-lg font-bold">{{ $movie->title }}</h3>
+
                             @php
                                 $genreList =
                                     $movie->genres->count() > 1
                                         ? $movie->genres->take(3)->pluck('genre_name')->implode(', ')
                                         : $movie->genres->pluck('genre_name')->first();
                             @endphp
-                            <p class="text-xs">{{ $genreList }}</p>
+                            <p class="text-sm">{{ $genreList }}</p>
+
                             @php
                                 $hours = floor($movie->duration / 60);
                                 $minutes = $movie->duration % 60;
                             @endphp
                             <p class="text-xs mt-1">{{ $hours }}h {{ $minutes }}m •
-                                {{ $movie->category->category_name }}
-                            </p>
-                            <div class="mb-2 flex gap-2">
-                                <a href="{{ route('CineTix.movie-detail', ['id' => $movie->id]) }}"
-                                    class="mt-2 px-3 py-0.5 text-xs bg-yellow-400 text-black rounded hover:bg-yellow-500 transition">Detail</a>
-                            </div>
+                                {{ $movie->category->category_name }}</p>
+
+                            <a href="{{ route('CineTix.movie-detail', ['id' => $movie->id]) }}"
+                                class="inline-block mt-2 px-3 py-0.5 text-m bg-yellow-400 text-black rounded hover:bg-yellow-500 transition">Detail</a>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Film Terbaik Luar Negeri -->
-    <div class="carousel-section container mt-5 mx-auto relative">
-        <!-- Header -->
-        <div class="d-flex justify-content-between align-items-center mb-3 w-[92%] mx-auto relative">
-            <h2 class="font-semibold text-xl mb-3 text-white">Filam Luar Negeri</h2>
-        </div>
+    <!-- Film Coming Soon -->
+    <section id="contentComingSoon">
+        <div class="container mt-5 mx-auto">
+            <div class="d-flex justify-content-between align-items-center mb-3 w-[92%] mx-auto">
+                <h2 class="font-semibold text-xl mb-7 text-white">Film Coming Soon</h2>
+            </div>
 
-        <!-- Tombol Geser -->
-        <button
-            class="prev absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/60 text-white px-3 py-2 rounded-full shadow hover:bg-black">
-            &#10094;
-        </button>
-        <button
-            class="next absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/60 text-white px-3 py-2 rounded-full shadow hover:bg-black">
-            &#10095;
-        </button>
-
-        <div class="scrollContainer flex overflow-x-auto gap-4 pb-4 hide-scrollbar scroll-smooth px-5">
-            @foreach ($inter_movies as $movie)
-                <div class="flex-none w-48">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 px-3 ">
+                @foreach ($comingSoon as $movie)
                     <div
-                        class="flex flex-colrelative h-full group overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-in-out 
-                                hover:translate-y-4">
+                        class="relative group overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:translate-y-1 hover:cursor-pointer bg-black">
                         <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
                             alt="{{ $movie->title }}"
-                            class="w-full h-full object-cover brightness-[.9] transition duration-300 ease-in-out" />
+                            class="w-full h-full object-cover brightness-90 transition duration-300 ease-in-out" />
+
                         <div
-                            class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/90 text-white p-4 leading-snug text-sm object-cover hidden group-hover:block transition duration-300">
-                            <h3 class="text-sm font-bold">{{ $movie->title }}</h3>
+                            class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/90 text-white p-4 text-sm hidden group-hover:block transition duration-300">
+                            <h3 class="text-lg font-bold">{{ $movie->title }}</h3>
+
                             @php
                                 $genreList =
                                     $movie->genres->count() > 1
                                         ? $movie->genres->take(3)->pluck('genre_name')->implode(', ')
                                         : $movie->genres->pluck('genre_name')->first();
                             @endphp
-                            <p class="text-xs">{{ $genreList }}</p>
+                            <p class="text-sm">{{ $genreList }}</p>
+
                             @php
                                 $hours = floor($movie->duration / 60);
                                 $minutes = $movie->duration % 60;
                             @endphp
                             <p class="text-xs mt-1">{{ $hours }}h {{ $minutes }}m •
-                                {{ $movie->category->category_name }}
-                            </p>
-                            <div class="mb-2 flex gap-2">
-                                <a href="{{ route('CineTix.movie-detail', ['id' => $movie->id]) }}"
-                                    class="mt-2 px-3 py-0.5 text-xs bg-yellow-400 text-black rounded hover:bg-yellow-500 transition">Detail</a>
-                            </div>
+                                {{ $movie->category->category_name }}</p>
+
+                            <a href="{{ route('CineTix.movie-detail', ['id' => $movie->id]) }}"
+                                class="inline-block mt-2 px-3 py-0.5 text-m bg-yellow-400 text-black rounded hover:bg-yellow-500 transition">Detail</a>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
-    </div>
-
-    <!--Film Comedy -->
-    <div class="carousel-section container mt-5 mx-auto relative">
-        <!-- Header -->
-        <div class="d-flex justify-content-between align-items-center mb-3 w-[92%] mx-auto relative">
-            <h2 class="font-semibold text-xl mb-3 text-white">Koleksi Film Horor Indonesia</h2>
-        </div>
-
-        <!-- Tombol Geser -->
-        <button
-            class="prev absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/60 text-white px-3 py-2 rounded-full shadow hover:bg-black">
-            &#10094;
-        </button>
-        <button
-            class="next absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/60 text-white px-3 py-2 rounded-full shadow hover:bg-black">
-            &#10095;
-        </button>
-
-        <div class="scrollContainer flex overflow-x-auto gap-4 pb-4 hide-scrollbar scroll-smooth px-5">
-            @foreach ($horror_movies as $movie)
-                <div class="flex-none w-48">
-                    <div
-                        class="flex flex-colrelative h-full group overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-in-out 
-                                hover:translate-y-4">
-                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
-                            alt="{{ $movie->title }}"
-                            class="w-full h-full object-cover brightness-[.9] transition duration-300 ease-in-out" />
-                        <div
-                            class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/90 text-white p-4 leading-snug text-sm object-cover hidden group-hover:block transition duration-300">
-                            <h3 class="text-sm font-bold">{{ $movie->title }}</h3>
-                            @php
-                                $genreList =
-                                    $movie->genres->count() > 1
-                                        ? $movie->genres->take(3)->pluck('genre_name')->implode(', ')
-                                        : $movie->genres->pluck('genre_name')->first();
-                            @endphp
-                            <p class="text-xs">{{ $genreList }}</p>
-                            @php
-                                $hours = floor($movie->duration / 60);
-                                $minutes = $movie->duration % 60;
-                            @endphp
-                            <p class="text-xs mt-1">{{ $hours }}h {{ $minutes }}m •
-                                {{ $movie->category->category_name }}
-                            </p>
-                            <div class="mb-2 flex gap-2">
-                                <a href="{{ route('CineTix.movie-detail', ['id' => $movie->id]) }}"
-                                    class="mt-2 px-3 py-0.5 text-xs bg-yellow-400 text-black rounded hover:bg-yellow-500 transition">Detail</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
-
-    <!--Film Drama-->
-    <div class="carousel-section container mt-5 mx-auto relative">
-        <!-- Header -->
-        <div class="d-flex justify-content-between align-items-center mb-3 w-[92%] mx-auto relative">
-            <h2 class="font-semibold text-xl mb-3 text-white">Film Drama Emosional</h2>
-        </div>
-
-        <!-- Tombol Geser -->
-        <button
-            class="prev absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/60 text-white px-3 py-2 rounded-full shadow hover:bg-black">
-            &#10094;
-        </button>
-        <button
-            class="next absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/60 text-white px-3 py-2 rounded-full shadow hover:bg-black">
-            &#10095;
-        </button>
-
-        <div class="scrollContainer flex overflow-x-auto gap-4 pb-4 hide-scrollbar scroll-smooth px-5">
-            @foreach ($drama_movies as $movie)
-                <div class="flex-none w-48">
-                    <div
-                        class="flex flex-colrelative h-full group overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-in-out 
-                                hover:translate-y-4">
-                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
-                            alt="{{ $movie->title }}"
-                            class="w-full h-full object-cover brightness-[.9] transition duration-300 ease-in-out" />
-                        <div
-                            class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/90 text-white p-4 leading-snug text-sm object-cover hidden group-hover:block transition duration-300">
-                            <h3 class="text-sm font-bold">{{ $movie->title }}</h3>
-                            @php
-                                $genreList =
-                                    $movie->genres->count() > 1
-                                        ? $movie->genres->take(3)->pluck('genre_name')->implode(', ')
-                                        : $movie->genres->pluck('genre_name')->first();
-                            @endphp
-                            <p class="text-xs">{{ $genreList }}</p>
-                            @php
-                                $hours = floor($movie->duration / 60);
-                                $minutes = $movie->duration % 60;
-                            @endphp
-                            <p class="text-xs mt-1">{{ $hours }}h {{ $minutes }}m •
-                                {{ $movie->category->category_name }}
-                            </p>
-                            <div class="mb-2 flex gap-2">
-                                <a href="{{ route('CineTix.movie-detail', ['id' => $movie->id]) }}"
-                                    class="mt-2 px-3 py-0.5 text-xs bg-yellow-400 text-black rounded hover:bg-yellow-500 transition">Detail</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-
-    </div>
-
-    <!-- Film Action -->
-    <div class="carousel-section container mt-5 mx-auto relative">
-        <!-- Header -->
-        <div class="d-flex justify-content-between align-items-center mb-3 w-[92%] mx-auto relative">
-            <h2 class="font-semibold text-xl mb-3 text-white">Film Dokumenter & Biografi</h2>
-        </div>
-
-        <!-- Tombol Geser -->
-        <button
-            class="prev absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/60 text-white px-3 py-2 rounded-full shadow hover:bg-black">
-            &#10094;
-        </button>
-        <button
-            class="next absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/60 text-white px-3 py-2 rounded-full shadow hover:bg-black">
-            &#10095;
-        </button>
-
-        <div class="scrollContainer flex overflow-x-auto gap-4 pb-4 scroll-smooth px-5">
-            @foreach ($action_movies as $movie)
-                <div class="flex-none w-48">
-                    <div
-                        class="flex flex-colrelative h-full group overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-in-out 
-                                hover:translate-y-4">
-                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
-                            alt="{{ $movie->title }}"
-                            class="w-full h-full object-cover brightness-[.9] transition duration-300 ease-in-out" />
-                        <div
-                            class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/90 text-white p-4 leading-snug text-sm object-cover hidden group-hover:block transition duration-300">
-                            <h3 class="text-sm font-bold">{{ $movie->title }}</h3>
-                            @php
-                                $genreList =
-                                    $movie->genres->count() > 1
-                                        ? $movie->genres->take(3)->pluck('genre_name')->implode(', ')
-                                        : $movie->genres->pluck('genre_name')->first();
-                            @endphp
-                            <p class="text-xs">{{ $genreList }}</p>
-                            @php
-                                $hours = floor($movie->duration / 60);
-                                $minutes = $movie->duration % 60;
-                            @endphp
-                            <p class="text-xs mt-1">{{ $hours }}h {{ $minutes }}m •
-                                {{ $movie->category->category_name }}
-                            </p>
-                            <div class="mb-2 flex gap-2">
-                                <a href="{{ route('CineTix.movie-detail', ['id' => $movie->id]) }}"
-                                    class="mt-2 px-3 py-0.5 text-xs bg-yellow-400 text-black rounded hover:bg-yellow-500 transition">Detail</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
+    </section>
 
     <!--Footer-->
     <footer class="text-white px-6 md:px-16 py-10 text-sm">
@@ -611,33 +443,40 @@
             modal.classList.remove('flex');
             modal.classList.add('hidden');
         }
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const sections = document.getElementsByClassName("carousel-section");
 
-            Array.from(sections).forEach(section => {
-                const container = section.querySelector(".scrollContainer");
-                const prevBtn = section.querySelector(".prev");
-                const nextBtn = section.querySelector(".next");
+        // toggle section 
+        function showTab(tab) {
+            const tabNowShowing = document.getElementById("tabNowShowing");
+            const tabComingSoon = document.getElementById("tabComingSoon");
+            const contentNowShowing = document.getElementById("contentNowShowing");
+            const contentComingSoon = document.getElementById("contentComingSoon");
+            const heroTitle = document.getElementById("heroTitle");
 
-                if (container && prevBtn && nextBtn) {
-                    prevBtn.addEventListener("click", () => {
-                        container.scrollBy({
-                            left: -300,
-                            behavior: 'smooth'
-                        });
-                    });
+            if (tab === "now-showing") {
+                tabNowShowing.classList.add("bg-yellow-400", "text-black");
+                tabNowShowing.classList.remove("bg-[#0e1726]", "text-yellow-400");
 
-                    nextBtn.addEventListener("click", () => {
-                        container.scrollBy({
-                            left: 300,
-                            behavior: 'smooth'
-                        });
-                    });
-                }
-            });
-        });
+                tabComingSoon.classList.add("bg-[#0e1726]", "text-yellow-400");
+                tabComingSoon.classList.remove("bg-yellow-400", "text-black");
+
+                contentNowShowing.classList.remove("hidden");
+                contentComingSoon.classList.add("hidden");
+
+                heroTitle.innerHTML =
+                    `<i class="fa-solid fa-clapperboard fa-beat text-yellow-400"></i>&nbsp;Film Sedang Tayang`;
+            } else if (tab === "coming-soon") {
+                tabComingSoon.classList.add("bg-yellow-400", "text-black");
+                tabComingSoon.classList.remove("bg-[#0e1726]", "text-yellow-400");
+
+                tabNowShowing.classList.add("bg-[#0e1726]", "text-yellow-400");
+                tabNowShowing.classList.remove("bg-yellow-400", "text-black");
+
+                contentComingSoon.classList.remove("hidden");
+                contentNowShowing.classList.add("hidden");
+
+                heroTitle.innerHTML = `<i class="fa-solid fa-film fa-beat text-yellow-400"></i>&nbsp;Film Coming Soon`;
+            }
+        }
     </script>
 </body>
 

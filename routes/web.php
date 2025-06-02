@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PromotionController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SnackController;
 use Illuminate\Support\Facades\Route;
 
@@ -11,6 +13,8 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::post('/movie/book', [MovieController::class, 'selectSeats'])->name('CineTix.movie-booking');
     Route::post('/movie/snack', [MovieController::class, 'selectFoods'])->name('CineTix.movie-snacks');
     Route::post('/movie/checkout', [MovieController::class, 'orderSummary'])->name('CineTix.order-summary');
+    Route::post('movies/order', [OrderController::class, 'createTransaction'])->name('CineTix.order-movie');
+    Route::post('/movie/review', [ReviewController::class, 'addReview'])->name('CineTix.add-review');
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');

@@ -172,24 +172,35 @@
                             <div class="text-sm text-white mt-2 hidden" id="couponInfo"></div>
                         </div>
 
-                        <form action="" method="POST">
-                            @csrf
-                            <input type="hidden" name="inputScheuleId" value="{{ $schedule->id }}">
-                            <input type="hidden" name="inputMovieId" value="{{ $movie->id }}">
-                            <input type="hidden" name="inputNumberOfSeats" value="{{ $numberOfSeats }}">
-                            <div class="text-yellow-400 font-semibold text-xl mt-auto border-t pt-2">
-                                Rp <span id="subTotal"
-                                    data-base="{{ $subTotalFinal }}">{{ number_format($subTotalFinal, 0, ',', '.') }}</span>
-                            </div>
-                        </form>
+                        <div class="text-yellow-400 font-semibold text-xl mt-4 border-t pt-2">
+                            Rp <span id="subTotal"
+                                data-base="{{ $subTotalFinal }}">{{ number_format($subTotalFinal, 0, ',', '.') }}</span>
+                        </div>
+
                     </div>
                 </div>
 
-                <!-- Submit Button -->
-                <button
-                    class="w-full mt-0 text-white bg-gray-900 hover:bg-yellow-400 hover:text-gray-900 transition-all duration-500 py-3 rounded-lg text-center font-semibold">
-                    Go to Payment
-                </button>
+                <form id="movieOrderForm" action="{{ route('CineTix.order-movie') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="inputScheuleId" value="{{ $schedule->id }}">
+                    <input type="hidden" name="inputMovieId" value="{{ $movie->id }}">
+                    <input type="hidden" name="inputNumberOfSeats" value="{{ $numberOfSeats }}">
+                    @foreach ($selectedSeats as $seat)
+                        <input type="hidden" name="inputSelectedSeats[]" value="{{ $seat }}">
+                    @endforeach
+                    @foreach ($detailSelectedSnacks as $index => $snack)
+                        <input type="hidden" name="inputSnackIds[]" value="{{ $snack->id }}">
+                        <input type="hidden" name="inputSnackQuantities[]" value="{{ $snack->quantity }}">
+                    @endforeach
+                    <input type="hidden" name="inputCouponId" id="inputCouponId" value="">
+                    <input type="hidden" name="inputDiscountAmount" id="inputDiscountAmount" value="0">
+                    <input type="hidden" name="inputSubTotalFinal" value="{{ $subTotalFinal }}">
+                    <!-- Submit Button -->
+                    <button
+                        class="w-full mt-0 text-white bg-gray-900 hover:bg-yellow-400 hover:text-gray-900 transition-all duration-500 py-3 rounded-lg text-center font-semibold">
+                        Go to Payment
+                    </button>
+                </form>
             </div>
 
             <!-- MODAL PROMO 2 KOLOM -->
@@ -313,34 +324,41 @@
         // ambil data subTotal 
         let originalSubtotal = parseInt(document.getElementById('subTotal').dataset.base);
 
+        // function klik tombol "terapkan kupon"
         function applyCoupon() {
             const input = document.getElementById('coupon');
             const code = input.value.trim();
 
-            const baseSubtotal = originalSubtotal; // GUNAKAN NILAI ASLI
+            const baseSubtotal = originalSubtotal;
 
+            // tanpa ipnut kupon 
             if (!code) {
                 alert('Kode kupon masih kosong!');
                 return;
             }
 
+            // menycokan kode dengan array promotions db
             const promotions = @json($promotions);
             const found = promotions.find(p => p.code.toLowerCase() === code.toLowerCase());
 
+            // kode kupon tidak cocok
             if (!found) {
                 alert('Kode kupon tidak cocok.');
                 return;
             }
 
+            // kode cocok tapi syarat minimun tidak terpenuhi
             if (baseSubtotal < found.minimum_price) {
                 alert('Pembelian belum memenuhi batas minimum kupon.');
                 return;
             }
 
+            // jika kode cocok dan price minimum memenuhi
             let discount = 0;
             let label = '';
             let sidebarLabel = '';
 
+            // menentukan tipe promonya dan info sidebar 
             if (found.type === 'harga') {
                 discount = found.discount;
                 label = `Potongan harga langsung`;
@@ -351,29 +369,41 @@
                 sidebarLabel = `Diskon ${found.discount}% telah diterapkan.`;
             }
 
+            // kalkulasi newSubTotal dan update summary
             const newTotal = baseSubtotal - discount;
-
             document.getElementById('orderSummaryTotal').textContent = `Rp${formatRupiah(newTotal)}`;
 
+            // display potongan harga di summary
             const discountInfo = document.getElementById('discountInfo');
             discountInfo.classList.remove('hidden');
             document.getElementById('discountLabel').textContent = label;
             document.getElementById('discountAmount').textContent = `- Rp${formatRupiah(discount)}`;
 
+            // display promo yang digunakan di side bar
             const couponInfo = document.getElementById('couponInfo');
             couponInfo.classList.remove('hidden');
             couponInfo.textContent = sidebarLabel;
 
+            // display nilai subTotal setelah diskon
             const subTotalElement = document.getElementById('subTotal');
             subTotalElement.textContent = formatRupiah(newTotal);
             subTotalElement.dataset.base = newTotal;
 
-            input.value = '';
+            // input hidden subTotalFinal
+            document.querySelector('input[name="inputSubTotalFinal"]').value = newTotal;
+
+            // input hidden coupon id yang digunakan
+            document.getElementById('inputCouponId').value = found.id;
+
+            // input hidden discount/potongan harga yang didapat
+            document.getElementById('inputDiscountAmount').value = discount;
         }
 
         function formatRupiah(number) {
             return number.toLocaleString('id-ID');
         }
+
+        // handle snap midtrans
     </script>
 
 </body>
