@@ -19,4 +19,10 @@ class Order extends Model
     public function tickets(): HasMany {
         return $this->hasMany(Ticket::class);
     }
+
+    // relasi many to one ke tabel promotion 
+    public function promotion(){
+        return $this->belongsTo(Promotion::class);
+    }
+
 }

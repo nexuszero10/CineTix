@@ -196,7 +196,7 @@
                     <input type="hidden" name="inputDiscountAmount" id="inputDiscountAmount" value="0">
                     <input type="hidden" name="inputSubTotalFinal" value="{{ $subTotalFinal }}">
                     <!-- Submit Button -->
-                    <button
+                    <button type="submit" id="payButton"
                         class="w-full mt-0 text-white bg-gray-900 hover:bg-yellow-400 hover:text-gray-900 transition-all duration-500 py-3 rounded-lg text-center font-semibold">
                         Go to Payment
                     </button>
@@ -288,6 +288,7 @@
             menuToggle.classList.toggle("open");
         });
 
+        // modal pop up promotions
         function showPromotions() {
             const modal = document.getElementById('modalPromotions');
             modal.classList.remove('hidden');
@@ -295,7 +296,6 @@
         }
 
         function copyCode(code) {
-            // Periksa apakah browser mendukung Clipboard API
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(code)
                     .then(() => {
@@ -306,7 +306,6 @@
                         alert("Gagal menyalin kode. Silakan salin manual.");
                     });
             } else {
-                // Fallback lama jika navigator.clipboard tidak didukung
                 try {
                     const tempInput = document.createElement("input");
                     tempInput.value = code;
@@ -399,13 +398,11 @@
             document.getElementById('inputDiscountAmount').value = discount;
         }
 
+        // fungsi format rupiah
         function formatRupiah(number) {
             return number.toLocaleString('id-ID');
         }
-
-        // handle snap midtrans
     </script>
-
 </body>
 
 </html>

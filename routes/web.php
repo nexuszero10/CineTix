@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth', 'verified')->group(function () {
     Route::post('/movie/book', [MovieController::class, 'selectSeats'])->name('CineTix.movie-booking');
     Route::post('/movie/snack', [MovieController::class, 'selectFoods'])->name('CineTix.movie-snacks');
-    Route::post('/movie/checkout', [MovieController::class, 'orderSummary'])->name('CineTix.order-summary');
-    Route::post('movies/order', [OrderController::class, 'createTransaction'])->name('CineTix.order-movie');
+    Route::post('/movie/order', [MovieController::class, 'orderSummary'])->name('CineTix.order-summary');
+    Route::post('movies/checkout', [OrderController::class, 'createTransaction'])->name('CineTix.order-movie');
     Route::post('/movie/review', [ReviewController::class, 'addReview'])->name('CineTix.add-review');
     Route::get('/dashboard', function () {
         return view('dashboard');
