@@ -80,7 +80,7 @@
                     class="flex items-center gap-3 mobile-link hover:text-cyan-400 transition-all duration-300 transform hover:scale-105">
                     <i class="fas fa-film text-cyan-400 text-xl"></i> <span class="font-bold">Film</span>
                 </a>
-                <a href="#"
+                <a href="#
                     class="flex items-center gap-3 mobile-link hover:text-emerald-400 transition-all duration-300 transform hover:scale-105">
                     <i class="fas fa-utensils text-emerald-400 text-xl"></i> <span class="font-bold">Food</span>
                 </a>
@@ -182,7 +182,7 @@
 
                 <form id="movieOrderForm" action="{{ route('CineTix.order-movie') }}" method="POST">
                     @csrf
-                    <input type="hidden" name="inputScheuleId" value="{{ $schedule->id }}">
+                    <input type="hidden" name="inputScheduleId" value="{{ $schedule->id }}">
                     <input type="hidden" name="inputMovieId" value="{{ $movie->id }}">
                     <input type="hidden" name="inputNumberOfSeats" value="{{ $numberOfSeats }}">
                     @foreach ($selectedSeats as $seat)

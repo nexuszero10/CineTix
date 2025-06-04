@@ -10,6 +10,6 @@ class Snack extends Model
     protected $fillable = ['name', 'category', 'price'];
 
     public function orders(): BelongsToMany {
-        return $this->belongsToMany(Order::class, 'order_snack');
+        return $this->belongsToMany(Order::class, 'order_snack')->withPivot('quantity')->withTimestamps();
     }
 }

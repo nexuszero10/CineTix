@@ -14,6 +14,10 @@ body {
     text-shadow: 0 0 15px #ff3c3c, 0 0 30px #ff3c3c, 0 0 45px #ffd700;
     transform: scale(1.05) translateY(-2px);
     transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
 }
 
 .btn-shimmer {

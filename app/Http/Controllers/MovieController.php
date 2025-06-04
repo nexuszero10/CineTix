@@ -90,6 +90,9 @@ class MovieController extends Controller
         $user = User::findOrFail($userId);
         $movie = Movie::with('schedules.studio')->findOrFail($movieId);
         $selected_seats = Ticket::where('schedule_id', $scheduleId)
+            ->whereHas('order', function ($query) {
+                $query->where('status', 'paid');
+            })
             ->get()
             ->map(function ($ticket) {
                 return $ticket->row_seat . $ticket->row_number;

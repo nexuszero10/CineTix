@@ -13,8 +13,11 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>
+    <!-- @TODO: replace SET_YOUR_CLIENT_KEY_HERE with your client key -->
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="{{ config('midtrans.client_key') }}"></script>
+    <!-- Note: replace with src="https://app.midtrans.com/snap/snap.js" for Production environment -->
     @vite(['resources/css/movie-detail/native.css', 'resources/css/app.css', 'resources/js/app.js'])
-
 </head>
 
 <body class="flex flex-col min-h-screen">
@@ -37,7 +40,6 @@
 
             <!-- Desktop Button -->
             <div class="hidden md:flex items-center space-x-4">
-
                 @guest
                     <!-- Register & Login when not authenticated -->
                     <a href="{{ route('register') }}"
@@ -104,6 +106,121 @@
         </div>
     </nav>
 
+    <main class="flex justify-center items-center px-4 mt-28 mb-10">
+        <div class="w-full max-w-4xl bg-white p-8 rounded-lg shadow-lg border">
+            <div class="flex justify-between items-start mb-8">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800">CINETix Invoice</h1>
+                    <div class="mt-4">
+                        <p class="text-sm text-gray-600 font-semibold">BILLING TO: {{ $customerName }}</p>
+                        <p class="text-sm text-gray-600">{{ $customerEmail }}</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm text-gray-500 font-semibold">INVOICE #</p>
+                    <p class="text-lg font-bold text-gray-800">{{ $params['transaction_details']['order_id'] }}</p>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full border border-gray-300 text-sm">
+                    <thead class="bg-black text-white">
+                        <tr>
+                            <th class="px-4 py-2 text-left">Produk</th>
+                            <th class="px-4 py-2 text-center">Harga</th>
+                            <th class="px-4 py-2 text-center">Jumlah</th>
+                            <th class="px-4 py-2 text-right">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php $subtotal = 0; @endphp
+
+                        {{-- Film --}}
+                        {{-- Ambil item movie dari item_details --}}
+                        @php
+                            $movieItem = collect($params['item_details'])->firstWhere(
+                                'id',
+                                'movie-' . $order->schedule_id,
+                            );
+                            $movieTitle = $movieItem['name'] ?? 'Movie';
+                            $moviePrice = $movieItem['price'] ?? 0;
+                            $movieQty = $movieItem['quantity'] ?? $order->number_of_seats;
+                            $movieTotal = $moviePrice * $movieQty;
+                            $subtotal += $movieTotal;
+                        @endphp
+
+                        <tr class="border-t border-gray-300">
+                            <td class="px-4 py-2">
+                                {{ $movieTitle }} <br />
+                                <small class="text-gray-500">ID: {{ $movieItem['id'] ?? 'movie-?' }} / Movie</small>
+                            </td>
+                            <td class="px-4 py-2 text-center">
+                                Rp{{ number_format($moviePrice, 0, ',', '.') }}
+                            </td>
+                            <td class="px-4 py-2 text-center">{{ $movieQty }}</td>
+                            <td class="px-4 py-2 text-right">
+                                Rp{{ number_format($movieTotal, 0, ',', '.') }}
+                            </td>
+                        </tr>
+
+                        {{-- Snacks --}}
+                        @foreach ($order_snacks as $snack)
+                            @php
+                                $quantity = $snack->pivot->quantity ?? 1;
+                                $price = $snack->price;
+                                $category = $snack->category;
+                                $totalSnack = $price * $quantity;
+                                $subtotal += $totalSnack;
+                            @endphp
+                            <tr class="border-t border-gray-300">
+                                <td class="px-4 py-2">
+                                    {{ $snack->name }} <br />
+                                    <small class="text-gray-500">ID: snack-{{ $snack->id }} / {{ $category }}</small>
+                                </td>
+                                <td class="px-4 py-2 text-center">Rp{{ number_format($price, 0, ',', '.') }}</td>
+                                <td class="px-4 py-2 text-center">{{ $quantity }}</td>
+                                <td class="px-4 py-2 text-right">Rp{{ number_format($totalSnack, 0, ',', '.') }}</td>
+                            </tr>
+                        @endforeach
+
+                        {{-- Promo Discount --}}
+                        @if ($order->promotion_id && $discountAmount > 0)
+                            <tr class="border-t border-gray-300 bg-green-100">
+                                <td class="px-4 py-2" colspan="3">
+                                    Promo Code:
+                                    {{ \App\Models\Promotion::find($order->promotion_id)->code ?? 'Promo' }}
+                                </td>
+                                <td class="px-4 py-2 text-right text-green-700 font-semibold">
+                                    -Rp{{ number_format($discountAmount, 0, ',', '.') }}
+                                </td>
+                            </tr>
+                            @php
+                                $subtotal -= $discountAmount;
+                            @endphp
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-2 flex justify-between text-sm text-gray-700 items-center">
+                {{-- Tombol Bayar di kiri --}}
+                <button id="pay-button" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
+                    Bayar Sekarang
+                </button>
+
+                {{-- Total Harga di kanan --}}
+                <div class="w-full max-w-xs">
+                    <div class="flex justify-between py-1 font-bold border-t pt-2 mt-2">
+                        <span>TOTAL</span>
+                        <span>Rp{{ number_format($subtotal, 0, ',', '.') }}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         lucide.createIcons();
@@ -137,6 +254,34 @@
                 mobileMenu.classList.remove("show");
             }
             menuToggle.classList.toggle("open");
+        });
+    </script>
+    <script type="text/javascript">
+        // For example trigger on button clicked, or any time you need
+        var payButton = document.getElementById('pay-button');
+        payButton.addEventListener('click', function() {
+            // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+            window.snap.pay('{{ $snapToken }}', {
+                onSuccess: function(result) {
+                    /* You may add your own implementation here */
+                    alert("payment success!");
+                    console.log(result);
+                },
+                onPending: function(result) {
+                    /* You may add your own implementation here */
+                    alert("wating your payment!");
+                    console.log(result);
+                },
+                onError: function(result) {
+                    /* You may add your own implementation here */
+                    alert("payment failed!");
+                    console.log(result);
+                },
+                onClose: function() {
+                    /* You may add your own implementation here */
+                    alert('you closed the popup without finishing the payment');
+                }
+            })
         });
     </script>
 </body>
