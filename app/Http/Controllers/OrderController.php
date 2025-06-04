@@ -118,8 +118,8 @@ class OrderController extends Controller
 
         $ticketData = [];
         foreach ($selectedSeats as $seat) {
-            $row_seat = strtoupper(substr($seat, 0, 1)); // e.g. A
-            $row_number = (int) substr($seat, 1);        // e.g. 5
+            $row_seat = strtoupper(substr($seat, 0, 1));
+            $row_number = (int) substr($seat, 1);       
             $ticketData[] = [
                 'user_id' => $user->id,
                 'schedule_id' => $request->input('inputScheduleId'),
@@ -183,6 +183,7 @@ class OrderController extends Controller
                 $order = Order::where('order_number', $request->order_id)->first();
                 if ($order) {
                     $order->update(['status' => 'paid']);
+                    
                 }
             }
         }

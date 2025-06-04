@@ -27,4 +27,9 @@ class Order extends Model
     {
         return $this->belongsTo(Promotion::class);
     }
+
+    // relasi many to one ke tabel schedules
+    public function schedule(){
+        return $this->belongsTo(Schedule::class);
+    } 
 }

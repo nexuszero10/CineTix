@@ -32,4 +32,9 @@ class Schedule extends Model
     public function tickets(): HasMany {
         return $this->hasMany(Ticket::class);
     }
+
+    // relasi one many ke table orders 
+    public function orders(): HasMany {
+        return $this->hasMany(Order::class);
+    }
 }

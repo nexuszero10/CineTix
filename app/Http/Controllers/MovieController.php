@@ -12,6 +12,8 @@ use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Order;
 
 class MovieController extends Controller
 {
@@ -63,8 +65,30 @@ class MovieController extends Controller
 
     public function detail($movie_id)
     {
-        $movie_detail = Movie::with('category', 'genres', 'schedules.studio', 'reviews', 'timeline')->findOrFail($movie_id);
-        return view('CineTix.detail-movie', ['movie' => $movie_detail]);
+        $movie_detail = Movie::with(['category', 'genres', 'schedules.studio', 'reviews.user', 'timeline'])
+            ->findOrFail($movie_id);
+
+        // cek apakah user login saat ini sudah pernah beli film ini
+        $countOrdered = 0;
+        if (Auth::check()) {
+            $countOrdered = Order::where('user_id', Auth::id())
+                ->whereHas('schedule', function ($query) use ($movie_id) {
+                    $query->where('movie_id', $movie_id);
+                })
+                ->count();
+        }
+
+        // cek apakah movie ini punya komentar
+        $comments = null;
+        if ($movie_detail->reviews->isNotEmpty()) {
+            $comments = $movie_detail->reviews;
+        }
+
+        return view('CineTix.detail-movie', [
+            'movie' => $movie_detail,
+            'countOrdered' => $countOrdered,
+            'comments' => $comments // hanya dikirim jika ada
+        ]);
     }
 
     public function category()

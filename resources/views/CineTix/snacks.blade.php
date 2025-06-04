@@ -16,7 +16,7 @@
 
 </head>
 
-<body>
+<body class="flex flex-col min-h-screen">
     <nav class="w-full fixed top-0 left-0 z-50 shadow-lg bg-[#011C3C]/70 backdrop-blur-md border-b border-white/10">
         <div class="max-w-screen-xl mx-auto px-6 py-4 flex justify-between items-center">
 
@@ -25,6 +25,14 @@
                 class="text-3xl font-bold tracking-wide flex items-center logo-hover transition">
                 <span class="text-[#FF3C3C]">CINE</span><span class="text-yellow-400">Tix</span>
             </a>
+
+            <!-- Tengah (Navigasi Halaman) -->
+            <div class="hidden md:flex gap-8 text-white font-semibold text-base">
+                <a href="{{ route('CineTix.movies') }}" class="hover:text-yellow-400 transition">Movies</a>
+                <a href="{{ route('CineTix.snacks') }}" class="hover:text-yellow-400 transition">Snacks</a>
+                <a href="{{ route('CineTix.promotions') }}" class="hover:text-yellow-400 transition">Promotions</a>
+                <a href="{{ route('CineTix.news') }}" class="hover:text-yellow-400 transition">News</a>
+            </div>
 
             <!-- Desktop Button -->
             <div class="hidden md:flex items-center space-x-4">
@@ -104,7 +112,7 @@
     </section>
 
     {{-- Tabs --}}
-    <section class="py-2 w-[90%] mx-auto">
+    <section class="py-2 w-[90%] mx-auto mb-5">
         <div class="flex gap-4 text-sm justify-center">
             <button id="tabFood" class="py-2 px-4 rounded-full font-semibold bg-yellow-400 text-black"
                 onclick="showTab('food')">Makanan</button>
@@ -167,9 +175,8 @@
     </section>
 
     <!--FOOTERRRRR-->
-    <footer class="text-white px-6 md:px-16 py-10 text-sm">
+    <footer class="text-white px-6 md:px-16 mt-52 text-sm">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-
             <!-- CINETix -->
             <div>
                 <a href="#"
@@ -185,7 +192,7 @@
             </div>
 
             <!-- Navigasi -->
-            <div class="hidden md:block">
+            <div class="hidden md:block ml-16">
                 <h3 class="text-lg font-bold text-yellow-400 mb-3">Navigasi</h3>
                 <ul class="space-y-3 text-gray-200 font-semibold">
                     <li>

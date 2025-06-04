@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Review extends Model
-{
+{   
+    protected $fillable = ['user_id', 'movie_id', 'rating', 'comment'];
     
     // relasi many to one ke tabel user
     public function user(): BelongsTo {

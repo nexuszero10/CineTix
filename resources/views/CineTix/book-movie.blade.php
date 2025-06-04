@@ -26,6 +26,13 @@
                 <span class="text-[#FF3C3C]">CINE</span><span class="text-yellow-400">Tix</span>
             </a>
 
+            <div class="hidden md:flex gap-8 text-white font-semibold text-base">
+                <a href="{{ route('CineTix.movies') }}" class="hover:text-yellow-400 transition">Movies</a>
+                <a href="{{ route('CineTix.snacks') }}" class="hover:text-yellow-400 transition">Snacks</a>
+                <a href="{{ route('CineTix.promotions') }}" class="hover:text-yellow-400 transition">Promotions</a>
+                <a href="{{ route('CineTix.news') }}" class="hover:text-yellow-400 transition">News</a>
+            </div>
+
             <!-- Desktop Button -->
             <div class="hidden md:flex items-center space-x-4">
 
@@ -158,7 +165,7 @@
                     <input type="hidden" name="inputScheduleId" value="{{ $movie->schedules[0]->id }}">
                     <input type="hidden" name="inputNumberOfSeats" value="{{ $number_of_seats }}">
                     @php
-                        $subTotal = $movie->price * $number_of_seats 
+                        $subTotal = $movie->price * $number_of_seats;
                     @endphp
                     <input type="hidden" name="inputSubTotal" value="{{ $subTotal }}">
 

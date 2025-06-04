@@ -26,6 +26,13 @@
                 <span class="text-[#FF3C3C]">CINE</span><span class="text-yellow-400">Tix</span>
             </a>
 
+            <div class="hidden md:flex gap-8 text-white font-semibold text-base">
+                <a href="{{ route('CineTix.movies') }}" class="hover:text-yellow-400 transition">Movies</a>
+                <a href="{{ route('CineTix.snacks') }}" class="hover:text-yellow-400 transition">Snacks</a>
+                <a href="{{ route('CineTix.promotions') }}" class="hover:text-yellow-400 transition">Promotions</a>
+                <a href="{{ route('CineTix.news') }}" class="hover:text-yellow-400 transition">News</a>
+            </div>
+
             <!-- Desktop Button -->
             <div class="hidden md:flex items-center space-x-4">
 
@@ -171,16 +178,16 @@
         <div class=" container px-4 mx-auto mt-6 ">
             <div class="flex gap-6 text-sm">
                 <button id="tabJadwal" class="pb-2 border-b-2 border-white font-semibold"
-                    onclick="showTab('jadwal')">Jadwal</button>
+                    onclick="showTab('jadwal')">Schedule</button>
                 <button id="tabDetail" class="pb-2 text-gray-500" onclick="showTab('detail')">Detail</button>
-                <button id="tabKomentar" class="pb-2 text-gray-500" onclick="showTab('komentar')">Komentar</button>
+                <button id="tabKomentar" class="pb-2 text-gray-500" onclick="showTab('komentar')">Reviews</button>
             </div>
         </div>
     </section>
 
 
     <!--Section Tab Jadwal-->
-    <section id="contentJadwal" class="hidden select-none">
+    <section id="contentJadwal" class="select-none">
         <div class="py-2 w-[90%] mx-auto relative">
             @foreach ($movie->schedules as $schedule)
                 <div class="flex gap-10 mt-6 px-4">
@@ -351,41 +358,60 @@
 
     <!--Section Tab Komentar-->
     <section id="contentKomentar" class="hidden">
-        <div class="py-2 w-[90%] mx-auto relative">
-            <div class="relative w-full">
-                <i class="fas fa-pen absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                <input type="text" id="searchInput"
-                    class="pl-10 bg-[#011228] text-white pr-4 py-2 w-2/5 text-sm placeholder-gray-400 border-b border-gray-600 focus:outline-none focus:border-white"
-                    placeholder="Tulis komentar..." autocomplete="off">
-            </div>
-            <div class="w-fit flex flex-wrap gap-14 p-4 rounded">
-                <form id="movieReviewForm" action="#" method="POST">
-                    <div class="w-fit p-2 rounded">
-                        <p class="text-white text-sm mb-1">Beri rating Anda:</p>
-                        <div id="ratingStars" class="flex gap-1 text-gray-400 text-xl cursor-pointer">
-                            <i class="fas fa-star" data-value="1"></i>
-                            <i class="fas fa-star" data-value="2"></i>
-                            <i class="fas fa-star" data-value="3"></i>
-                            <i class="fas fa-star" data-value="4"></i>
-                            <i class="fas fa-star" data-value="5"></i>
-                        </div>
+        <div class="py-2 w-[90%] mx-auto relative border-b border-gray-500 pb-4">
+            <div class="relative w-fit flex flex-col mt-3">
+                <form id="movieReviewForm" action="{{ route('CineTix.add-review') }}" method="POST">
+                    @csrf
+                    <input type="hidden" id="inputUserId" name="user_id" value="{{ Auth::id() }}">
+                    <input type="hidden" id="inputStarRating" name="rating">
+                    <input type="hidden" id="inputMovieId" name="movie_id" value="{{ $movie->id }}">
+
+                    <p class="text-yellow-400 text-lg mb-2">Rate this Movie:</p>
+                    <div id="ratingStars" class="flex gap-2 text-gray-400 text-xl cursor-pointer mb-3">
+                        <i class="fas fa-star" data-value="1"></i>
+                        <i class="fas fa-star" data-value="2"></i>
+                        <i class="fas fa-star" data-value="3"></i>
+                        <i class="fas fa-star" data-value="4"></i>
+                        <i class="fas fa-star" data-value="5"></i>
                     </div>
-                    <div class="flex gap-4 p-2 rounded">
-                        <button onclick="resetComment()"
-                            class="w-fit border border-yellow-400 rounded-full py-2 px-4 text-yellow-400 hover:bg-white hover:text-black transition">
-                            Cancel
-                        </button>
-                        <button id="submitComment"
-                            class="w-fit bg-yellow-400 text-black rounded-full py-2 px-4 hover:bg-[#1a2332] hover:text-white hover:border hover:border-white transition">
-                            Comment
-                        </button>
+
+                    <textarea id="inputComment" name="comment"
+                        class="bg-[#0f1d33] text-gray-200 placeholder-gray-400 mt-3 border border-gray-100 rounded-lg resize-none focus:border-yellow-500 focus:outline-none focus:ring-0"
+                        placeholder="Tulis komentar..." autocomplete="off" rows="4" cols="50"></textarea>
+
+                    <div class="flex flex-row gap-3 mt-3">
+                        <button type="button" onclick="resetComment()"
+                            class="bg-red-500 text-black rounded-full py-2 px-4 hover:scale-105 transition">Reset</button>
+                        <button type="submit"
+                            class="bg-green-500 text-black rounded-full py-2 px-4 hover:scale-105 transition">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
 
-        <div id="commentsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-[88%] mx-auto">
-        </div>
+        @if ($comments)
+            <div id="commentsContainer"
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-[88%] mx-auto mt-6">
+                @foreach ($comments as $comment)
+                    <div class="bg-[#0f1d33] border border-white/10 rounded-lg p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-white">{{ $comment->user->username }}</span>
+                            <span class="flex gap-1 text-yellow-400 text-sm">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <i
+                                        class="fas fa-star {{ $i <= $comment->rating ? 'text-yellow-400' : 'text-gray-500' }}"></i>
+                                @endfor
+                            </span>
+                        </div>
+                        <p class="text-white/70 text-sm">{{ $comment->comment }}</p>
+                        <p class="text-white/50 text-xs text-right">
+                            {{ \Carbon\Carbon::parse($comment->created_at)->format('d F Y') }}
+                        </p>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+
     </section>
 
     <!--FOOTERRRRR-->
@@ -552,7 +578,7 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            showTab("jadwal");
+            showTab("detail");
         });
 
         // switch tab
@@ -650,18 +676,6 @@
                 }
             });
 
-        // meangani submit form
-        document
-            .getElementById("numberOfTicketForm")
-            .addEventListener("submit", function(e) {
-                const userId = document.getElementById("inputUserId").value;
-                if (!userId) {
-                    e.preventDefault();
-                    alert("Harap login dulu sebelum memesan tiket.");
-                }
-            });
-
-        // menangai star input
         const stars = document.querySelectorAll("#ratingStars i");
         let selectedRating = 0;
 
@@ -669,6 +683,7 @@
             star.addEventListener("click", () => {
                 selectedRating = parseInt(star.getAttribute("data-value"));
                 updateStars(selectedRating);
+                document.getElementById("inputStarRating").value = selectedRating;
             });
         });
 
@@ -680,47 +695,44 @@
             });
         }
 
-        // Menangani komentar & rating
-        document.addEventListener("DOMContentLoaded", () => {
-            document
-                .getElementById("submitComment")
-                .addEventListener("click", postComment);
-        });
+        document.getElementById("movieReviewForm").addEventListener("submit", function(e) {
+            const userId = document.getElementById("inputUserId").value;
+            const rating = selectedRating;
+            const comment = document.getElementById("inputComment").value.trim();
+            const countOrdered = {{ $countOrdered }};
 
-        function postComment() {
-            const commentInput = document.getElementById("searchInput");
-            const commentText = commentInput.value.trim();
-            if (!commentText || selectedRating === 0) {
-                alert("Mohon isi komentar dan pilih rating terlebih dahulu.");
+            if (rating === 0) {
+                e.preventDefault();
+                alert("Mohon pilih rating terlebih dahulu.");
                 return;
             }
 
-            let starsHTML = "";
-            for (let i = 1; i <= 5; i++) {
-                starsHTML += `<i class="fas fa-star ${
-            i <= selectedRating ? "text-yellow-400" : "text-gray-500"
-        }"></i>`;
+            if (comment === "") {
+                e.preventDefault();
+                alert("Mohon isi komentar terlebih dahulu.");
+                return;
             }
 
-            const commentHTML = `
-                <div class="bg-[#0f1d33] border border-white/10 rounded-lg p-4">
-                    <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm font-medium text-white">Raditya Yusuf</span>
-                    <span class="flex gap-1">${starsHTML}</span>
-                    </div>
-                    <p class="text-white/70 text-sm">${commentText}</p>
-                </div>
-                `;
+            if (!userId) {
+                e.preventDefault();
+                alert("Anda harus login untuk mengirim review.");
+                return;
+            }
 
-            const commentsContainer = document.getElementById("commentsContainer");
-            commentsContainer.insertAdjacentHTML("afterbegin", commentHTML);
-            resetComment();
-        }
+            if (countOrdered < 1) {
+                e.preventDefault();
+                alert("Harap membeli tiket terlebih dahulu.");
+                return;
+            }
+
+            // Rating sudah diset ke hidden input di event click bintang
+        });
 
         function resetComment() {
-            document.getElementById("searchInput").value = "";
+            document.getElementById("inputComment").value = "";
             selectedRating = 0;
             updateStars(0);
+            document.getElementById("inputStarRating").value = "";
         }
     </script>
 </body>

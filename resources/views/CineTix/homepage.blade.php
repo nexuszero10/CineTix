@@ -26,6 +26,13 @@
                 <span class="text-[#FF3C3C]">CINE</span><span class="text-yellow-400">Tix</span>
             </a>
 
+            <div class="hidden md:flex gap-8 text-white font-semibold text-base">
+                <a href="{{ route('CineTix.movies') }}" class="hover:text-yellow-400 transition">Movies</a>
+                <a href="{{ route('CineTix.snacks') }}" class="hover:text-yellow-400 transition">Snacks</a>
+                <a href="{{ route('CineTix.promotions') }}" class="hover:text-yellow-400 transition">Promotions</a>
+                <a href="{{ route('CineTix.news') }}" class="hover:text-yellow-400 transition">News</a>
+            </div>
+
             <!-- Desktop Section -->
             <div class="hidden md:flex items-center space-x-4">
                 @guest
@@ -43,14 +50,14 @@
                 @auth
                     <!-- Username & Icon -->
                     <div class="flex items-center gap-2">
-                        <a href="{{ route('dashboard') }}" class="hover:underline text-white">
-                            {{ Auth::user()->username }}
-                        </a>
                         <!-- SVG Icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-11 h-9" viewBox="0 0 512 512">
                             <path fill="#ffffff"
                                 d="M399 384.2C376.9 345.8 335.4 320 288 320l-64 0c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z" />
                         </svg>
+                        <a href="{{ route('dashboard') }}" class="hover:underline text-white">
+                            Welcome, {{ Auth::user()->username }} !
+                        </a>
                     </div>
                 @endauth
             </div>
