@@ -188,4 +188,11 @@ class OrderController extends Controller
             }
         }
     }
+
+    public function showOrders(Request $request){
+        $order = Order::with(['snacks', 'tickets', 'schedule.movie'])->where('user_id', Auth::user()->id)->get();
+        return view('dashboard', [
+            'user_orders' => $order,
+        ]);
+    }
 }
