@@ -119,7 +119,7 @@ class OrderController extends Controller
         $ticketData = [];
         foreach ($selectedSeats as $seat) {
             $row_seat = strtoupper(substr($seat, 0, 1));
-            $row_number = (int) substr($seat, 1);       
+            $row_number = (int) substr($seat, 1);
             $ticketData[] = [
                 'user_id' => $user->id,
                 'schedule_id' => $request->input('inputScheduleId'),
@@ -183,14 +183,20 @@ class OrderController extends Controller
                 $order = Order::where('order_number', $request->order_id)->first();
                 if ($order) {
                     $order->update(['status' => 'paid']);
-                    
+
+                    if (Session::get('order_id') == $order->id) {
+                        Session::forget('order_id');
+                        Session::forget('midtrans_params');
+                    }
                 }
             }
         }
     }
 
-    public function showOrders(Request $request){
-        $order = Order::with(['snacks', 'tickets', 'schedule.movie'])->where('user_id', Auth::user()->id)->get();
+
+    public function showOrders(Request $request)
+    {
+        $order = Order::with(['snacks', 'tickets', 'schedule.movie', 'promotion'])->where('user_id', Auth::user()->id)->get();
         return view('dashboard', [
             'user_orders' => $order,
         ]);

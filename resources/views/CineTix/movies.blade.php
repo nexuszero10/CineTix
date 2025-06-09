@@ -178,7 +178,7 @@
     </section>
 
     <!-- Film Coming Soon -->
-    <section id="contentComingSoon">
+    <section id="contentComingSoon" class="hidden">
         <div class="container mt-5 mx-auto">
             <div class="d-flex justify-content-between align-items-center mb-3 w-[92%] mx-auto">
                 <h2 class="font-semibold text-xl mb-7 text-white">Film Coming Soon</h2>
@@ -221,7 +221,7 @@
     </section>
 
     <!--Footer-->
-    <footer class="text-white px-6 md:px-16 py-10 text-sm">
+    <footer class="text-white px-6 md:px-16 py-10 text-sm mt-20">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
 
             <!-- CINETix -->

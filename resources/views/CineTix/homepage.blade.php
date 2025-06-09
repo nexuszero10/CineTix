@@ -531,7 +531,7 @@
                                 </a>
                             </h3>
                             <p class="text-sm text-gray-300">
-                                {{ \Illuminate\Support\Str::limit($hot_news[0]->description, 350) }}</p>
+                                {{ \Illuminate\Support\Str::limit($hot_news[0]->description, 250) }}</p>
                         </div>
                     </div>
 
@@ -561,7 +561,7 @@
                                 </a>
                             </h3>
                             <p class="text-sm text-gray-300">
-                                {{ \Illuminate\Support\Str::limit($hot_news[1]->description, 350) }}</p>
+                                {{ \Illuminate\Support\Str::limit($hot_news[1]->description, 150) }}</p>
                         </div>
                     </div>
 
@@ -590,7 +590,7 @@
                                 </a>
                             </h3>
                             <p class="text-sm text-gray-300">
-                                {{ \Illuminate\Support\Str::limit($hot_news[1]->description, 350) }}
+                                {{ \Illuminate\Support\Str::limit($hot_news[1]->description, 150) }}
                             </p>
                         </div>
                     </div>
@@ -611,7 +611,7 @@
                 </ul>
 
                 <div class="mt-6">
-                    <a href="/berita"
+                    <a href="{{ route('CineTix.news') }}"
                         class="inline-block relative overflow-hidden group text-sm font-bold px-6 py-2 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-400 text-black transition-all duration-300 shadow-md hover:shadow-lg">
                         <span class="relative z-10">LIHAT BERITA LAINNYA →</span>
                         <spanclass="absolute inset-0 opacity-0 group-hover:opacity-10 bg-white transition duration-300"></span>
@@ -791,28 +791,28 @@
                 <h3 class="text-lg font-bold text-yellow-400 mb-3">Navigasi</h3>
                 <ul class="space-y-3 text-gray-200 font-semibold">
                     <li>
-                        <a href="#"
+                        <a href="{{ route('CineTix.movies') }}"
                             class="flex items-center space-x-2 group hover:text-sky-400 transition duration-200">
                             <i data-lucide="video" class="w-5 h-5 text-sky-300 group-hover:text-sky-400"></i>
                             <span>Film</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ route('CineTix.snacks') }}"
                             class="flex items-center space-x-2 group hover:text-rose-400 transition duration-200">
                             <i data-lucide="utensils" class="w-5 h-5 text-rose-300 group-hover:text-rose-400"></i>
                             <span>Food</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ route('CineTix.promotions') }}"
                             class="flex items-center space-x-2 group hover:text-yellow-400 transition duration-200">
                             <i data-lucide="percent" class="w-5 h-5 text-yellow-300 group-hover:text-yellow-400"></i>
                             <span>Promo</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ route('CineTix.news') }}"
                             class="flex items-center space-x-2 group hover:text-green-400 transition duration-200">
                             <i data-lucide="newspaper" class="w-5 h-5 text-green-300 group-hover:text-green-400"></i>
                             <span>News</span>
@@ -826,22 +826,22 @@
                 <h3 class="text-lg font-bold text-rose-400 mb-3">Bantuan</h3>
                 <ul class="space-y-3 text-gray-200 font-semibold">
                     <li>
-                        <a href="#"
-                            class="flex items-center space-x-2  hover:text-rose-400 transition duration-200">
+                        <a href="{{ route('CineTix.faq') }}"
+                            class="flex items-center space-x-2 hover:text-rose-400 transition duration-200">
                             <i data-lucide="help-circle" class="w-5 h-5 group-hover:text-white"></i>
                             <span>FAQ</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="flex items-center space-x-2  hover:text-rose-400 transition duration-200">
+                        <a href="{{ route('CineTix.contact-us') }}"
+                            class="flex items-center space-x-2 hover:text-rose-400 transition duration-200">
                             <i data-lucide="headphones" class="w-5 h-5 group-hover:text-white"></i>
                             <span>Hubungi Kami</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="flex items-center space-x-2  hover:text-rose-400 transition duration-200">
+                        <a href="{{ route('CineTix.about-us') }}"
+                            class="flex items-center space-x-2 hover:text-rose-400 transition duration-200">
                             <i data-lucide="info" class="w-5 h-5 group-hover:text-white"></i>
                             <span>Tentang Kami</span>
                         </a>

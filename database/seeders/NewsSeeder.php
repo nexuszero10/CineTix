@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\News;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +13,7 @@ class NewsSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('news')->insert([
+        $news = [
             // hot news 
             [
                 'title' => "13 BOM DI JAKARTA MELEDAK !!!",
@@ -94,6 +95,10 @@ class NewsSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-        ]);
+        ];
+
+        foreach ($news as $news_item){
+            News::create($news_item);
+        }
     }
 }

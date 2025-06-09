@@ -18,6 +18,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/dashboard', [OrderController::class, 'showOrders'])->name('dashboard');
 });
 
+// belum verifikasi via gmail
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -30,7 +31,12 @@ Route::get('/movies', [MovieController::class, 'movies'])->name('CineTix.movies'
 Route::get('/snacks', [SnackController::class, 'index'])->name('CineTix.snacks');
 Route::get('/promotions', [PromotionController::class, 'index'])->name('CineTix.promotions');
 Route::get('/news', [NewsController::class, 'index'])->name('CineTix.news');
+Route::view('/about-us', 'CineTix.about-us')->name('CineTix.about-us');
+Route::view('/faq', 'CineTix.faq')->name('CineTix.faq');
+Route::view('/contact-us', 'CineTix.contact-us')->name('CineTix.contact-us');
 Route::get('/movie/detail/{id}', [MovieController::class, 'detail'])->name('CineTix.movie-detail');
+Route::get('/news/detail/{id}', [NewsController::class, 'detail'])->name('CineTix.news-detail');
+
 
 
 Route::get('/movies/category/{category_name}', [MovieController::class, 'category'])->name('CineTix.movies-category');

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CINETix - FAQ</title>
+    <title>CINETix - {{ $news->title }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
@@ -12,7 +12,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    @vite(['resources/css/movie-detail/native.css', 'resources/js/movie-detail.js', 'resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/movie-detail/native.css', 'resources/css/app.css', 'resources/js/app.js'])
 
 </head>
 
@@ -101,55 +101,22 @@
             </div>
         </div>
     </nav>
+    
+    <!-- NEWS SECTION -->
+    <div class="max-w-4xl mx-auto px-4 mt-24">
+        <img src="{{ asset('storage/images/news/' . $news->image_path) }}" alt="Poster {{ $news->title }}"
+            class="w-full rounded-xl shadow-lg mb-8">
+        <h1 class="text-3xl md:text-4xl font-bold text-yellow-400 leading-tight mb-4">
+            {{ $news->title }}
+        </h1>
+        <div class="space-y-6 text-gray-200 leading-relaxed text-justify">
+            @php
+                $sentences = preg_split('/(?<=[.?!])\s+/', $news->description, -1, PREG_SPLIT_NO_EMPTY);
+            @endphp
 
-    <!-- FAQ SECTION -->
-    <div class="container mx-auto mt-32 mb-10 px-4 max-w-3xl text-white" x-data="faqData()">
-        <div class="p-6 bg-gradient-to-br from-[#0e1a2b] to-[#0a141f] rounded-2xl shadow border border-gray-500">
-            <p class="text-center text-xl font-semibold mb-6 text-yellow-400">Frequently Asked Question</p>
-            <div class="space-y-4">
-                <template x-for="(item, index) in items" :key="index">
-                    <div class="bg-gradient-to-r from-[#011228] to-[#072244] rounded">
-                        <button @click="toggle(index)"
-                            class="w-full text-left px-4 py-3 flex justify-between items-center hover:bg-white/10 transition duration-200"
-                            :aria-expanded="open === index">
-                            <span x-text="item.question" class="font-medium"></span>
-                            <svg :class="{ 'rotate-180': open === index }"
-                                class="w-5 h-5 transition-transform transform" fill="none" stroke="currentColor"
-                                stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-                        <div x-show="open === index" x-transition:enter="transition duration-700 ease-in-out"
-                            x-transition:enter-start="opacity-0 max-h-0 translate-y-[-10px]"
-                            x-transition:enter-end="opacity-100 max-h-96 translate-y-0"
-                            x-transition:leave="transition duration-500 ease-in-out"
-                            x-transition:leave-start="opacity-100 max-h-96 translate-y-0"
-                            x-transition:leave-end="opacity-0 max-h-0 translate-y-[-10px]"
-                            class="px-4 pb-4 text-gray-400 overflow-hidden">
-                            <p x-text="item.answer"></p>
-                        </div>
-                    </div>
-                </template>
-            </div>
-        </div>
-    </div>
-
-    <!-- SUPPORT SECTION -->
-    <div class="max-w-3xl mx-auto grid md:grid-cols-2 gap-6 items-center mt-5">
-        <div class="text-center">
-            <img src="{{ asset('storage/images/customer-supp.jpg') }}" alt="Customer Support"
-                class="w-full max-w-xs mx-auto shadow-sm rounded-lg">
-        </div>
-        <div class="text-center md:text-left">
-            <h2 class="font-bold mb-3 text-xl md:text-2xl text-yellow-400">Masih butuh bantuan?</h2>
-            <p class="text-gray-300 mb-4 text-sm md:text-base text-justify">
-                Jangan khawatir, tim layanan pelanggan kami siap membantu Anda.<br>
-                Hubungi kami jika Anda memiliki pertanyaan lebih lanjut atau butuh dukungan lebih detail.
-            </p>
-            <a href="{{ route('CineTix.contact-us') }}"
-                class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded shadow">
-                Hubungi Customer Support
-            </a>
+            @foreach (array_chunk($sentences, 3) as $paragraph)
+                <p>{{ implode(' ', $paragraph) }}</p>
+            @endforeach
         </div>
     </div>
 
@@ -293,36 +260,33 @@
             menuToggle.classList.toggle("open");
         });
 
-        // toggle dorpdwon faq
-        function faqData() {
-            return {
-                open: null,
-                items: [{
-                        question: 'Bagaimana cara membuat akun di Cinetix?',
-                        answer: 'Anda bisa mendaftar dengan mengklik tombol "Daftar" di pojok kanan atas dan mengisi formulir registrasi dengan data yang valid.'
-                    },
-                    {
-                        question: 'Apakah saya bisa membatalkan atau mengubah tiket yang sudah dibeli?',
-                        answer: 'Saat ini, tiket yang sudah dibeli tidak bisa dibatalkan atau diubah melalui website. Silakan hubungi customer support untuk bantuan lebih lanjut.'
-                    },
-                    {
-                        question: 'Metode pembayaran apa saja yang tersedia di Cinetix?',
-                        answer: 'Kami menerima pembayaran melalui e-wallet, transfer bank, kartu kredit, dan pembayaran langsung di gerai mitra kami.'
-                    },
-                    {
-                        question: 'Bagaimana cara memilih kursi saat pemesanan tiket?',
-                        answer: 'Setelah memilih film dan jadwal, Anda bisa memilih kursi yang tersedia langsung di layout studio yang tampil di layar pemesanan.'
-                    },
-                    {
-                        question: 'Apakah Cinetix menyediakan pilihan snack saat pemesanan tiket?',
-                        answer: 'Ya, Anda dapat memesan snack favorit seperti popcorn dan minuman secara langsung saat proses pemesanan tiket.'
-                    }
-                ],
-                toggle(index) {
-                    this.open = this.open === index ? null : index;
-                }
-            }
-        }
+        // slide hero
+        const slides = document.querySelectorAll('.carousel-slide');
+        let current = 0;
+
+        const showSlide = (index) => {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('opacity-100', i === index);
+                slide.classList.toggle('z-10', i === index);
+                slide.classList.toggle('opacity-0', i !== index);
+                slide.classList.toggle('z-0', i !== index);
+            });
+        };
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            current = (current - 1 + slides.length) % slides.length;
+            showSlide(current);
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            current = (current + 1) % slides.length;
+            showSlide(current);
+        });
+
+        setInterval(() => {
+            current = (current + 1) % slides.length;
+            showSlide(current);
+        }, 5000);
     </script>
 </body>
 

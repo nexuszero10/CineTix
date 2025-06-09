@@ -38,7 +38,7 @@ class MovieController extends Controller
             'horror_movies' => $horror_movies,
             'drama_movies' => $drama_movies,
             'action_movies' => $action_movies,
-            'comedy_movies' => $comedy_movies,
+            'comedy_movies' => $comedy_movies, 
             'hot_news' => $hot_news,
             'any_news' => $any_news,
             'patners' => $patners,
