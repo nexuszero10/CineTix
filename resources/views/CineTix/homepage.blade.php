@@ -222,7 +222,7 @@
                 ];
             @endphp
 
-            @foreach ($tren_movies as $index => $movie)
+            @foreach ($hot_movies as $index => $movie)
                 @php
                     $hoverShadow = $hoverShadows[$index % count($hoverShadows)];
                     $genreGradient = $genreGradients[$index % count($genreGradients)];
@@ -275,60 +275,17 @@
         </div>
     </section>
 
-    <!--FILM TERBAIK LUAR NEGERI -->
+    <!--SECTION MORE MOVIES-->
     <section class="px-4 sm:px-8 md:px-12 py-10">
         <div class="flex justify-between items-center mb-6 px-1 sm:px-4">
-            <h2 class="text-white text-base md:text-2xl font-semibold">Film Terbaik Luar Negeri</h2>
-            <a href="{{ route('CineTix.movies') }}"
-                class="text-blue-400 text-sm font-semibold hover:underline">Lainnya</a>
-        </div>
-
-        <!-- Mobile scroll -->
-        <div class="relative -mx-4 sm:-mx-8 px-4 sm:px-8 block md:hidden overflow-x-hidden">
-            <div class="flex space-x-6 overflow-x-auto scrollbar-hide pb-8 pt-6 px-2">
-                @foreach ($inter_movies as $movie)
-                    <div
-                        class="group flex-none w-48 rounded-2xl bg-slate-900 p-1 shadow-md hover:shadow-blue-300 transition duration-300 ease-in-out transform hover:scale-105 ml-2 first:ml-2 last:mr-6">
-                        <a href="#" class="block rounded-2xl overflow-visible">
-                            <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
-                                alt="{{ $movie->title }}" class="w-full h-60 object-cover" />
-                        </a>
-                        <p
-                            class="text-white text-sm font-semibold text-center mt-3 mb-2 tracking-wide transition-colors duration-300 group-hover:text-blue-400">
-                            {{ $movie->title }}</p>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-
-        <!-- Desktop grid -->
-        <div class="hidden md:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 px-2 sm:px-4">
-            @foreach ($inter_movies as $movie)
-                <div
-                    class="group rounded-2xl bg-slate-900 p-1 shadow-lg hover:shadow-blue-400 transition-all duration-500 ease-in-out transform hover:scale-105">
-                    <a href="#" class="block rounded-2xl overflow-hidden">
-                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
-                            alt="{{ $movie->title }}" class="w-full h-60 object-cover" />
-                    </a>
-                    <p
-                        class="text-white text-sm font-semibold text-center mt-3 mb-2 tracking-wide transition-colors duration-300 group-hover:text-blue-400">
-                        {{ $movie->title }}</p>
-                </div>
-            @endforeach
-    </section>
-
-
-    <!--SECTION HORROR-->
-    <section class="px-4 sm:px-8 md:px-12 py-10">
-        <div class="flex justify-between items-center mb-6 px-1 sm:px-4">
-            <h2 class="text-white text-base md:text-2xl font-semibold">Film Horor Terbaik</h2>
+            <h2 class="text-white text-base md:text-2xl font-semibold">Film Tayang Lainnya</h2>
             <a href="{{ route('CineTix.movies') }}"
                 class="text-red-400 text-sm font-semibold hover:underline">Lainnya</a>
         </div>
 
         <!-- Mobile Scroll -->
         <div class="flex space-x-6 overflow-x-auto scrollbar-hide py-4 sm:-mx-6 -mx-4 px-6 sm:px-8 md:hidden">
-            @foreach ($horror_movies as $movie)
+            @foreach ($more_movies as $movie)
                 <div
                     class="group flex-none w-44 bg-slate-900 p-2 border border-slate-800 rounded-xl shadow-md transition-all duration-300 hover:scale-105 hover:border-red-700 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)] active:scale-105">
                     <a href="#" class="block overflow-visible rounded-xl">
@@ -343,154 +300,42 @@
             @endforeach
         </div>
 
-        <!-- Desktop Grid -->
-        <div class="hidden md:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 px-2 sm:px-4">
-            @foreach ($horror_movies as $movie)
-                <div
-                    class="group bg-slate-900 p-2 border border-slate-800 rounded-xl transition-all duration-300 hover:scale-105 hover:border-red-700 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)]">
-                    <a href="#" class="block overflow-visible rounded-xl">
-                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
-                            class="w-full h-60 object-cover rounded-lg transition-all duration-500 ease-in-out group-hover:brightness-125 group-hover:saturate-200 group-hover:animate-[horrorShake_0.4s_ease-in-out]" />
-                    </a>
-                    <p
-                        class="text-white text-sm font-semibold text-center mt-3 tracking-wide transition-all duration-300 group-hover:text-red-500 group-hover:animate-[horrorShake_0.4s_ease-in-out]">
-                        {{ $movie->title }}
-                    </p>
-                </div>
-            @endforeach
-        </div>
-    </section>
+        <!-- Desktop Slider with Arrows -->
+        <div class="relative hidden md:block">
+            <!-- Scroll Container -->
+            <div id="horrorSlider" class="flex space-x-6 overflow-x-auto scrollbar-hide py-4 px-4 scroll-smooth">
+                @foreach ($more_movies as $movie)
+                    <div
+                        class="group flex-none w-1/6 bg-slate-900 p-2 border border-slate-800 rounded-xl shadow-md transition-all duration-300 hover:scale-105 hover:border-red-700 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)]">
+                        <a href="{{ route('CineTix.movie-detail', ['id' => $movie->id]) }}" class="block overflow-visible rounded-xl">
+                            <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
+                                class="w-full h-[240px] object-cover rounded-lg transition-all duration-500 ease-in-out group-hover:brightness-125 group-hover:saturate-200 group-hover:animate-[horrorShake_0.4s_ease-in-out]" />
+                        </a>
+                        <p
+                            class="text-white text-sm font-semibold text-center mt-3 tracking-wide transition-all duration-300 group-hover:text-red-500 group-hover:animate-[horrorShake_0.4s_ease-in-out]">
+                            {{ $movie->title }}
+                        </p>
+                    </div>
+                @endforeach
+            </div>
 
-    <!--SECTION FILM DRAMA-->
-    <section class="px-4 sm:px-8 md:px-12 py-10">
-        <div class="flex justify-between items-center mb-6 px-1 sm:px-4">
-            <h2 class="text-white text-base md:text-2xl font-semibold">Film Drama Emosional Terbaik</h2>
-            <a href="{{ route('CineTix.movies') }}"
-                class="text-green-300 text-sm font-semibold hover:underline">Lainnya</a>
-        </div>
+            <!-- Left Arrow -->
+            <button onclick="scrollSlider('left')"
+                class="absolute top-1/2 -translate-y-1/2 left-2 bg-slate-800 text-white p-2 rounded-full shadow-md hover:bg-yellow-400 hover:text-slate-800 transition z-10">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
 
-        <!-- Mobile Scroll Cards -->
-        <div class="flex space-x-6 overflow-x-auto scrollbar-hide py-4 sm:-mx-6 -mx-4 px-6 sm:px-8 md:hidden">
-            @foreach ($drama_movies as $movie)
-                <div
-                    class="group flex-none w-48 bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(110,231,183,0.4)] hover:border-green-400">
-                    <a href="#" class="block overflow-visible rounded-2xl">
-                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
-                            class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
-                    </a>
-                    <p
-                        class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-green-300">
-                        {{ $movie->title }}
-                    </p>
-                </div>
-            @endforeach
-        </div>
-
-        <!-- Desktop Grid -->
-        <div class="hidden md:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 px-2 sm:px-4">
-            @foreach ($drama_movies as $movie)
-                <div
-                    class="group bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(110,231,183,0.5)] hover:border-green-400">
-                    <a href="#" class="block overflow-visible rounded-2xl">
-                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
-                            class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
-                    </a>
-                    <p
-                        class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-green-300">
-                        {{ $movie->title }}
-                    </p>
-                </div>
-            @endforeach
-        </div>
-    </section>
-
-
-    <!--SECTION FILM ACTION-->
-    <section class="px-4 sm:px-8 md:px-12 py-10">
-        <div class="flex justify-between items-center mb-6 px-1 sm:px-4">
-            <h2 class="text-white text-base md:text-2xl font-semibold">Film Action Terbaik</h2>
-            <a href="{{ route('CineTix.movies') }}"
-                class="text-orange-400 text-sm font-semibold hover:underline">Lainnya</a>
-        </div>
-
-        <!-- Mobile Scroll Cards -->
-        <div class="flex space-x-6 overflow-x-auto scrollbar-hide py-4 sm:-mx-6 -mx-4 px-6 sm:px-8 md:hidden">
-            @foreach ($action_movies as $movie)
-                <div
-                    class="group flex-none w-48 bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(251,146,60,0.4)] hover:border-orange-400">
-                    <a href="#" class="block overflow-visible rounded-2xl">
-                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
-                            class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
-                    </a>
-                    <p
-                        class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-orange-400">
-                        {{ $movie->title }}
-                    </p>
-                </div>
-            @endforeach
-        </div>
-
-        <!-- Desktop Grid -->
-        <div class="hidden md:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 px-2 sm:px-4">
-            @foreach ($action_movies as $movie)
-                <div
-                    class="group bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(251,146,60,0.5)] hover:border-orange-400">
-                    <a href="#" class="block overflow-visible rounded-2xl">
-                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
-                            alt="{{ $movie->title }}"
-                            class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
-                    </a>
-                    <p
-                        class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-orange-400">
-                        {{ $movie->title }}
-                    </p>
-                </div>
-            @endforeach
-        </div>
-    </section>
-
-    <!--SECTION FILM KOMEDI-->
-    <section class="px-4 sm:px-8 md:px-12 py-10">
-        <div class="flex justify-between items-center mb-6 px-1 sm:px-4">
-            <h2 class="text-white text-base md:text-2xl font-semibold">Film Komedi Terbaik</h2>
-            <a href="{{ route('CineTix.movies') }}"
-                class="text-purple-300 text-sm font-semibold hover:underline">Lainnya</a>
-        </div>
-
-        <!-- Mobile Scroll Cards -->
-        <div class="flex space-x-6 overflow-x-auto scrollbar-hide py-2 sm:-mx-6 -mx-4 px-6 sm:px-8 md:hidden">
-            @foreach ($comedy_movies as $movie)
-                <div
-                    class="group flex-none w-48 bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow-md transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(251,146,60,0.4)] hover:border-purple-400">
-                    <a href="#" class="block overflow-hidden rounded-2xl">
-                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
-                            alt="{{ $movie->title }}"
-                            class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:grayscale-0 group-hover:scale-105" />
-                    </a>
-                    <p
-                        class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-purple-300">
-                        {{ $movie->title }}
-                    </p>
-                </div>
-            @endforeach
-        </div>
-
-        <!-- Desktop Grid -->
-        <div class="hidden md:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 px-2 sm:px-4">
-            @foreach ($comedy_movies as $movie)
-                <div
-                    class="group bg-gradient-to-b from-slate-800 to-slate-900 p-3 border border-slate-700 rounded-2xl shadow transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(251,146,60,0.5)] hover:border-orange-400">
-                    <a href="#" class="block overflow-visible rounded-2xl">
-                        <img src="{{ asset('storage/images/movies/poster/' . $movie->image_path) }}"
-                            alt="{{ $movie->title }}"
-                            class="w-full h-64 object-cover rounded-xl transition-all duration-500 ease-in-out group-hover:brightness-110 group-hover:saturate-150 group-hover:scale-105" />
-                    </a>
-                    <p
-                        class="text-white text-sm font-semibold text-center mt-4 tracking-wide transition-all duration-300 group-hover:text-orange-400">
-                        {{ $movie->title }}
-                    </p>
-                </div>
-            @endforeach
+            <!-- Right Arrow -->
+            <button onclick="scrollSlider('right')"
+                class="absolute top-1/2 -translate-y-1/2 right-2 bg-slate-800 text-white p-2 rounded-full shadow-md hover:bg-yellow-400 hover:text-slate-800 transition z-10">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
         </div>
     </section>
 
@@ -506,94 +351,39 @@
                 <div class="space-y-6">
 
                     <!-- ITEM HOT NEWS -->
-                    <div
-                        class="group flex flex-col sm:flex-row bg-[#061A32] rounded-xl overflow-hidden transition-transform duration-300 transform hover:scale-[1.02] hover:shadow-[0_8px_30px_rgb(255,215,0,0.2)] hover:ring-2 hover:ring-yellow-400/50">
-                        <div class="overflow-hidden w-full sm:w-[320px] h-52 sm:h-auto">
-                            <img src="{{ asset('storage/images/movies/background/13-bom-jakarta-cast.jpg') }}"
-                                alt="13 bom jakarta cast"
-                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        </div>
-                        <div class="p-5 flex-1">
-                            <div class="flex items-center mb-2 text-yellow-400">
-                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                                    <path
-                                        d="M12 0l3.5 7.1L24 8.3l-6 5.8 1.4 8.1L12 18.6 4.6 22.2 6 14.1 0 8.3l8.5-1.2z" />
-                                </svg>
-                                <span
-                                    class="text-sm text-gray-400">{{ $hot_news[0]->created_at->translatedFormat('l, d F Y') }}</span>
+                    @foreach ($hot_news as $news)
+                        <div
+                            class="group flex flex-col sm:flex-row bg-[#061A32] rounded-xl overflow-hidden transition-transform duration-300 transform hover:scale-[1.02] hover:shadow-[0_8px_30px_rgb(255,215,0,0.2)] hover:ring-2 hover:ring-yellow-400/50">
+                            <div class="overflow-hidden w-full sm:w-[320px] h-52 sm:h-auto">
+                                <img src="{{ asset('storage/images/news/' . $news->image_path) }}"
+                                    alt="{{ Str::slug($news->title) }}"
+                                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                             </div>
-                            <h3
-                                class="text-lg font-bold mb-2 relative group-hover:text-yellow-300 transition duration-300">
-                                <a href="#">
-                                    <span
-                                        class="absolute bottom-0 left-0 w-0 h-[2px] bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
-                                    {{ $hot_news[0]->title }}
-                                </a>
-                            </h3>
-                            <p class="text-sm text-gray-300">
-                                {{ \Illuminate\Support\Str::limit($hot_news[0]->description, 250) }}</p>
-                        </div>
-                    </div>
-
-                    <!-- ITEM HOT NEWS LAINNYA -->
-                    <div
-                        class="group flex flex-col sm:flex-row bg-[#061A32] rounded-xl overflow-hidden transition-transform duration-300 transform hover:scale-[1.02] hover:shadow-[0_8px_30px_rgb(255,215,0,0.2)] hover:ring-2 hover:ring-yellow-400/50">
-                        <div class="overflow-hidden w-full sm:w-[320px] h-52 sm:h-auto">
-                            <img src="{{ asset('storage/images/movies/background/jumbo.jpg') }}" alt="Jumbo-bg"
-                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        </div>
-                        <div class="p-5 flex-1">
-                            <div class="flex items-center mb-2 text-yellow-400">
-                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                                    <path
-                                        d="M12 0l3.5 7.1L24 8.3l-6 5.8 1.4 8.1L12 18.6 4.6 22.2 6 14.1 0 8.3l8.5-1.2z" />
-                                </svg>
-                                <span class="text-sm text-gray-400">Rabu, 10 Juni 2025</span>
+                            <div class="p-5 flex-1">
+                                <div class="flex items-center mb-2 text-yellow-400">
+                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M12 0l3.5 7.1L24 8.3l-6 5.8 1.4 8.1L12 18.6 4.6 22.2 6 14.1 0 8.3l8.5-1.2z" />
+                                    </svg>
+                                    <span class="text-sm text-gray-400">
+                                        {{ \Carbon\Carbon::parse($news->created_at)->translatedFormat('l, d F Y') }}
+                                    </span>
+                                </div>
+                                <h3
+                                    class="text-lg font-bold mb-2 relative group-hover:text-yellow-300 transition duration-300">
+                                    <a href="{{ route('CineTix.news-detail', ['id' => $news->id]) }}">
+                                        <span
+                                            class="absolute bottom-0 left-0 w-0 h-[2px] bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+                                        {{ $news->title }}
+                                    </a>
+                                </h3>
+                                <p class="text-sm text-gray-300">
+                                    {{ \Illuminate\Support\Str::limit($news->description, 150) }}
+                                </p>
                             </div>
-                            <h3
-                                class="text-lg font-bold mb-2 relative group-hover:text-yellow-300 transition duration-300">
-                                <span
-                                    class="absolute bottom-0 left-0 w-0 h-[2px] bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
-                                <a href="#">
-                                    <span
-                                        class="absolute bottom-0 left-0 w-0 h-[2px] bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
-                                    {{ $hot_news[1]->title }}
-                                </a>
-                            </h3>
-                            <p class="text-sm text-gray-300">
-                                {{ \Illuminate\Support\Str::limit($hot_news[1]->description, 150) }}</p>
                         </div>
-                    </div>
+                    @endforeach
 
-
-                    <div
-                        class="group flex flex-col sm:flex-row bg-[#061A32] rounded-xl overflow-hidden transition-transform duration-300 transform hover:scale-[1.02] hover:shadow-[0_8px_30px_rgb(255,215,0,0.2)] hover:ring-2 hover:ring-yellow-400/50">
-                        <div class="overflow-hidden w-full sm:w-[320px] h-52 sm:h-auto">
-                            <img src="{{ asset('storage/images/movies/background/pengabdi-setan-2.jpg') }}"
-                                alt="pengabdi-setan-bg"
-                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        </div>
-                        <div class="p-5 flex-1">
-                            <div class="flex items-center mb-2 text-yellow-400">
-                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                                    <path
-                                        d="M12 0l3.5 7.1L24 8.3l-6 5.8 1.4 8.1L12 18.6 4.6 22.2 6 14.1 0 8.3l8.5-1.2z" />
-                                </svg>
-                                <span class="text-sm text-gray-400">Selasa, 25 Mei 2025</span>
-                            </div>
-                            <h3
-                                class="text-lg font-bold mb-2 relative group-hover:text-yellow-300 transition duration-300">
-                                <span
-                                    class="absolute bottom-0 left-0 w-0 h-[2px] bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
-                                <a href="">
-                                    {{ $hot_news[2]->title }}
-                                </a>
-                            </h3>
-                            <p class="text-sm text-gray-300">
-                                {{ \Illuminate\Support\Str::limit($hot_news[1]->description, 150) }}
-                            </p>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -602,7 +392,7 @@
                 <h2 class="text-white text-xl font-bold border-l-4 border-yellow-400 pl-4 mb-6">📰 More News</h2>
                 <ul class="space-y-4 text-sm">
                     @foreach ($any_news as $news)
-                        <li><a href="#"
+                        <li><a href="{{ route('CineTix.news-detail', ['id' => $news->id]) }}"
                                 class="block border-b border-white/20 pb-2 hover:text-yellow-400 hover:pl-2 transition-all duration-300">
                                 {{ $news->title }}
                             </a>
@@ -674,7 +464,6 @@
         </div>
     </section>
 
-
     <!--MODALOPEN POPUP VIDEO-->
     <div id="videoModal"
         class="fixed inset-0 bg-black bg-opacity-80 hidden items-center justify-center z-50 transition-opacity duration-300">
@@ -688,7 +477,6 @@
             </div>
         </div>
     </div>
-
 
     <!--PARTNERSHIP-->
     <section id="partner" class="mt-19 pt-12 pb-20 max-w-6xl mx-auto px-4 text-center">
@@ -933,6 +721,15 @@
             iframe.src = "";
             modal.classList.remove('flex');
             modal.classList.add('hidden');
+        }
+
+        function scrollSlider(direction) {
+            const slider = document.getElementById('horrorSlider');
+            const scrollAmount = 300; // px
+            slider.scrollBy({
+                left: direction === 'left' ? -scrollAmount : scrollAmount,
+                behavior: 'smooth'
+            });
         }
     </script>
 </body>

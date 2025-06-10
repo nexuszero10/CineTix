@@ -20,25 +20,16 @@ class MovieController extends Controller
     // halaman homepage
     public function index()
     {
-        $tren_movies = Movie::with('category', 'genres')->whereBetween(('id'), [1, 4])->get();
-        $inter_movies = Movie::whereBetween(('id'), [4, 6])->get();
-        $horror_movies = Movie::whereBetween(('id'), [12, 14])->get();
-        $drama_movies = Movie::whereBetween(('id'), [9, 11])->get();
-        $action_movies = Movie::whereBetween(('id'), [15, 15])->get();
-        $comedy_movies = Movie::whereBetween(('id'), [7, 8])->get();
-
+        $hot_movies = Movie::with('category', 'genres')->whereBetween(('id'), [1, 5])->get();
+        $more_movies = Movie::all()->where('id', '>', 5);
         $hot_news = News::wherebetween(('id'), [1, 3])->get();
-        $any_news = News::wherebetween(('id'), [4, 7])->get();
+        $any_news = News::all()->where('id', '>', 4);
 
         $patners = Patner::all();
 
         return view('CineTix.homepage', [
-            'tren_movies' => $tren_movies,
-            'inter_movies' => $inter_movies,
-            'horror_movies' => $horror_movies,
-            'drama_movies' => $drama_movies,
-            'action_movies' => $action_movies,
-            'comedy_movies' => $comedy_movies, 
+            'hot_movies' => $hot_movies,
+            'more_movies' => $more_movies, 
             'hot_news' => $hot_news,
             'any_news' => $any_news,
             'patners' => $patners,
