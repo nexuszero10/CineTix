@@ -220,7 +220,7 @@
         <div id="modalOrderSummary"
             class="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm z-50 hidden flex items-center justify-center">
             <div class="bg-slate-900 rounded-2xl w-[90%] max-w-2xl p-6 relative border border-gray-500">
-                <button onclick="document.getElementById('modalTicket').classList.add('hidden')"
+                <button onclick="document.getElementById('modalOrderSummary').classList.add('hidden')"
                     class="absolute top-3 right-4 z-50 text-white text-2xl md:text-3xl font-bold hover:text-red-400 drop-shadow-lg hover:scale-105 transition">
                     ×
                 </button>

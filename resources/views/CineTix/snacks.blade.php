@@ -125,9 +125,6 @@
     <section id="contentFood" class="mt-6">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center w-4/5 mx-auto">
             @foreach ($foods as $item)
-                @php
-                    $slug = Str::slug(strtolower($item->name));
-                @endphp
                 <div
                     class="bg-[#0e1726] text-white p-4 rounded-2xl flex flex-row justify-between gap-4 overflow-hidden border-2 border-gray-600">
                     <div>
@@ -138,7 +135,7 @@
                     </div>
                     <div class="flex flex-row items-end justify-end gap-2 w-1/2">
                         <div class="w-1/3 h-20 bg-[#1a2533] border border-yellow-400 rounded overflow-hidden">
-                            <img src="{{ asset('storage/images/foods/' . $slug . '.jpg') }}"
+                            <img src="{{ asset('storage/images/foods/' . $item->image_path) }}"
                                 class="w-full h-full object-cover" />
                         </div>
                     </div>
@@ -152,9 +149,6 @@
     <section id="contentDrink" class="my-6 hidden">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center w-4/5 mx-auto">
             @foreach ($drinks as $item)
-                @php
-                    $slug = Str::slug(strtolower($item->name));
-                @endphp
                 <div
                     class="bg-[#0e1726] text-white p-4 rounded-2xl flex flex-row justify-between gap-4 overflow-hidden border-2 border-gray-600">
                     <div>
@@ -165,7 +159,7 @@
                     </div>
                     <div class="flex flex-row items-end justify-end gap-2 w-1/2">
                         <div class="w-1/3 h-20 bg-[#1a2533] border border-yellow-400 rounded overflow-hidden">
-                            <img src="{{ asset('storage/images/drinks/' . $slug . '.jpg') }}"
+                            <img src="{{ asset('storage/images/drinks/' . $item->image_path) }}"
                                 class="w-full h-full object-cover" />
                         </div>
                     </div>

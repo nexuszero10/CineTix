@@ -135,10 +135,6 @@
                                         Rp{{ number_format($item->price, 0, ',', '.') }}</p>
                                 </div>
                                 <div class="flex flex-row items-end justify-end gap-2 w-1/2">
-                                    @php
-                                        $words = explode(' ', strtolower($item->name));
-                                        $slug = implode('-', $words);
-                                    @endphp
                                     <button class="bg-yellow-400 text-[#0e1726] text-sm px-2 py-1 rounded-full">
                                         <i class="fa-solid fa-minus"></i>
                                     </button>
@@ -149,7 +145,7 @@
                                     </button>
                                     <div
                                         class="w-1/3 h-20 bg-[#1a2533] border border-yellow-400 rounded overflow-hidden">
-                                        <img src="{{ asset('storage/images/foods/' . $slug . '.jpg') }}"
+                                        <img src="{{ asset('storage/images/foods/' . $item->image_path) }}"
                                             class="w-full h-full object-cover" />
                                     </div>
                                 </div>
@@ -171,10 +167,6 @@
                                         Rp{{ number_format($item->price, 0, ',', '.') }}</p>
                                 </div>
                                 <div class="flex flex-row items-end justify-end gap-2 w-1/2">
-                                    @php
-                                        $words = explode(' ', strtolower($item->name));
-                                        $slug = implode('-', $words);
-                                    @endphp
                                     <button class="bg-yellow-400 text-[#0e1726] text-sm px-2 py-1 rounded-full">
                                         <i class="fa-solid fa-minus"></i>
                                     </button>
@@ -185,7 +177,7 @@
                                     </button>
                                     <div
                                         class="w-1/3 h-20 bg-[#1a2533] border border-yellow-400 rounded overflow-hidden">
-                                        <img src="{{ asset('storage/images/drinks/' . $slug . '.jpg') }}"
+                                        <img src="{{ asset('storage/images/drinks/' . $item->image_path) }}"
                                             class="w-full h-full object-cover" />
                                     </div>
                                 </div>

@@ -47,7 +47,6 @@ class MovieController extends Controller
             $query->where('status', 'coming_soon');
         })->with('category', 'genres', 'timeline')->get();
 
-        // return $trending_movies ;
         return view('CineTix.movies', [
             'nowShowing' => $nowShowing,
             'comingSoon' => $comingSoon,

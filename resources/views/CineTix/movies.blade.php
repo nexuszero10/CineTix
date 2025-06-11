@@ -75,47 +75,66 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
             <div class="flex flex-col gap-4 text-white text-lg pl-4">
-
-                <a href="#" class="flex items-center gap-3 mobile-link hover:text-red-600">
-                    <i class="fas fa-sign-in-alt text-red-600"></i> <span class="font-bold">Login</span>
-                </a>
-                <a href="#" class="flex items-center gap-3 mobitulisale-link hover:text-yellow-600">
-                    <i class="fas fa-user-plus text-yellow-600"></i> <span class="font-bold">Register</span>
-                </a>
-
-                <a href="#"
+                @guest
+                    <a href="{{ route('login') }}" class="flex items-center gap-3 mobile-link hover:text-red-600">
+                        <i class="fas fa-sign-in-alt text-red-600"></i> <span class="font-bold">Login</span>
+                    </a>
+                    <a href="{{ route('register') }}"
+                        class="flex items-center gap-3 mobitulisale-link hover:text-yellow-600">
+                        <i class="fas fa-user-plus text-yellow-600"></i> <span class="font-bold">Register</span>
+                    </a>
+                @endguest
+                <a href="{{ route('CineTix.movies') }}"
                     class="flex items-center gap-3 mobile-link hover:text-cyan-400 transition-all duration-300 transform hover:scale-105">
                     <i class="fas fa-film text-cyan-400 text-xl"></i> <span class="font-bold">Film</span>
                 </a>
-                <a href="#"
+                <a href="{{ route('CineTix.snacks') }}"
                     class="flex items-center gap-3 mobile-link hover:text-emerald-400 transition-all duration-300 transform hover:scale-105">
                     <i class="fas fa-utensils text-emerald-400 text-xl"></i> <span class="font-bold">Food</span>
                 </a>
-                <a href="#"
+                <a href="{{ route('CineTix.promotions') }}"
                     class="flex items-center gap-3 mobile-link hover:text-fuchsia-400 transition-all duration-300 transform hover:scale-105">
                     <i class="fas fa-tags text-fuchsia-400 text-xl"></i> <span class="font-bold">Promo</span>
                 </a>
-                <a href="#"
+                <a href="{{ route('CineTix.news') }}"
                     class="flex items-center gap-3 mobile-link hover:text-violet-600 transition-all duration-300 transform hover:scale-105">
                     <i class="fas fa-newspaper text-violet-600 text-xl"></i> <span class="font-bold">News</span>
                 </a>
+
+                @auth
+                    <div class="mt-6 border-t border-white pt-4">
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-user-circle text-white text-xl"></i>
+                            <span class="font-bold">{{ Auth::user()->username }}</span>
+                        </div>
+                        <form method="POST" action="{{ route('logout') }}" class="mt-2">
+                            @csrf
+                            <button type="submit"
+                                class="flex items-center gap-3 hover:text-red-400 transition-all duration-300 transform hover:scale-105">
+                                <i class="fas fa-sign-out-alt text-red-400 text-xl"></i> <span
+                                    class="font-bold">Logout</span>
+                            </button>
+                        </form>
+                    </div>
+                @endauth
             </div>
         </div>
     </nav>
 
 
-    <!-- Serach by Title -->
-    <div class="container max-w-md mx-auto">
-        <div class="relative">
-            <input type="text" id="searchInput"
-                class="form-control bg-[#1a2332] text-white pl-10 pr-4 py-2 rounded w-full text-sm placeholder-gray-400 border border-gray-600 focus:ring-2 focus:bg-[#1a2332]"
-                placeholder="Cari film..." data-bs-toggle="dropdown" aria-expanded="false" autocomplete="off">
-            <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-            <ul id="searchDropdown"
-                class="dropdown-menu w-100 bg-[#1a2332] mt-2 rounded shadow-lg text-sm text-white divide-y divide-gray-700"
-                style="max-height: 200px; overflow-y: auto;">
-            </ul>
-        </div>
+    <!-- Search by Title -->
+    <div class="container w-1/3 mx-auto relative">
+        <input type="text" id="searchInput"
+            class="bg-[#1a2332] text-white py-2 pr-10 pl-4 rounded-lg w-full text-sm placeholder-gray-400 border border-gray-600 
+            focus:outline-none focus:border-yellow-400 focus:shadow-[0_0_0_1px_rgba(234,179,8,1)]"
+            placeholder="Cari judul film ..." autocomplete="off">
+        <i class="fas fa-search absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+
+        <!-- Dropdown hasil pencarian -->
+        <ul id="searchDropdown"
+            class="absolute w-full bg-[#1a2332] mt-1 rounded shadow text-sm text-white divide-y divide-gray-700 hidden z-10"
+            style="max-height: 200px; overflow-y: auto;">
+        </ul>
     </div>
 
     <!-- Search By Genre -->
@@ -336,67 +355,22 @@
         AOS.init();
     </script>
     <script>
+        // Film list berisi title, year, dan id untuk redirect
         const filmList = [
-            "Avatar",
-            "Blade Runner 2049",
-            "Spider-Man No Way Home",
-            "Avengers Infinity War",
-            "Guardians of the Galaxy",
-            "The Godfather",
-            "The Dark Knight",
-            "12 Angry Men",
-            "The Lord of the Rings: The Return of the King",
-            "The Shawshank Redemption",
-            "YOWIS BEN 1 : THE SERIES",
-            "YOWIS BEN 2 : THE SERIES",
-            "YOWIS BEN 3 : THE SERIES",
-            "Lara Ati",
-            "Cocote Tonggo",
-            "Sekawan Limo",
-            "SIJJIN",
-            "Perewangan",
-            "Pamali",
-            "Pengabdi Setan",
-            "Mangkujiwo",
-            "Sewu Dino",
-            "Hello Ghost",
-            "Perjanjian Gaib",
-            "Passing",
-            "Trauma",
-            "Lalu",
-            "Suatu Hari Nanti",
-            "Lily",
-            "Ininnawa",
-            "Diana",
-            "Sosok Ketiga",
-            "Le Film de Mon Père",
-            "Sly Lives",
-            "Luther: Never Too Much",
-            "Dahomey",
-            "Year of the Cat",
-            "Jumbo",
-            "The Motherload",
-            "We Were the Scenery",
-            "Wallace & Gromit",
-            "The Wild Robot",
-            "Leo",
-            "The Sea Beast",
-            "Tastefully Yours",
-            "Bad Influence",
-            "Love Unlike in K-Dramas (Cinta Tak Seindah Drama Korea)",
-            "Sampai Jumpa, Selamat Tinggal",
-            "The Architecture of Love",
-            "Heartbreak Motel",
-            "Eleanor the Great",
-            "The Phoenician Scheme",
-            "Sentimental Value",
-            "Kung Fu Panda 4",
-            "Wish",
-            "No Other Land",
-            "Ocean",
-            "Elemental",
-            "Migration",
-            "Nimona"
+            @foreach ($nowShowing as $film)
+                {
+                    id: {{ $film->id }},
+                    title: "{{ $film->title }}",
+                    year: "{{ $film->release_year }}"
+                },
+            @endforeach
+            @foreach ($comingSoon as $film)
+                {
+                    id: {{ $film->id }},
+                    title: "{{ $film->title }}",
+                    year: "{{ $film->release_year }}"
+                },
+            @endforeach
         ];
 
         const searchInput = document.getElementById("searchInput");
@@ -405,22 +379,43 @@
         searchInput.addEventListener("input", () => {
             const value = searchInput.value.toLowerCase();
             searchDropdown.innerHTML = "";
+
             if (value) {
-                const filtered = filmList.filter(film => film.toLowerCase().includes(value));
-                filtered.forEach(film => {
-                    const item = document.createElement("li");
-                    item.classList.add("dropdown-item");
-                    item.classList.add("text-white");
-                    item.textContent = film;
-                    item.onclick = () => {
-                        searchInput.value = film;
-                        searchDropdown.innerHTML = "";
-                    };
-                    searchDropdown.appendChild(item);
-                });
+                const filtered = filmList.filter(film =>
+                    film.title.toLowerCase().includes(value)
+                );
+
+                if (filtered.length === 0) {
+                    const noResult = document.createElement("li");
+                    noResult.className = "text-gray-400 px-4 py-2";
+                    noResult.textContent = "Film tidak ditemukan";
+                    searchDropdown.appendChild(noResult);
+                } else {
+                    filtered.forEach(film => {
+                        const item = document.createElement("li");
+                        item.className =
+                            "dropdown-item text-white px-4 py-2 hover:bg-gray-700 cursor-pointer";
+                        item.textContent = `${film.title} (${film.year})`;
+                        item.onclick = () => {
+                            window.location.href = `/movie/detail/${film.id}`;
+                        };
+                        searchDropdown.appendChild(item);
+                    });
+                }
+
+                searchDropdown.classList.remove("hidden");
+            } else {
+                searchDropdown.classList.add("hidden");
             }
         });
 
+        document.addEventListener("click", (e) => {
+            if (!searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
+                searchDropdown.classList.add("hidden");
+            }
+        });
+
+        // mobile menu toggle
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
 
@@ -434,7 +429,7 @@
             menuToggle.classList.toggle('open');
         });
 
-
+        // open pop up trailer
         function openModal(videoUrl) {
             const modal = document.getElementById('videoModal');
             const iframe = document.getElementById('videoFrame');
@@ -443,6 +438,7 @@
             modal.classList.add('flex');
         }
 
+        // close pop up trailer
         function closeModal() {
             const modal = document.getElementById('videoModal');
             const iframe = document.getElementById('videoFrame');
@@ -451,7 +447,7 @@
             modal.classList.add('hidden');
         }
 
-        // toggle section 
+        // toggle section detal, jadwal, reviews
         function showTab(tab) {
             const tabNowShowing = document.getElementById("tabNowShowing");
             const tabComingSoon = document.getElementById("tabComingSoon");
