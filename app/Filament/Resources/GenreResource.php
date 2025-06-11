@@ -39,19 +39,14 @@ class GenreResource extends Resource
                 TextColumn::make('genre_name')
                     ->label('Nama Genre')
                     ->searchable()
-                    ->sortable()
+                    ->sortable(),
+
+                TextColumn::make('movies_count')
+                    ->label('Jumlah Film')
+                    ->counts('movies')
+                    ->sortable(),
             ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->defaultSort('genre_name');
     }
 
     public static function getRelations(): array

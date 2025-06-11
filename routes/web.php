@@ -14,6 +14,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::post('/movie/snack', [MovieController::class, 'selectFoods'])->name('CineTix.movie-snacks');
     Route::post('/movie/order', [MovieController::class, 'orderSummary'])->name('CineTix.order-summary');
     Route::post('/movies/checkout', [OrderController::class, 'createTransaction'])->name('CineTix.order-movie');
+    Route::get('/checkout/success', [OrderController::class, 'success'])->name('checkout.success');
     Route::post('/movie/review', [ReviewController::class, 'addReview'])->name('CineTix.add-review');
     Route::get('/dashboard', [OrderController::class, 'showOrders'])->name('dashboard');
 });
@@ -36,8 +37,6 @@ Route::view('/faq', 'CineTix.faq')->name('CineTix.faq');
 Route::view('/contact-us', 'CineTix.contact-us')->name('CineTix.contact-us');
 Route::get('/movie/detail/{id}', [MovieController::class, 'detail'])->name('CineTix.movie-detail');
 Route::get('/news/detail/{id}', [NewsController::class, 'detail'])->name('CineTix.news-detail');
-
-
 
 Route::get('/movies/category/{category_name}', [MovieController::class, 'category'])->name('CineTix.movies-category');
 Route::get('/movies/genre/{genre_name', [MovieController::class, 'genre'])->name('CineTix.movies-genre');

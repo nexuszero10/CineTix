@@ -2,172 +2,89 @@
 
 namespace Database\Seeders;
 
-use App\Models\Schedule;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Schedule;
 
 class ScheduleSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        $schedules = [
-            [
-                // sekawan limo
-                'movie_id'  => 1,
-                'studio_id' => 2,
-                'date'      => '2025-06-02',
-                'time'      => '10:00:00',
-                'day'       => '',
-                'capacity'  => 40,
-                'status'    => 'ongoing',
+        $baseDate = '2025-06-16'; // Senin
+
+        $scheduleTemplate = [
+            'Monday'    => [
+                '10:00:00' => [null, 1],
+                '13:00:00' => [null, 2],
+                '16:00:00' => [null, null],
+                '19:00:00' => [null, null],
             ],
-            [
-                // Jumbo
-                'movie_id'  => 2,
-                'studio_id' => 2,
-                'date'      => '2025-06-02',
-                'time'      => '13:00:00',
-                'day'       => '',
-                'capacity'  => 40,
-                'status'    => 'ongoing',
+            'Tuesday'   => [
+                '10:00:00' => [null, 4],
+                '13:00:00' => [null, null],
+                '16:00:00' => [3, null],
+                '19:00:00' => [null, null],
             ],
-            [
-                // Thunderbolts
-                'movie_id'  => 3,
-                'studio_id' => 1,
-                'date'      => '2025-06-02',
-                'time'      => '16:00:00',
-                'day'       => '',
-                'capacity'  => 40,
-                'status'    => 'ongoing',
+            'Wednesday' => [
+                '10:00:00' => [null, null],
+                '13:00:00' => [6, null],
+                '16:00:00' => [null, null],
+                '19:00:00' => [7, null],
             ],
-            [
-                // Avatar The Way Of Water
-                'movie_id'  => 4,
-                'studio_id' => 2,
-                'date'      => '2025-06-03',
-                'time'      => '10:00:00',
-                'day'       => '',
-                'capacity'  => 40,
-                'status'    => 'ongoing',
+            'Thursday'  => [
+                '10:00:00' => [null, null],
+                '13:00:00' => [8, null],
+                '16:00:00' => [null, null],
+                '19:00:00' => [9, null],
             ],
-            [
-                // Bad Genius
-                'movie_id'  => 5,
-                'studio_id' => 1,
-                'date'      => '2025-06-04',
-                'time'      => '10:00:00',
-                'day'       => '',
-                'capacity'  => 40,
-                'status'    => 'ongoing',
+            'Friday'    => [
+                '10:00:00' => [null, null],
+                '13:00:00' => [null, null],
+                '16:00:00' => [11, null],
+                '19:00:00' => [null, 15],
             ],
-            [
-                // Mickey 17
-                'movie_id'  => 6,
-                'studio_id' => 1,
-                'date'      => '2025-06-04',
-                'time'      => '13:00:00',
-                'day'       => '',
-                'capacity'  => 40,
-                'status'    => 'ongoing',
+            'Saturday'  => [
+                '10:00:00' => [null, 12],
+                '13:00:00' => [null, 13],
+                '16:00:00' => [null, null],
+                '19:00:00' => [null, null],
             ],
-            [
-                // Sesuai Aplikasi
-                'movie_id'  => 7,
-                'studio_id' => 1,
-                'date'      => '2025-06-04',
-                'time'      => '19:00:00',
-                'day'       => '',
-                'capacity'  => 40,
-                'status'    => 'ongoing',
-            ],
-            [
-                // Agak Laen
-                'movie_id'  => 8,
-                'studio_id' => 1,
-                'date'      => '2025-06-05',
-                'time'      => '13:00:00',
-                'day'       => '',
-                'capacity'  => 40,
-                'status'    => 'ongoing',
-            ],
-            [
-                // Ipar Adalah Maut
-                'movie_id'  => 9,
-                'studio_id' => 1,
-                'date'      => '2025-06-05',
-                'time'      => '19:00:00',
-                'day'       => '',
-                'capacity'  => 40,
-                'status'    => 'ongoing',
-            ],
-            [
-                // Norma
-                'movie_id'  => 10,
-                'studio_id' => 1,
-                'date'      => '2025-06-06',
-                'time'      => '10:00:00',
-                'day'       => '',
-                'capacity'  => 40,
-                'status'    => 'ongoing',
-            ],
-            [
-                // MIracle in Cell No. 7
-                'movie_id'  => 11,
-                'studio_id' => 1,
-                'date'      => '2025-06-06',
-                'time'      => '16:00:00',
-                'day'       => '',
-                'capacity'  => 40,
-                'status'    => 'ongoing',
-            ],
-            [
-                // Mencuri Raden Saleh
-                'movie_id'  => 12,
-                'studio_id' => 2,
-                'date'      => '2025-06-06',
-                'time'      => '19:00:00',
-                'day'       => '',
-                'capacity'  => 40,
-                'status'    => 'ongoing',
-            ],
-            [
-                // Pabrik Gula
-                'movie_id'  => 13,
-                'studio_id' => 1,
-                'date'      => '2025-06-07',
-                'time'      => '13:00:00',
-                'day'       => '',
-                'capacity'  => 40,
-                'status'    => 'ongoing',
-            ],
-            [
-                // Perewangan
-                'movie_id'  => 14,
-                'studio_id' => 2,
-                'date'      => '2025-06-07',
-                'time'      => '13:00:00',
-                'day'       => '',
-                'capacity'  => 40,
-                'status'    => 'ongoing',
-            ],
-            [
-                // Perjanjian Gaib
-                'movie_id'  => 15,
-                'studio_id' => 1,
-                'date'      => '2025-06-08',
-                'time'      => '13:00:00',
-                'day'       => '',
-                'capacity'  => 40,
-                'status'    => 'ongoing',
+            'Sunday'    => [
+                '10:00:00' => [10, null],
+                '13:00:00' => [14, null],
+                '16:00:00' => [null, null],
+                '19:00:00' => [5, null],
             ],
         ];
 
-        foreach ($schedules as $schedule) {
-            Schedule::create($schedule);
+        $daysOfWeek = array_keys($scheduleTemplate);
+
+        foreach ($daysOfWeek as $i => $dayName) {
+            $currentDate = date('Y-m-d', strtotime("$baseDate +$i days"));
+            $slots = $scheduleTemplate[$dayName];
+
+            foreach ($slots as $time => [$movieA, $movieB]) {
+                // Studio A
+                Schedule::create([
+                    'movie_id'  => $movieA,
+                    'studio_id' => 1,
+                    'date'      => $currentDate,
+                    'time'      => $time,
+                    'day'       => $dayName,
+                    'capacity'  => 40,
+                    'status'    => $movieA ? 'showing' : 'not_showing',
+                ]);
+
+                // Studio B
+                Schedule::create([
+                    'movie_id'  => $movieB,
+                    'studio_id' => 2,
+                    'date'      => $currentDate,
+                    'time'      => $time,
+                    'day'       => $dayName,
+                    'capacity'  => 40,
+                    'status'    => $movieB ? 'showing' : 'not_showing',
+                ]);
+            }
         }
     }
 }

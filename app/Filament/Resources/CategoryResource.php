@@ -17,17 +17,6 @@ class CategoryResource extends Resource
     protected static ?string $navigationLabel = 'Age Ratings';
     protected static ?string $navigationGroup = 'Movie Management';
     protected static ?string $navigationIcon = 'heroicon-o-tag';
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                TextInput::make('category_name')
-                    ->label('Nama Kategori')
-                    ->required()
-                    ->maxLength(255)
-                    ->placeholder('Contoh: SU, 13+, 17+'),
-            ]);
-    }
 
     public static function table(Table $table): Table
     {
@@ -40,7 +29,6 @@ class CategoryResource extends Resource
             ])
             ->filters([])
             ->actions([
-                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

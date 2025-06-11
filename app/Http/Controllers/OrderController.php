@@ -113,7 +113,7 @@ class OrderController extends Controller
             'number_of_seats' => $numberOfSeats,
             'total_price' => $totalPrice,
             'promotion_id' => $promotionId,
-            'status' => 'unpaid',
+            'status' => 'paid',
         ];
 
         $ticketData = [];
@@ -193,12 +193,19 @@ class OrderController extends Controller
         }
     }
 
-
     public function showOrders(Request $request)
     {
         $order = Order::with(['snacks', 'tickets', 'schedule.movie', 'promotion'])->where('user_id', Auth::user()->id)->get();
         return view('dashboard', [
             'user_orders' => $order,
         ]);
+    }
+
+    public function success()
+    {
+        // Hapus session setelah pembayaran sukses
+        Session::forget('order_id');
+        Session::forget('midtrans_params');
+        return redirect()->route('dashboard');
     }
 }

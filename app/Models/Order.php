@@ -29,7 +29,14 @@ class Order extends Model
     }
 
     // relasi many to one ke tabel schedules
-    public function schedule(){
+    public function schedule()
+    {
         return $this->belongsTo(Schedule::class);
-    } 
+    }
+
+    // relasi many to one ke tabel users
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -175,7 +175,8 @@
                             <tr class="border-t border-gray-300">
                                 <td class="px-4 py-2">
                                     {{ $snack->name }} <br />
-                                    <small class="text-gray-500">ID: snack-{{ $snack->id }} / {{ $category }}</small>
+                                    <small class="text-gray-500">ID: snack-{{ $snack->id }} /
+                                        {{ $category }}</small>
                                 </td>
                                 <td class="px-4 py-2 text-center">Rp{{ number_format($price, 0, ',', '.') }}</td>
                                 <td class="px-4 py-2 text-center">{{ $quantity }}</td>
@@ -266,6 +267,7 @@
                     /* You may add your own implementation here */
                     alert("payment success!");
                     console.log(result);
+                    window.location.href = "{{ route('checkout.success') }}";
                 },
                 onPending: function(result) {
                     /* You may add your own implementation here */

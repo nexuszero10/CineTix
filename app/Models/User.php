@@ -49,14 +49,21 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    // relasi manny to one ke tabel review
-    public function reviews(): BelongsTo {
-        return $this->belongsTo(Review::class);
+    // relasi one to mmany ke tabel review
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
     }
 
     // relasi one to many ke tabel ticket
-    public function tickets(): HasMany {
+    public function tickets(): HasMany
+    {
         return $this->hasMany(Ticket::class);
     }
 
+    // relasi one to many ke orders
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
 }
