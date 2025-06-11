@@ -24,7 +24,7 @@ class GenreResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('ganre_name')
+                TextInput::make('genre_name')
                     ->label('Nama Genre')
                     ->required()
                     ->maxLength(255)

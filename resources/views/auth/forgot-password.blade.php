@@ -2,7 +2,7 @@
     <div class="relative flex flex-col items-center">
         <!-- Logo CineTix di luar kotak -->
         <div class="absolute -top-6 z-10 text-4xl font-bold text-center">
-            <span class="text-[#e50914]">Cine</span><span class="text-[#f5c518]">Tix</span>
+            <span class="text-[#e50914]">CiNE</span><span class="text-[#f5c518]">Tix</span>
         </div>
 
         <!-- Kotak utama -->

@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div class="bg-[#0d1b2a] text-white rounded-xl shadow-2xl p-8 md:p-10 w-full max-w-md animate-[slideIn_0.8s_ease-out]">
         <div class="text-4xl font-bold text-center mb-8">
-            <span class="text-[#e50914]">Cine</span><span class="text-[#f5c518]">Tix</span>
+            <span class="text-[#e50914]">CINE</span><span class="text-[#f5c518]">Tix</span>
         </div>
 
         <!-- Session Status -->
