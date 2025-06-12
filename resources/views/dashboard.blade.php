@@ -244,11 +244,16 @@
                 <!-- Barcode -->
                 <div class="flex justify-center overflow-x-auto">
                     <div class="max-w-full">
-                        {!! DNS1D::getBarcodeHTML($order->order_number, 'C128', 1.5, 50, 'white') !!}
+                        @if (!$user_orders->isEmpty())
+                            {!! DNS1D::getBarcodeHTML($user_orders->first()->order_number, 'C128', 1.5, 50, 'white') !!}
+                        @endif
                     </div>
                 </div>
                 <p class="text-center text-xs text-gray-400 mt-2 tracking-wider break-words">
-                    {{ $order->order_number }}
+                    @if (!$user_orders->isEmpty())
+                        {{ $order->order_number }}
+                    @endif
+
                 </p>
             </div>
         </div>

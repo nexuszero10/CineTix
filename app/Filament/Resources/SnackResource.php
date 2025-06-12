@@ -80,12 +80,13 @@ class SnackResource extends Resource
                     ->visibility('public')
                     ->acceptedFileTypes(['image/jpeg'])
                     ->maxSize(5120)
-                    ->required()
+                    ->required(fn(string $context) => $context === 'create') // hanya required saat create
+                    ->dehydrated(fn($state) => filled($state)) // hanya simpan ke DB kalau ada file baru
                     ->preserveFilenames(false)
-                    ->directory(
-                        fn(callable $get) =>
-                        $get('category') === 'food' ? 'images/foods' : 'images/drinks'
-                    )
+                    ->directory(function (callable $get) {
+                        $category = $get('category');
+                        return $category === 'food' ? 'images/foods' : 'images/drinks';
+                    })
             ]);
     }
 

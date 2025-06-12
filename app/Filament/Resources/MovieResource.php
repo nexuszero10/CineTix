@@ -122,7 +122,10 @@ class MovieResource extends Resource
                             ->directory('images/movies/poster')
                             ->imageEditor()
                             ->acceptedFileTypes(['image/jpeg'])
-                            ->required(),
+                            ->helperText('Masukan aset poster dengan tipe .jpg')
+                            ->required(fn(string $context) => $context === 'create')
+                            ->dehydrated(fn($state) => filled($state)) // hanya simpan jika ada file baru
+                            ->preserveFilenames() // (opsional) jika kamu ingin nama file tetap sama
                     ])
             ]);
     }
@@ -166,13 +169,7 @@ class MovieResource extends Resource
 
                 TextColumn::make('category.category_name')
                     ->label('Kategori Usia')
-                    ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'SU' => 'success',      // hijau
-                        '13+' => 'warning',     // kuning
-                        '17+' => 'info',      // biru
-                        '21+' => 'danger',      // merah
-                    })
+                    ->badge('blue')
                     ->sortable()
                     ->searchable(),
             ])

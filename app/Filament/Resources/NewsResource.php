@@ -41,7 +41,8 @@ class NewsResource extends Resource
                     ->visibility('public')
                     ->acceptedFileTypes(['image/jpeg'])
                     ->maxSize(5120)
-                    ->required()
+                    ->required(fn(string $context) => $context === 'create') // hanya required saat create
+                    ->dehydrated(fn($state) => filled($state)) // hanya simpan kalau ada file baru
                     ->preserveFilenames(false),
 
                 Textarea::make('description')
@@ -66,7 +67,7 @@ class NewsResource extends Resource
                     ->disk('public')
                     ->getStateUsing(fn($record) => 'images/news/' . $record->image_path)
                     ->height(60)
-                    ->width(100) 
+                    ->width(100)
                     ->extraImgAttributes(['class' => 'rounded-md'])
             ])
             ->actions([

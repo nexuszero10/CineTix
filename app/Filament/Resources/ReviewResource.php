@@ -35,7 +35,7 @@ class ReviewResource extends Resource
                     ->label('Title')
                     ->searchable(),
 
-                TextColumn::make('user.name')
+                TextColumn::make('user.username')
                     ->label('Username')
                     ->searchable(),
 

@@ -18,6 +18,17 @@ class CategoryResource extends Resource
     protected static ?string $navigationGroup = 'Movie Management';
     protected static ?string $navigationIcon = 'heroicon-o-tag';
 
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                TextInput::make('category_name')
+                    ->label('Nama Kategori')
+                    ->required()
+                    ->maxLength(255),
+            ]);
+    }
+
     public static function table(Table $table): Table
     {
         return $table
@@ -28,8 +39,7 @@ class CategoryResource extends Resource
                     ->sortable(),
             ])
             ->filters([])
-            ->actions([
-            ])
+            ->actions([])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
@@ -39,7 +49,7 @@ class CategoryResource extends Resource
 
     public static function getRelations(): array
     {
-        return [];              
+        return [];
     }
 
     public static function getPages(): array

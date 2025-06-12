@@ -422,7 +422,7 @@
             <div onclick="openModal('https://www.youtube.com/embed/-sAOWhvheK8?si=E1iu5kGEQlZxPssj')"
                 class="cursor-pointer rounded-2xl overflow-hidden bg-[#1c1f2f] transition-transform duration-500 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-yellow-400">
                 <div class="relative">
-                    <img src="img/trailer/thunder.webp" alt="Thumbnail" class="w-full h-52 object-cover">
+                    <img src="{{ asset('storage/images/movies/background/thunderbolts.jpg') }}" alt="Thumbnail" class="w-full h-52 object-cover">
                     <div class="absolute inset-0 flex items-center justify-center bg-black/20">
                         <div class="text-white text-4xl">&#9658;</div>
                     </div>
@@ -451,7 +451,7 @@
             <div onclick="openModal('https://www.youtube.com/embed/GV9AEEIeHrQ?si=vgbGesp8R0AWKC5L&amp')"
                 class="cursor-pointer rounded-2xl overflow-hidden bg-[#1c1f2f] transition-transform duration-500 ease-in-out transform hover:scale-105 hover:shadow-lg hover:shadow-red-500">
                 <div class="relative">
-                    <img src="img/trailer/civil.webp" alt="Thumbnail" class="w-full h-52 object-cover">
+                    <img src="{{ asset('storage/images/movies/background/civil-war.jpeg') }}" alt="Thumbnail" class="w-full h-52 object-cover">
                     <div class="absolute inset-0 flex items-center justify-center bg-black/20">
                         <div class="text-white text-4xl">&#9658;</div>
                     </div>

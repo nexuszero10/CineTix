@@ -138,13 +138,9 @@
                         {{-- Film --}}
                         {{-- Ambil item movie dari item_details --}}
                         @php
-                            $movieItem = collect($params['item_details'])->firstWhere(
-                                'id',
-                                'movie-' . $order->schedule_id,
-                            );
-                            $movieTitle = $movieItem['name'] ?? 'Movie';
-                            $moviePrice = $movieItem['price'] ?? 0;
-                            $movieQty = $movieItem['quantity'] ?? $order->number_of_seats;
+                            $movieTitle = $order->tickets->first()->schedule->movie->title ?? 'Movie';
+                            $moviePrice = $order->tickets->first()->schedule->movie->price ?? 0;
+                            $movieQty = $order->number_of_seats;
                             $movieTotal = $moviePrice * $movieQty;
                             $subtotal += $movieTotal;
                         @endphp
@@ -152,7 +148,7 @@
                         <tr class="border-t border-gray-300">
                             <td class="px-4 py-2">
                                 {{ $movieTitle }} <br />
-                                <small class="text-gray-500">ID: {{ $movieItem['id'] ?? 'movie-?' }} / Movie</small>
+                                <small class="text-gray-500">Schedule ID: {{ $order->schedule_id }} / Movie</small>
                             </td>
                             <td class="px-4 py-2 text-center">
                                 Rp{{ number_format($moviePrice, 0, ',', '.') }}
